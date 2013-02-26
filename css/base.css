@@ -2353,6 +2353,10 @@ section {
   color: white;
   overflow-y: scroll; }
 
+#left-nav.i-am-open {
+   -webkit-overflow-scrolling: touch;
+   position: fixed; }	
+	
 .block {
   margin: 0;
   margin-bottom: 12px;
