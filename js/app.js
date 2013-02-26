@@ -132,6 +132,7 @@ var Geolocation = {
 	}
 };
 
+<<<<<<< HEAD
 var slideBeginX;
 function touchStart(event){
 	event.preventDefault();//always prevent default Safari actions
@@ -157,6 +158,8 @@ function touchEnd(event) {
 	};
 };
 
+=======
+>>>>>>> Oops
 var ShowNavigation = {
 	init: function (){
 		this.UIbind();
