@@ -1,6 +1,5 @@
 "use strict";
 var Modernizr = Modernizr;
-var $ = Zepto;
 
 var OrientationCheck = {
 	init: function() {
@@ -138,7 +137,7 @@ var ShowNavigation = {
 	},
 	UIbind: function (){
 		var docHeight = document.documentElement.clientHeight;
-		
+
 		$('.js-open-nav-left').on('touchstart',function() {
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
 				$('.js-content-wrap')
@@ -148,18 +147,18 @@ var ShowNavigation = {
 				$('.js-left-navigation').addClass('i-am-open');
 
 				$("html, body").css({
-					"overflow": "hidden", 
+					"overflow": "hidden",
 					"height": docHeight
 				});
 			} else {
 				$('.js-content-wrap')
 					.animate({'left': 0},200)
 					.removeClass('js-left-nav-open');
-					
+
 				$('.js-left-navigation').removeClass('i-am-open');
-				
+
 				$("html, body").css({
-					"overflow-x": "auto", 
+					"overflow-x": "auto",
 					"height": "auto"
 				});
 			}
@@ -167,7 +166,7 @@ var ShowNavigation = {
 	}
 };
 
-Zepto(function($){
+jQuery(function($){
 	OrientationCheck.init();
 
 	ShowNavigation.init();

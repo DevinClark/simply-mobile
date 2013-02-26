@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 				key/value pairs. Version can be left blank.
 			*/
 			packages: {
-				"zepto": '',
+				"jquery": '',
 				"hammer.js": ''
 			},
 		}

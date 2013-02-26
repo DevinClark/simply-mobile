@@ -1,9 +1,0 @@
-{
-  "name": "zepto",
-  "main": "index.js",
-  "version": "0.0.0",
-  "repository": {
-    "type": "asset",
-    "url": "http://zeptojs.com/zepto.js"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "name": "simply-mobile",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "hammer.js": "https://github.com/EightMedia/hammer.js.git#~1.0.1"
+  }
+}
