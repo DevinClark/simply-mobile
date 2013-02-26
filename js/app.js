@@ -148,12 +148,25 @@ var Geolocation = {
 				var long = position.coords.longitude;
 
 				Geolocation.showMap(lat, long);
-				$("#location").html("You are: " + location[0] + " " + location[1]);
 			});
 		}
 	},
 	showMap: function(lat, long) {
-		return [lat, long];
+		var mapOptions = {
+			center: lat + "," + long,
+			zoom: 12,
+			size: "300x300",
+			maptype: "roadmap",
+			sensor: "true",
+			scale: 2
+		};
+		var src = "http://maps.googleapis.com/maps/api/staticmap?" + $.param(mapOptions, true).replace("%2C", ",");
+		$("#js-map").append("<img />");
+		$("#js-map img").attr({
+			src: src,
+			width: 300,
+			height: 300
+		});
 	}
 };
 
@@ -215,9 +228,7 @@ Zepto(function($){
 	console.log(window.localStorage);*/
 
 	//Geolocation
-	/*Geolocation.getLocation();
-	var loc = Geolocation.showMap();
-	console.log(loc);*/
+	Geolocation.getLocation();
 
 	// Make form styling easier
 	$('input[type="button"]').addClass('btn');
