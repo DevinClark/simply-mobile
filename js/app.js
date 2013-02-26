@@ -21,6 +21,8 @@ var OrientationCheck = {
 	}
 };
 
+
+/*
 var OffCanvas = {
 	settings: {
 		$triggerButton: $("#off-canvas-btn"),
@@ -54,6 +56,7 @@ var OffCanvas = {
 
 	}
 };
+*/
 
 
 var LocalStorage = {
@@ -154,11 +157,55 @@ var Geolocation = {
 	}
 };
 
+var slideBeginX; 
+function touchStart(event){event.preventDefault();//always prevent default Safari actions
+    slideBeginX = event.targetTouches[0].pageX;
+};
+
+function touchMove(event) {
+event.preventDefault();
+// whatever you want to add here
+};
+
+function touchEnd(event) {
+event.preventDefault();
+var slideEndX = event.changedTouches[0].pageX;
+
+// Now add a minimum slide distance so that the links on the page are still clickable
+if (Math.abs(slideEndX - slideBeginX) > 200) {
+if (slideEndX - slideBeginX > 0) {
+// It means the user has scrolled from left to right
+} else {
+// It means the user has scrolled from right to left.
+};
+};
+};
+
+var ShowNavigation = {
+	init: function (){
+		this.UIbind();
+	},
+	UIbind: function (){
+		$('.js-open-nav-left').on('touchstart',function() {
+			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
+				$('.js-content-wrap')
+					.animate({'left': '83.5%'},200)
+					.addClass('js-left-nav-open');
+			} else {
+				$('.js-content-wrap')
+					.animate({'left': 0},200)
+					.removeClass('js-left-nav-open');
+			}
+		});
+	}
+};
+
 Zepto(function($){
 	OrientationCheck.init();
 
-	OffCanvas.init();
+	//OffCanvas.init();
 
+	ShowNavigation.init();
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
@@ -191,5 +238,5 @@ Zepto(function($){
 			supportsOutput += "<li>" + item + "</li>";
 		}
 	}
-	$("#supports").append("ul").html(supportsOutput);
+	//$("#supports").append("ul").html(supportsOutput);
 });
