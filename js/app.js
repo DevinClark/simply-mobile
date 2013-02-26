@@ -1,6 +1,6 @@
 "use strict";
-var $ = require("component-zepto");
 var Modernizr = Modernizr;
+var $ = Zepto;
 
 var OrientationCheck = {
 	init: function() {

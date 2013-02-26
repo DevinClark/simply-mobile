@@ -1,852 +1,4 @@
-
-
-/**
- * hasOwnProperty.
- */
-
-var has = Object.prototype.hasOwnProperty;
-
-/**
- * Require the given path.
- *
- * @param {String} path
- * @return {Object} exports
- * @api public
- */
-
-function require(path, parent, orig) {
-  var resolved = require.resolve(path);
-
-  // lookup failed
-  if (null == resolved) {
-    orig = orig || path;
-    parent = parent || 'root';
-    var err = new Error('Failed to require "' + orig + '" from "' + parent + '"');
-    err.path = orig;
-    err.parent = parent;
-    err.require = true;
-    throw err;
-  }
-
-  var module = require.modules[resolved];
-
-  // perform real require()
-  // by invoking the module's
-  // registered function
-  if (!module.exports) {
-    module.exports = {};
-    module.client = module.component = true;
-    module.call(this, module.exports, require.relative(resolved), module);
-  }
-
-  return module.exports;
-}
-
-/**
- * Registered modules.
- */
-
-require.modules = {};
-
-/**
- * Registered aliases.
- */
-
-require.aliases = {};
-
-/**
- * Resolve `path`.
- *
- * Lookup:
- *
- *   - PATH/index.js
- *   - PATH.js
- *   - PATH
- *
- * @param {String} path
- * @return {String} path or null
- * @api private
- */
-
-require.resolve = function(path) {
-  if (path.charAt(0) === '/') path = path.slice(1);
-  var index = path + '/index.js';
-
-  var paths = [
-    path,
-    path + '.js',
-    path + '.json',
-    path + '/index.js',
-    path + '/index.json'
-  ];
-
-  for (var i = 0; i < paths.length; i++) {
-    var path = paths[i];
-    if (has.call(require.modules, path)) return path;
-  }
-
-  if (has.call(require.aliases, index)) {
-    return require.aliases[index];
-  }
-};
-
-/**
- * Normalize `path` relative to the current path.
- *
- * @param {String} curr
- * @param {String} path
- * @return {String}
- * @api private
- */
-
-require.normalize = function(curr, path) {
-  var segs = [];
-
-  if ('.' != path.charAt(0)) return path;
-
-  curr = curr.split('/');
-  path = path.split('/');
-
-  for (var i = 0; i < path.length; ++i) {
-    if ('..' == path[i]) {
-      curr.pop();
-    } else if ('.' != path[i] && '' != path[i]) {
-      segs.push(path[i]);
-    }
-  }
-
-  return curr.concat(segs).join('/');
-};
-
-/**
- * Register module at `path` with callback `definition`.
- *
- * @param {String} path
- * @param {Function} definition
- * @api private
- */
-
-require.register = function(path, definition) {
-  require.modules[path] = definition;
-};
-
-/**
- * Alias a module definition.
- *
- * @param {String} from
- * @param {String} to
- * @api private
- */
-
-require.alias = function(from, to) {
-  if (!has.call(require.modules, from)) {
-    throw new Error('Failed to alias "' + from + '", it does not exist');
-  }
-  require.aliases[to] = from;
-};
-
-/**
- * Return a require function relative to the `parent` path.
- *
- * @param {String} parent
- * @return {Function}
- * @api private
- */
-
-require.relative = function(parent) {
-  var p = require.normalize(parent, '..');
-
-  /**
-   * lastIndexOf helper.
-   */
-
-  function lastIndexOf(arr, obj) {
-    var i = arr.length;
-    while (i--) {
-      if (arr[i] === obj) return i;
-    }
-    return -1;
-  }
-
-  /**
-   * The relative require() itself.
-   */
-
-  function localRequire(path) {
-    var resolved = localRequire.resolve(path);
-    return require(resolved, parent, path);
-  }
-
-  /**
-   * Resolve relative to the parent.
-   */
-
-  localRequire.resolve = function(path) {
-    var c = path.charAt(0);
-    if ('/' == c) return path.slice(1);
-    if ('.' == c) return require.normalize(p, path);
-
-    // resolve deps by returning
-    // the dep in the nearest "deps"
-    // directory
-    var segs = parent.split('/');
-    var i = lastIndexOf(segs, 'deps') + 1;
-    if (!i) i = 0;
-    path = segs.slice(0, i + 1).join('/') + '/deps/' + path;
-    return path;
-  };
-
-  /**
-   * Check if module is defined at `path`.
-   */
-
-  localRequire.exists = function(path) {
-    return has.call(require.modules, localRequire.resolve(path));
-  };
-
-  return localRequire;
-};
-require.register("matthewmueller-hogan/hogan.js", function(exports, require, module){
-/*
- *  Copyright 2011 Twitter, Inc.
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
-
-
-var Hogan = {};
-
-(function (Hogan, useArrayBuffer) {
-  Hogan.Template = function (renderFunc, text, compiler, options) {
-    this.r = renderFunc || this.r;
-    this.c = compiler;
-    this.options = options;
-    this.text = text || '';
-    this.buf = (useArrayBuffer) ? [] : '';
-  }
-
-  Hogan.Template.prototype = {
-    // render: replaced by generated code.
-    r: function (context, partials, indent) { return ''; },
-
-    // variable escaping
-    v: hoganEscape,
-
-    // triple stache
-    t: coerceToString,
-
-    render: function render(context, partials, indent) {
-      return this.ri([context], partials || {}, indent);
-    },
-
-    // render internal -- a hook for overrides that catches partials too
-    ri: function (context, partials, indent) {
-      return this.r(context, partials, indent);
-    },
-
-    // tries to find a partial in the curent scope and render it
-    rp: function(name, context, partials, indent) {
-      var partial = partials[name];
-
-      if (!partial) {
-        return '';
-      }
-
-      if (this.c && typeof partial == 'string') {
-        partial = this.c.compile(partial, this.options);
-      }
-
-      return partial.ri(context, partials, indent);
-    },
-
-    // render a section
-    rs: function(context, partials, section) {
-      var tail = context[context.length - 1];
-
-      if (!isArray(tail)) {
-        section(context, partials, this);
-        return;
-      }
-
-      for (var i = 0; i < tail.length; i++) {
-        context.push(tail[i]);
-        section(context, partials, this);
-        context.pop();
-      }
-    },
-
-    // maybe start a section
-    s: function(val, ctx, partials, inverted, start, end, tags) {
-      var pass;
-
-      if (isArray(val) && val.length === 0) {
-        return false;
-      }
-
-      if (typeof val == 'function') {
-        val = this.ls(val, ctx, partials, inverted, start, end, tags);
-      }
-
-      pass = (val === '') || !!val;
-
-      if (!inverted && pass && ctx) {
-        ctx.push((typeof val == 'object') ? val : ctx[ctx.length - 1]);
-      }
-
-      return pass;
-    },
-
-    // find values with dotted names
-    d: function(key, ctx, partials, returnFound) {
-      var names = key.split('.'),
-          val = this.f(names[0], ctx, partials, returnFound),
-          cx = null;
-
-      if (key === '.' && isArray(ctx[ctx.length - 2])) {
-        return ctx[ctx.length - 1];
-      }
-
-      for (var i = 1; i < names.length; i++) {
-        if (val && typeof val == 'object' && names[i] in val) {
-          cx = val;
-          val = val[names[i]];
-        } else {
-          val = '';
-        }
-      }
-
-      if (returnFound && !val) {
-        return false;
-      }
-
-      if (!returnFound && typeof val == 'function') {
-        ctx.push(cx);
-        val = this.lv(val, ctx, partials);
-        ctx.pop();
-      }
-
-      return val;
-    },
-
-    // find values with normal names
-    f: function(key, ctx, partials, returnFound) {
-      var val = false,
-          v = null,
-          found = false;
-
-      for (var i = ctx.length - 1; i >= 0; i--) {
-        v = ctx[i];
-        if (v && typeof v == 'object' && key in v) {
-          val = v[key];
-          found = true;
-          break;
-        }
-      }
-
-      if (!found) {
-        return (returnFound) ? false : "";
-      }
-
-      if (!returnFound && typeof val == 'function') {
-        val = this.lv(val, ctx, partials);
-      }
-
-      return val;
-    },
-
-    // higher order templates
-    ho: function(val, cx, partials, text, tags) {
-      var compiler = this.c;
-      var options = this.options;
-      options.delimiters = tags;
-      var text = val.call(cx, text);
-      text = (text == null) ? String(text) : text.toString();
-      this.b(compiler.compile(text, options).render(cx, partials));
-      return false;
-    },
-
-    // template result buffering
-    b: (useArrayBuffer) ? function(s) { this.buf.push(s); } :
-                          function(s) { this.buf += s; },
-    fl: (useArrayBuffer) ? function() { var r = this.buf.join(''); this.buf = []; return r; } :
-                           function() { var r = this.buf; this.buf = ''; return r; },
-
-    // lambda replace section
-    ls: function(val, ctx, partials, inverted, start, end, tags) {
-      var cx = ctx[ctx.length - 1],
-          t = null;
-
-      if (!inverted && this.c && val.length > 0) {
-        return this.ho(val, cx, partials, this.text.substring(start, end), tags);
-      }
-
-      t = val.call(cx);
-
-      if (typeof t == 'function') {
-        if (inverted) {
-          return true;
-        } else if (this.c) {
-          return this.ho(t, cx, partials, this.text.substring(start, end), tags);
-        }
-      }
-
-      return t;
-    },
-
-    // lambda replace variable
-    lv: function(val, ctx, partials) {
-      var cx = ctx[ctx.length - 1];
-      var result = val.call(cx);
-
-      if (typeof result == 'function') {
-        result = coerceToString(result.call(cx));
-        if (this.c && ~result.indexOf("{\u007B")) {
-          return this.c.compile(result, this.options).render(cx, partials);
-        }
-      }
-
-      return coerceToString(result);
-    }
-
-  };
-
-  var rAmp = /&/g,
-      rLt = /</g,
-      rGt = />/g,
-      rApos =/\'/g,
-      rQuot = /\"/g,
-      hChars =/[&<>\"\']/;
-
-
-  function coerceToString(val) {
-    return String((val === null || val === undefined) ? '' : val);
-  }
-
-  function hoganEscape(str) {
-    str = coerceToString(str);
-    return hChars.test(str) ?
-      str
-        .replace(rAmp,'&amp;')
-        .replace(rLt,'&lt;')
-        .replace(rGt,'&gt;')
-        .replace(rApos,'&#39;')
-        .replace(rQuot, '&quot;') :
-      str;
-  }
-
-  var isArray = Array.isArray || function(a) {
-    return Object.prototype.toString.call(a) === '[object Array]';
-  };
-
-})(typeof exports !== 'undefined' ? exports : Hogan);
-
-
-
-
-(function (Hogan) {
-  // Setup regex  assignments
-  // remove whitespace according to Mustache spec
-  var rIsWhitespace = /\S/,
-      rQuot = /\"/g,
-      rNewline =  /\n/g,
-      rCr = /\r/g,
-      rSlash = /\\/g,
-      tagTypes = {
-        '#': 1, '^': 2, '/': 3,  '!': 4, '>': 5,
-        '<': 6, '=': 7, '_v': 8, '{': 9, '&': 10
-      };
-
-  Hogan.scan = function scan(text, delimiters) {
-    var len = text.length,
-        IN_TEXT = 0,
-        IN_TAG_TYPE = 1,
-        IN_TAG = 2,
-        state = IN_TEXT,
-        tagType = null,
-        tag = null,
-        buf = '',
-        tokens = [],
-        seenTag = false,
-        i = 0,
-        lineStart = 0,
-        otag = '{{',
-        ctag = '}}';
-
-    function addBuf() {
-      if (buf.length > 0) {
-        tokens.push(new String(buf));
-        buf = '';
-      }
-    }
-
-    function lineIsWhitespace() {
-      var isAllWhitespace = true;
-      for (var j = lineStart; j < tokens.length; j++) {
-        isAllWhitespace =
-          (tokens[j].tag && tagTypes[tokens[j].tag] < tagTypes['_v']) ||
-          (!tokens[j].tag && tokens[j].match(rIsWhitespace) === null);
-        if (!isAllWhitespace) {
-          return false;
-        }
-      }
-
-      return isAllWhitespace;
-    }
-
-    function filterLine(haveSeenTag, noNewLine) {
-      addBuf();
-
-      if (haveSeenTag && lineIsWhitespace()) {
-        for (var j = lineStart, next; j < tokens.length; j++) {
-          if (!tokens[j].tag) {
-            if ((next = tokens[j+1]) && next.tag == '>') {
-              // set indent to token value
-              next.indent = tokens[j].toString()
-            }
-            tokens.splice(j, 1);
-          }
-        }
-      } else if (!noNewLine) {
-        tokens.push({tag:'\n'});
-      }
-
-      seenTag = false;
-      lineStart = tokens.length;
-    }
-
-    function changeDelimiters(text, index) {
-      var close = '=' + ctag,
-          closeIndex = text.indexOf(close, index),
-          delimiters = trim(
-            text.substring(text.indexOf('=', index) + 1, closeIndex)
-          ).split(' ');
-
-      otag = delimiters[0];
-      ctag = delimiters[1];
-
-      return closeIndex + close.length - 1;
-    }
-
-    if (delimiters) {
-      delimiters = delimiters.split(' ');
-      otag = delimiters[0];
-      ctag = delimiters[1];
-    }
-
-    for (i = 0; i < len; i++) {
-      if (state == IN_TEXT) {
-        if (tagChange(otag, text, i)) {
-          --i;
-          addBuf();
-          state = IN_TAG_TYPE;
-        } else {
-          if (text.charAt(i) == '\n') {
-            filterLine(seenTag);
-          } else {
-            buf += text.charAt(i);
-          }
-        }
-      } else if (state == IN_TAG_TYPE) {
-        i += otag.length - 1;
-        tag = tagTypes[text.charAt(i + 1)];
-        tagType = tag ? text.charAt(i + 1) : '_v';
-        if (tagType == '=') {
-          i = changeDelimiters(text, i);
-          state = IN_TEXT;
-        } else {
-          if (tag) {
-            i++;
-          }
-          state = IN_TAG;
-        }
-        seenTag = i;
-      } else {
-        if (tagChange(ctag, text, i)) {
-          tokens.push({tag: tagType, n: trim(buf), otag: otag, ctag: ctag,
-                       i: (tagType == '/') ? seenTag - ctag.length : i + otag.length});
-          buf = '';
-          i += ctag.length - 1;
-          state = IN_TEXT;
-          if (tagType == '{') {
-            if (ctag == '}}') {
-              i++;
-            } else {
-              cleanTripleStache(tokens[tokens.length - 1]);
-            }
-          }
-        } else {
-          buf += text.charAt(i);
-        }
-      }
-    }
-
-    filterLine(seenTag, true);
-
-    return tokens;
-  }
-
-  function cleanTripleStache(token) {
-    if (token.n.substr(token.n.length - 1) === '}') {
-      token.n = token.n.substring(0, token.n.length - 1);
-    }
-  }
-
-  function trim(s) {
-    if (s.trim) {
-      return s.trim();
-    }
-
-    return s.replace(/^\s*|\s*$/g, '');
-  }
-
-  function tagChange(tag, text, index) {
-    if (text.charAt(index) != tag.charAt(0)) {
-      return false;
-    }
-
-    for (var i = 1, l = tag.length; i < l; i++) {
-      if (text.charAt(index + i) != tag.charAt(i)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  function buildTree(tokens, kind, stack, customTags) {
-    var instructions = [],
-        opener = null,
-        token = null;
-
-    while (tokens.length > 0) {
-      token = tokens.shift();
-      if (token.tag == '#' || token.tag == '^' || isOpener(token, customTags)) {
-        stack.push(token);
-        token.nodes = buildTree(tokens, token.tag, stack, customTags);
-        instructions.push(token);
-      } else if (token.tag == '/') {
-        if (stack.length === 0) {
-          throw new Error('Closing tag without opener: /' + token.n);
-        }
-        opener = stack.pop();
-        if (token.n != opener.n && !isCloser(token.n, opener.n, customTags)) {
-          throw new Error('Nesting error: ' + opener.n + ' vs. ' + token.n);
-        }
-        opener.end = token.i;
-        return instructions;
-      } else {
-        instructions.push(token);
-      }
-    }
-
-    if (stack.length > 0) {
-      throw new Error('missing closing tag: ' + stack.pop().n);
-    }
-
-    return instructions;
-  }
-
-  function isOpener(token, tags) {
-    for (var i = 0, l = tags.length; i < l; i++) {
-      if (tags[i].o == token.n) {
-        token.tag = '#';
-        return true;
-      }
-    }
-  }
-
-  function isCloser(close, open, tags) {
-    for (var i = 0, l = tags.length; i < l; i++) {
-      if (tags[i].c == close && tags[i].o == open) {
-        return true;
-      }
-    }
-  }
-
-  Hogan.generate = function (tree, text, options) {
-    var code = 'var _=this;_.b(i=i||"");' + walk(tree) + 'return _.fl();';
-    if (options.asString) {
-      return 'function(c,p,i){' + code + ';}';
-    }
-
-    return new Hogan.Template(new Function('c', 'p', 'i', code), text, Hogan, options);
-  }
-
-  function esc(s) {
-    return s.replace(rSlash, '\\\\')
-            .replace(rQuot, '\\\"')
-            .replace(rNewline, '\\n')
-            .replace(rCr, '\\r');
-  }
-
-  function chooseMethod(s) {
-    return (~s.indexOf('.')) ? 'd' : 'f';
-  }
-
-  function walk(tree) {
-    var code = '';
-    for (var i = 0, l = tree.length; i < l; i++) {
-      var tag = tree[i].tag;
-      if (tag == '#') {
-        code += section(tree[i].nodes, tree[i].n, chooseMethod(tree[i].n),
-                        tree[i].i, tree[i].end, tree[i].otag + " " + tree[i].ctag);
-      } else if (tag == '^') {
-        code += invertedSection(tree[i].nodes, tree[i].n,
-                                chooseMethod(tree[i].n));
-      } else if (tag == '<' || tag == '>') {
-        code += partial(tree[i]);
-      } else if (tag == '{' || tag == '&') {
-        code += tripleStache(tree[i].n, chooseMethod(tree[i].n));
-      } else if (tag == '\n') {
-        code += text('"\\n"' + (tree.length-1 == i ? '' : ' + i'));
-      } else if (tag == '_v') {
-        code += variable(tree[i].n, chooseMethod(tree[i].n));
-      } else if (tag === undefined) {
-        code += text('"' + esc(tree[i]) + '"');
-      }
-    }
-    return code;
-  }
-
-  function section(nodes, id, method, start, end, tags) {
-    return 'if(_.s(_.' + method + '("' + esc(id) + '",c,p,1),' +
-           'c,p,0,' + start + ',' + end + ',"' + tags + '")){' +
-           '_.rs(c,p,' +
-           'function(c,p,_){' +
-           walk(nodes) +
-           '});c.pop();}';
-  }
-
-  function invertedSection(nodes, id, method) {
-    return 'if(!_.s(_.' + method + '("' + esc(id) + '",c,p,1),c,p,1,0,0,"")){' +
-           walk(nodes) +
-           '};';
-  }
-
-  function partial(tok) {
-    return '_.b(_.rp("' +  esc(tok.n) + '",c,p,"' + (tok.indent || '') + '"));';
-  }
-
-  function tripleStache(id, method) {
-    return '_.b(_.t(_.' + method + '("' + esc(id) + '",c,p,0)));';
-  }
-
-  function variable(id, method) {
-    return '_.b(_.v(_.' + method + '("' + esc(id) + '",c,p,0)));';
-  }
-
-  function text(id) {
-    return '_.b(' + id + ');';
-  }
-
-  Hogan.parse = function(tokens, text, options) {
-    options = options || {};
-    return buildTree(tokens, '', [], options.sectionTags || []);
-  },
-
-  Hogan.cache = {};
-
-  Hogan.compile = function(text, options) {
-    // options
-    //
-    // asString: false (default)
-    //
-    // sectionTags: [{o: '_foo', c: 'foo'}]
-    // An array of object with o and c fields that indicate names for custom
-    // section tags. The example above allows parsing of {{_foo}}{{/foo}}.
-    //
-    // delimiters: A string that overrides the default delimiters.
-    // Example: "<% %>"
-    //
-    options = options || {};
-
-    var key = text + '||' + !!options.asString;
-
-    var t = this.cache[key];
-
-    if (t) {
-      return t;
-    }
-
-    t = this.generate(this.parse(this.scan(text, options.delimiters), text, options), text, options);
-    return this.cache[key] = t;
-  };
-})(typeof exports !== 'undefined' ? exports : Hogan);
-
-});
-require.register("matthewmueller-hogan/index.js", function(exports, require, module){
-/**
- * Module dependencies
- */
-
-var Hogan = require('./hogan');
-
-/**
- * Expose `render()`.`
- */
-
-exports = module.exports = render;
-
-/**
- * Expose `compile()`.
- */
-
-exports.compile = compile;
-
-/**
- * Render the given mustache `str` with `obj`.
- *
- * @param {String} str
- * @param {Object} obj
- * @return {String}
- * @api public
- */
-
-function render(str, obj) {
-  var fn = compile(str);
-  return fn(obj || {});
-}
-
-/**
- * Compile the given `str` to a `Function`.
- *
- * @param {String} str
- * @param {Object} opts
- * @return {Function}
- * @api public
- */
-
-function compile(str, opts) {
-  var tpl = Hogan.compile(str, opts);
-  return bind(tpl.render, tpl);
-}
-
-/**
- * bind the function to a particular context
- * @param  {Function} fn
- * @param  {object}   context
- */
-
-function bind(fn, context) {
-  return function() { return fn.apply(context, arguments); };
-}
-
-});
-require.register("component-zepto/index.js", function(exports, require, module){
-;(function(){//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
+/* Zepto v1.0rc1 - polyfill zepto event detect fx ajax form touch - zeptojs.com/license */
 ;(function(undefined){
   if (String.prototype.trim === undefined) // fix for iOS 3.2
     String.prototype.trim = function(){ return this.replace(/^\s+/, '').replace(/\s+$/, '') }
@@ -879,10 +31,6 @@ require.register("component-zepto/index.js", function(exports, require, module){
     }
 
 })()
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice,
     document = window.document,
@@ -890,7 +38,6 @@ var Zepto = (function() {
     getComputedStyle = document.defaultView.getComputedStyle,
     cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1,'opacity': 1, 'z-index': 1, 'zoom': 1 },
     fragmentRE = /^\s*<(\w+|!)[^>]*>/,
-    tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
 
     // Used by `$.zepto.init` to wrap elements, text/comment nodes, document,
     // and document fragment node types.
@@ -909,7 +56,7 @@ var Zepto = (function() {
     classSelectorRE = /^\.([\w-]+)$/,
     idSelectorRE = /^#([\w-]+)$/,
     tagSelectorRE = /^[\w-]+$/,
-    toString = {}.toString,
+    toString = ({}).toString,
     zepto = {},
     camelize, uniq,
     tempParent = document.createElement('div')
@@ -930,7 +77,12 @@ var Zepto = (function() {
   function isFunction(value) { return toString.call(value) == "[object Function]" }
   function isObject(value) { return value instanceof Object }
   function isPlainObject(value) {
-    return isObject(value) && value.__proto__ == Object.prototype
+    var key, ctor
+    if (toString.call(value) !== "[object Object]") return false
+    ctor = (isFunction(value.constructor) && value.constructor.prototype)
+    if (!ctor || !hasOwnProperty.call(ctor, 'isPrototypeOf')) return false
+    for (key in value);
+    return key === undefined || hasOwnProperty.call(value, key)
   }
   function isArray(value) { return value instanceof Array }
   function likeArray(obj) { return typeof obj.length == 'number' }
@@ -975,10 +127,8 @@ var Zepto = (function() {
   // This function can be overriden in plugins for example to make
   // it compatible with browsers that don't support the DOM fully.
   zepto.fragment = function(html, name) {
-    if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
     if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
     if (!(name in containers)) name = '*'
-
     var container = containers[name]
     container.innerHTML = '' + html
     return $.each(slice.call(container.childNodes), function(){
@@ -1166,7 +316,6 @@ var Zepto = (function() {
       return this
     },
     filter: function(selector){
-      if (isFunction(selector)) return this.not(this.not(selector))
       return $([].filter.call(this, function(element){
         return zepto.matches(element, selector)
       }))
@@ -1281,8 +430,8 @@ var Zepto = (function() {
     toggle: function(setting){
       return (setting === undefined ? this.css("display") == "none" : setting) ? this.show() : this.hide()
     },
-    prev: function(selector){ return $(this.pluck('previousElementSibling')).filter(selector || '*') },
-    next: function(selector){ return $(this.pluck('nextElementSibling')).filter(selector || '*') },
+    prev: function(){ return $(this.pluck('previousElementSibling')) },
+    next: function(){ return $(this.pluck('nextElementSibling')) },
     html: function(html){
       return html === undefined ?
         (this.length > 0 ? this[0].innerHTML : null) :
@@ -1325,9 +474,7 @@ var Zepto = (function() {
     },
     val: function(value){
       return (value === undefined) ?
-        (this.length > 0 ?
-          (this[0].multiple ? $(this[0]).find('option').filter(function(o){ return this.selected }).pluck('value') : this[0].value) :
-          undefined) :
+        (this.length > 0 ? this[0].value : undefined) :
         this.each(function(idx){
           this.value = funcArg(this, value, idx, this.value)
         })
@@ -1471,10 +618,6 @@ var Zepto = (function() {
 // If `$` is not yet defined, point it to `Zepto`
 window.Zepto = Zepto
 '$' in window || (window.$ = Zepto)
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 ;(function($){
   var $$ = $.zepto.qsa, handlers = {}, _zid = 1, specialEvents={}
 
@@ -1638,11 +781,11 @@ window.Zepto = Zepto
 
   $.fn.on = function(event, selector, callback){
     return selector == undefined || $.isFunction(selector) ?
-      this.bind(event, selector || callback) : this.delegate(selector, event, callback)
+      this.bind(event, selector) : this.delegate(selector, event, callback)
   }
   $.fn.off = function(event, selector, callback){
     return selector == undefined || $.isFunction(selector) ?
-      this.unbind(event, selector || callback) : this.undelegate(selector, event, callback)
+      this.unbind(event, selector) : this.undelegate(selector, event, callback)
   }
 
   $.fn.trigger = function(event, data){
@@ -1695,10 +838,6 @@ window.Zepto = Zepto
   }
 
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 ;(function($){
   function detect(ua){
     var os = this.os = {}, browser = this.browser = {},
@@ -1735,10 +874,6 @@ window.Zepto = Zepto
   $.__detect = detect
 
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 ;(function($, undefined){
   var prefix = '', eventPrefix, endEventName, endAnimationName,
     vendors = { Webkit: 'webkit', Moz: '', O: 'o', ms: 'MS' },
@@ -1826,10 +961,6 @@ window.Zepto = Zepto
 
   testEl = null
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 ;(function($){
   var jsonpID = 0,
       isObject = $.isObject,
@@ -2105,10 +1236,6 @@ window.Zepto = Zepto
     return params.join('&').replace('%20', '+')
   }
 })(Zepto)
-//     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
 ;(function ($) {
   $.fn.serializeArray = function () {
     var result = [], el
@@ -2145,13 +1272,975 @@ window.Zepto = Zepto
   }
 
 })(Zepto)
+;(function($){
+  var touch = {}, touchTimeout
 
-module.exports = Zepto;
+  function parentIfText(node){
+    return 'tagName' in node ? node : node.parentNode
+  }
 
-})();
-});
-require.alias("matthewmueller-hogan/hogan.js", "undefined/deps/hogan/hogan.js");
-require.alias("matthewmueller-hogan/index.js", "undefined/deps/hogan/index.js");
+  function swipeDirection(x1, x2, y1, y2){
+    var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2)
+    return xDelta >= yDelta ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+  }
 
-require.alias("component-zepto/index.js", "undefined/deps/zepto-component/index.js");
+  var longTapDelay = 750, longTapTimeout
 
+  function longTap(){
+    longTapTimeout = null
+    if (touch.last) {
+      touch.el.trigger('longTap')
+      touch = {}
+    }
+  }
+
+  function cancelLongTap(){
+    if (longTapTimeout) clearTimeout(longTapTimeout)
+    longTapTimeout = null
+  }
+
+  $(document).ready(function(){
+    var now, delta
+
+    $(document.body).bind('touchstart', function(e){
+      now = Date.now()
+      delta = now - (touch.last || now)
+      touch.el = $(parentIfText(e.touches[0].target))
+      touchTimeout && clearTimeout(touchTimeout)
+      touch.x1 = e.touches[0].pageX
+      touch.y1 = e.touches[0].pageY
+      if (delta > 0 && delta <= 250) touch.isDoubleTap = true
+      touch.last = now
+      longTapTimeout = setTimeout(longTap, longTapDelay)
+    }).bind('touchmove', function(e){
+      cancelLongTap()
+      touch.x2 = e.touches[0].pageX
+      touch.y2 = e.touches[0].pageY
+    }).bind('touchend', function(e){
+       cancelLongTap()
+
+      // double tap (tapped twice within 250ms)
+      if (touch.isDoubleTap) {
+        touch.el.trigger('doubleTap')
+        touch = {}
+
+      // swipe
+      } else if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
+                 (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
+        touch.el.trigger('swipe') &&
+          touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
+        touch = {}
+
+      // normal tap
+      } else if ('last' in touch) {
+        touch.el.trigger('tap')
+
+        touchTimeout = setTimeout(function(){
+          touchTimeout = null
+          touch.el.trigger('singleTap')
+          touch = {}
+        }, 250)
+      }
+    }).bind('touchcancel', function(){
+      if (touchTimeout) clearTimeout(touchTimeout)
+      if (longTapTimeout) clearTimeout(longTapTimeout)
+      longTapTimeout = touchTimeout = null
+      touch = {}
+    })
+  })
+
+  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(m){
+    $.fn[m] = function(callback){ return this.bind(m, callback) }
+  })
+})(Zepto)
+/*
+ * Hammer.JS
+ * version 0.6.4
+ * author: Eight Media
+ * https://github.com/EightMedia/hammer.js
+ * Licensed under the MIT license.
+ */
+function Hammer(element, options, undefined)
+{
+    var self = this;
+
+    var defaults = mergeObject({
+        // prevent the default event or not... might be buggy when false
+        prevent_default    : false,
+        css_hacks          : true,
+
+        swipe              : true,
+        swipe_time         : 500,   // ms
+        swipe_min_distance : 20,   // pixels
+
+        drag               : true,
+        drag_vertical      : true,
+        drag_horizontal    : true,
+        // minimum distance before the drag event starts
+        drag_min_distance  : 20,    // pixels
+
+        // pinch zoom and rotation
+        transform          : true,
+        scale_treshold     : 0.1,
+        rotation_treshold  : 15,    // degrees
+
+        tap                : true,
+        tap_double         : true,
+        tap_max_interval   : 300,
+        tap_max_distance   : 10,
+        tap_double_distance: 20,
+
+        hold               : true,
+        hold_timeout       : 500,
+
+        allow_touch_and_mouse   : false
+    }, Hammer.defaults || {});
+    options = mergeObject(defaults, options);
+
+    // some css hacks
+    (function() {
+        if(!options.css_hacks) {
+            return false;
+        }
+
+        var vendors = ['webkit','moz','ms','o',''];
+        var css_props = {
+            "userSelect": "none",
+            "touchCallout": "none",
+            "touchAction": "none",
+            "userDrag": "none",
+            "tapHighlightColor": "rgba(0,0,0,0)"
+        };
+
+        var prop = '';
+        for(var i = 0; i < vendors.length; i++) {
+            for(var p in css_props) {
+                prop = p;
+                if(vendors[i]) {
+                    prop = vendors[i] + prop.substring(0, 1).toUpperCase() + prop.substring(1);
+                }
+                element.style[ prop ] = css_props[p];
+            }
+        }
+    })();
+
+    // holds the distance that has been moved
+    var _distance = 0;
+
+    // holds the exact angle that has been moved
+    var _angle = 0;
+
+    // holds the direction that has been moved
+    var _direction = 0;
+
+    // holds position movement for sliding
+    var _pos = { };
+
+    // how many fingers are on the screen
+    var _fingers = 0;
+
+    var _first = false;
+
+    var _gesture = null;
+    var _prev_gesture = null;
+
+    var _touch_start_time = null;
+    var _prev_tap_pos = {x: 0, y: 0};
+    var _prev_tap_end_time = null;
+
+    var _hold_timer = null;
+
+    var _offset = {};
+
+    // keep track of the mouse status
+    var _mousedown = false;
+
+    var _event_start;
+    var _event_move;
+    var _event_end;
+
+    var _has_touch = ('ontouchstart' in window);
+
+    var _can_tap = false;
+
+
+    /**
+     * option setter/getter
+     * @param   string  key
+     * @param   mixed   value
+     * @return  mixed   value
+     */
+    this.option = function(key, val) {
+        if(val !== undefined) {
+            options[key] = val;
+        }
+
+        return options[key];
+    };
+
+
+    /**
+     * angle to direction define
+     * @param  float    angle
+     * @return string   direction
+     */
+    this.getDirectionFromAngle = function( angle ) {
+        var directions = {
+            down: angle >= 45 && angle < 135, //90
+            left: angle >= 135 || angle <= -135, //180
+            up: angle < -45 && angle > -135, //270
+            right: angle >= -45 && angle <= 45 //0
+        };
+
+        var direction, key;
+        for(key in directions){
+            if(directions[key]){
+                direction = key;
+                break;
+            }
+        }
+        return direction;
+    };
+
+
+    /**
+     * destroy events
+     * @return  void
+     */
+    this.destroy = function() {
+        if(_has_touch || options.allow_touch_and_mouse) {
+            removeEvent(element, "touchstart touchmove touchend touchcancel", handleEvents);
+        }
+
+        // for non-touch
+        if (!_has_touch || options.allow_touch_and_mouse) {
+            removeEvent(element, "mouseup mousedown mousemove", handleEvents);
+            removeEvent(element, "mouseout", handleMouseOut);
+        }
+    };
+
+
+    /**
+     * count the number of fingers in the event
+     * when no fingers are detected, one finger is returned (mouse pointer)
+     * @param  event
+     * @return int  fingers
+     */
+    function countFingers( event )
+    {
+        // there is a bug on android (until v4?) that touches is always 1,
+        // so no multitouch is supported, e.g. no, zoom and rotation...
+        return event.touches ? event.touches.length : 1;
+    }
+
+    /**
+     * Gets the event xy positions from a mouse event.
+     * @param event
+     * @return {Array}
+     */
+    function getXYMouse(event) {
+        var doc = document,
+            body = doc.body;
+
+        return [{
+            x: event.pageX || event.clientX + ( doc && doc.scrollLeft || body && body.scrollLeft || 0 ) - ( doc && doc.clientLeft || body && doc.clientLeft || 0 ),
+            y: event.pageY || event.clientY + ( doc && doc.scrollTop || body && body.scrollTop || 0 ) - ( doc && doc.clientTop || body && doc.clientTop || 0 )
+        }];
+    }
+
+    /**
+     * gets the event xy positions from touch event.
+     * @param event
+     * @return {Array}
+     */
+    function getXYTouch(event) {
+        var pos = [], src;
+        for(var t=0, len = options.two_touch_max ? Math.min(2, event.touches.length) : event.touches.length; t<len; t++) {
+            src = event.touches[t];
+            pos.push({ x: src.pageX, y: src.pageY });
+        }
+        return pos;
+    }
+
+    /**
+     * get the x and y positions from the event object
+     * @param  event
+     * @return array  [{ x: int, y: int }]
+     */
+    function getXYfromEvent(event)
+    {
+        var _fn = getXYMouse;
+        event = event || window.event;
+
+        // no touches, use the event pageX and pageY
+        if (!_has_touch) {
+            if (options.allow_touch_and_mouse &&
+                event.touches !== undefined && event.touches.length > 0) {
+
+                _fn = getXYTouch;
+            }
+        } else {
+            _fn = getXYTouch;
+        }
+
+        return _fn(event);
+    }
+
+
+    /**
+     * calculate the angle between two points
+     * @param   object  pos1 { x: int, y: int }
+     * @param   object  pos2 { x: int, y: int }
+     */
+    function getAngle( pos1, pos2 )
+    {
+        return Math.atan2(pos2.y - pos1.y, pos2.x - pos1.x) * 180 / Math.PI;
+    }
+
+    /**
+     * calculate the distance between two points
+     * @param   object  pos1 { x: int, y: int }
+     * @param   object  pos2 { x: int, y: int }
+     */
+    function getDistance( pos1, pos2 )
+    {
+        var x = pos2.x - pos1.x, y = pos2.y - pos1.y;
+        return Math.sqrt((x * x) + (y * y));
+    }
+
+
+    /**
+     * calculate the scale size between two fingers
+     * @param   object  pos_start
+     * @param   object  pos_move
+     * @return  float   scale
+     */
+    function calculateScale(pos_start, pos_move)
+    {
+        if(pos_start.length == 2 && pos_move.length == 2) {
+            var start_distance = getDistance(pos_start[0], pos_start[1]);
+            var end_distance = getDistance(pos_move[0], pos_move[1]);
+            return end_distance / start_distance;
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * calculate the rotation degrees between two fingers
+     * @param   object  pos_start
+     * @param   object  pos_move
+     * @return  float   rotation
+     */
+    function calculateRotation(pos_start, pos_move)
+    {
+        if(pos_start.length == 2 && pos_move.length == 2) {
+            var start_rotation = getAngle(pos_start[1], pos_start[0]);
+            var end_rotation = getAngle(pos_move[1], pos_move[0]);
+            return end_rotation - start_rotation;
+        }
+
+        return 0;
+    }
+
+
+    /**
+     * trigger an event/callback by name with params
+     * @param string name
+     * @param array  params
+     */
+    function triggerEvent( eventName, params )
+    {
+        // return touches object
+        params.touches = getXYfromEvent(params.originalEvent);
+        params.type = eventName;
+
+        // trigger callback
+        if(isFunction(self["on"+ eventName])) {
+            self["on"+ eventName].call(self, params);
+        }
+    }
+
+
+    /**
+     * cancel event
+     * @param   object  event
+     * @return  void
+     */
+
+    function cancelEvent(event)
+    {
+        event = event || window.event;
+        if(event.preventDefault){
+            event.preventDefault();
+            event.stopPropagation();
+        }else{
+            event.returnValue = false;
+            event.cancelBubble = true;
+        }
+    }
+
+
+    /**
+     * reset the internal vars to the start values
+     */
+    function reset()
+    {
+        _pos = {};
+        _first = false;
+        _fingers = 0;
+        _distance = 0;
+        _angle = 0;
+        _gesture = null;
+    }
+
+
+    var gestures = {
+        // hold gesture
+        // fired on touchstart
+        hold : function(event)
+        {
+            // only when one finger is on the screen
+            if(options.hold) {
+                _gesture = 'hold';
+                clearTimeout(_hold_timer);
+
+                _hold_timer = setTimeout(function() {
+                    if(_gesture == 'hold') {
+                        triggerEvent("hold", {
+                            originalEvent   : event,
+                            position        : _pos.start
+                        });
+                    }
+                }, options.hold_timeout);
+            }
+        },
+
+        // swipe gesture
+        // fired on touchend
+        swipe : function(event)
+        {
+            if (!_pos.move || _gesture === "transform") {
+                return;
+            }
+
+            // get the distance we moved
+            var _distance_x = _pos.move[0].x - _pos.start[0].x;
+            var _distance_y = _pos.move[0].y - _pos.start[0].y;
+            _distance = Math.sqrt(_distance_x*_distance_x + _distance_y*_distance_y);
+
+            // compare the kind of gesture by time
+            var now = new Date().getTime();
+            var touch_time = now - _touch_start_time;
+
+            if(options.swipe && (options.swipe_time >= touch_time) && (_distance >= options.swipe_min_distance)) {
+                // calculate the angle
+                _angle = getAngle(_pos.start[0], _pos.move[0]);
+                _direction = self.getDirectionFromAngle(_angle);
+
+                _gesture = 'swipe';
+
+                var position = { x: _pos.move[0].x - _offset.left,
+                    y: _pos.move[0].y - _offset.top };
+
+                var event_obj = {
+                    originalEvent   : event,
+                    position        : position,
+                    direction       : _direction,
+                    distance        : _distance,
+                    distanceX       : _distance_x,
+                    distanceY       : _distance_y,
+                    angle           : _angle
+                };
+
+                // normal slide event
+                triggerEvent("swipe", event_obj);
+            }
+        },
+
+
+        // drag gesture
+        // fired on mousemove
+        drag : function(event)
+        {
+            // get the distance we moved
+            var _distance_x = _pos.move[0].x - _pos.start[0].x;
+            var _distance_y = _pos.move[0].y - _pos.start[0].y;
+            _distance = Math.sqrt(_distance_x * _distance_x + _distance_y * _distance_y);
+
+            // drag
+            // minimal movement required
+            if(options.drag && (_distance > options.drag_min_distance) || _gesture == 'drag') {
+                // calculate the angle
+                _angle = getAngle(_pos.start[0], _pos.move[0]);
+                _direction = self.getDirectionFromAngle(_angle);
+
+                // check the movement and stop if we go in the wrong direction
+                var is_vertical = (_direction == 'up' || _direction == 'down');
+
+                if(((is_vertical && !options.drag_vertical) || (!is_vertical && !options.drag_horizontal)) && (_distance > options.drag_min_distance)) {
+                    return;
+                }
+
+                _gesture = 'drag';
+
+                var position = { x: _pos.move[0].x - _offset.left,
+                    y: _pos.move[0].y - _offset.top };
+
+                var event_obj = {
+                    originalEvent   : event,
+                    position        : position,
+                    direction       : _direction,
+                    distance        : _distance,
+                    distanceX       : _distance_x,
+                    distanceY       : _distance_y,
+                    angle           : _angle
+                };
+
+                // on the first time trigger the start event
+                if(_first) {
+                    triggerEvent("dragstart", event_obj);
+
+                    _first = false;
+                }
+
+                // normal slide event
+                triggerEvent("drag", event_obj);
+
+                cancelEvent(event);
+            }
+        },
+
+
+        // transform gesture
+        // fired on touchmove
+        transform : function(event)
+        {
+            if(options.transform) {
+                var count = countFingers(event);
+                if (count !== 2) {
+                    return false;
+                }
+
+                var rotation = calculateRotation(_pos.start, _pos.move);
+                var scale = calculateScale(_pos.start, _pos.move);
+
+                if (_gesture === 'transform' ||
+                    Math.abs(1 - scale) > options.scale_treshold ||
+                    Math.abs(rotation) > options.rotation_treshold) {
+
+
+                    // CP
+                    // there is an issue here
+                    // if a transform is no triggered, it's possible
+                    // to have a 2 fingers drag. But if gesture.transform become
+                    // valid because of treshold. the dragend will not be triggerd
+                    // and worst the _first will not be true and the transformstart
+                    // will not be initialized and it will not _pos.startCenter will be 
+                    // undefined
+                    // so reset drag if it was
+                    // if gesture is drag
+                    // reset to transform
+                    if (_gesture === 'drag') {
+                        triggerEvent("dragend", {
+                            originalEvent   : event,
+                            direction       : _direction,
+                            distance        : _distance,
+                            angle           : _angle
+                        });
+
+                        _first = true;
+                    }
+
+                    _gesture = 'transform';
+                    _pos.center = {
+                        x: ((_pos.move[0].x + _pos.move[1].x) / 2) - _offset.left,
+                        y: ((_pos.move[0].y + _pos.move[1].y) / 2) - _offset.top
+                    };
+
+                    if(_first)
+                        _pos.startCenter = _pos.center;
+
+                    var _distance_x = _pos.center.x - _pos.startCenter.x;
+                    var _distance_y = _pos.center.y - _pos.startCenter.y;
+                    _distance = Math.sqrt(_distance_x*_distance_x + _distance_y*_distance_y);
+
+                    var event_obj = {
+                        originalEvent   : event,
+                        position        : _pos.center,
+                        scale           : scale,
+                        rotation        : rotation,
+                        distance        : _distance,
+                        distanceX       : _distance_x,
+                        distanceY       : _distance_y
+                    };
+
+                    // on the first time trigger the start event
+                    if (_first) {
+                        triggerEvent("transformstart", event_obj);
+                        _first = false;
+                    }
+
+                    triggerEvent("transform", event_obj);
+
+                    cancelEvent(event);
+
+                    return true;
+                }
+            }
+
+            return false;
+        },
+
+
+        // tap and double tap gesture
+        // fired on touchend
+        tap : function(event)
+        {
+            // compare the kind of gesture by time
+            var now = new Date().getTime();
+            var touch_time = now - _touch_start_time;
+
+            // dont fire when hold is fired
+            if(options.hold && !(options.hold && options.hold_timeout > touch_time)) {
+                return;
+            }
+
+            // when previous event was tap and the tap was max_interval ms ago
+            var is_double_tap = (function(){
+                if (_prev_tap_pos &&
+                    options.tap_double &&
+                    _prev_gesture == 'tap' &&
+                    _pos.start &&
+                    (_touch_start_time - _prev_tap_end_time) < options.tap_max_interval)
+                {
+                    var x_distance = Math.abs(_prev_tap_pos[0].x - _pos.start[0].x);
+                    var y_distance = Math.abs(_prev_tap_pos[0].y - _pos.start[0].y);
+                    return (_prev_tap_pos && _pos.start && Math.max(x_distance, y_distance) < options.tap_double_distance);
+                }
+                return false;
+            })();
+
+            if(is_double_tap) {
+                _gesture = 'double_tap';
+                _prev_tap_end_time = null;
+
+                triggerEvent("doubletap", {
+                    originalEvent   : event,
+                    position        : _pos.start
+                });
+                cancelEvent(event);
+            }
+
+            // single tap is single touch
+            else {
+                var x_distance = (_pos.move) ? Math.abs(_pos.move[0].x - _pos.start[0].x) : 0;
+                var y_distance =  (_pos.move) ? Math.abs(_pos.move[0].y - _pos.start[0].y) : 0;
+                _distance = Math.max(x_distance, y_distance);
+
+                if(_distance < options.tap_max_distance) {
+                    _gesture = 'tap';
+                    _prev_tap_end_time = now;
+                    _prev_tap_pos = _pos.start;
+
+                    if(options.tap) {
+                        triggerEvent("tap", {
+                            originalEvent   : event,
+                            position        : _pos.start
+                        });
+                        cancelEvent(event);
+                    }
+                }
+            }
+        }
+    };
+
+
+    function handleEvents(event)
+    {
+        var count;
+        switch(event.type)
+        {
+            case 'mousedown':
+            case 'touchstart':
+                count = countFingers(event);
+                _can_tap = count === 1;
+
+                //We were dragging and now we are zooming.
+                if (count === 2 && _gesture === "drag") {
+
+                    //The user needs to have the dragend to be fired to ensure that
+                    //there is proper cleanup from the drag and move onto transforming.
+                    triggerEvent("dragend", {
+                        originalEvent   : event,
+                        direction       : _direction,
+                        distance        : _distance,
+                        angle           : _angle
+                    });
+                }
+                _setup();
+
+                if(options.prevent_default) {
+                    cancelEvent(event);
+                }
+                break;
+
+            case 'mousemove':
+            case 'touchmove':
+                count = countFingers(event);
+
+                //The user has gone from transforming to dragging.  The
+                //user needs to have the proper cleanup of the state and
+                //setup with the new "start" points.
+                if (!_mousedown && count === 1) {
+                    return false;
+                } else if (!_mousedown && count === 2) {
+                    _can_tap = false;
+
+                    reset();
+                    _setup();
+                }
+
+                _event_move = event;
+                _pos.move = getXYfromEvent(event);
+
+                // CP
+                // there is an issue here
+                // if a transform is no triggered, it's possible
+                // to have a 2 fingers drag. But if gesture.transform become
+                // valid because of treshold. the dragend will not be triggerd
+                // and worst the _first will not be true and the transformstart
+                // will not be initialized and it will not _pos.startCenter will be 
+                // undefined
+                if(!gestures.transform(event)) {
+                    gestures.drag(event);
+                }
+
+                break;
+
+            case 'mouseup':
+            case 'mouseout':
+            case 'touchcancel':
+            case 'touchend':
+                var callReset = true;
+
+                _mousedown = false;
+                _event_end = event;
+
+                // swipe gesture
+                gestures.swipe(event);
+
+                // drag gesture
+                // dragstart is triggered, so dragend is possible
+                if(_gesture == 'drag') {
+                    triggerEvent("dragend", {
+                        originalEvent   : event,
+                        direction       : _direction,
+                        distance        : _distance,
+                        angle           : _angle
+                    });
+                }
+
+                // transform
+                // transformstart is triggered, so transformed is possible
+                else if(_gesture == 'transform') {
+                    // define the transform distance
+                    var _distance_x = _pos.center.x - _pos.startCenter.x;
+                    var _distance_y = _pos.center.y - _pos.startCenter.y;
+                    
+                    triggerEvent("transformend", {
+                        originalEvent   : event,
+                        position        : _pos.center,
+                        scale           : calculateScale(_pos.start, _pos.move),
+                        rotation        : calculateRotation(_pos.start, _pos.move),
+                        distance        : _distance,
+                        distanceX       : _distance_x,
+                        distanceY       : _distance_y
+                    });
+
+                    //If the user goes from transformation to drag there needs to be a
+                    //state reset so that way a dragstart/drag/dragend will be properly
+                    //fired.
+                    if (countFingers(event) === 1) {
+                        reset();
+                        _setup();
+                        callReset = false;
+                    }
+                } else if (_can_tap && event.type != 'mouseout') {
+                    gestures.tap(_event_start);
+                }
+                
+                if (_gesture !== null) {
+	                _prev_gesture = _gesture;
+	
+	                // trigger release event
+	                // "release" by default doesn't return the co-ords where your
+	                // finger was released. "position" will return "the last touched co-ords"
+	
+	                triggerEvent("release", {
+	                    originalEvent   : event,
+	                    gesture         : _gesture,
+	                    position        : _pos.move || _pos.start
+	                });
+                }
+                
+                // reset vars if this was not a transform->drag touch end operation.
+                if (callReset) {
+                    reset();
+                }
+                break;
+        } // end switch
+
+        /**
+         * Performs a blank setup.
+         * @private
+         */
+        function _setup() {
+            _pos.start = getXYfromEvent(event);
+            _touch_start_time = new Date().getTime();
+            _fingers = countFingers(event);
+            _first = true;
+            _event_start = event;
+
+            // borrowed from jquery offset https://github.com/jquery/jquery/blob/master/src/offset.js
+            var box = element.getBoundingClientRect();
+            var clientTop  = element.clientTop  || document.body.clientTop  || 0;
+            var clientLeft = element.clientLeft || document.body.clientLeft || 0;
+            var scrollTop  = window.pageYOffset || element.scrollTop  || document.body.scrollTop;
+            var scrollLeft = window.pageXOffset || element.scrollLeft || document.body.scrollLeft;
+
+            _offset = {
+                top: box.top + scrollTop - clientTop,
+                left: box.left + scrollLeft - clientLeft
+            };
+
+            _mousedown = true;
+
+            // hold gesture
+            gestures.hold(event);
+        }
+    }
+
+
+    function handleMouseOut(event) {
+        if(!isInsideHammer(element, event.relatedTarget)) {
+            handleEvents(event);
+        }
+    }
+
+
+    // bind events for touch devices
+    // except for windows phone 7.5, it doesnt support touch events..!
+    if(_has_touch || options.allow_touch_and_mouse) {
+        addEvent(element, "touchstart touchmove touchend touchcancel", handleEvents);
+    }
+
+    // for non-touch
+    if (!_has_touch || options.allow_touch_and_mouse) {
+        addEvent(element, "mouseup mousedown mousemove", handleEvents);
+        addEvent(element, "mouseout", handleMouseOut);
+    }
+
+
+    /**
+     * find if element is (inside) given parent element
+     * @param   object  element
+     * @param   object  parent
+     * @return  bool    inside
+     */
+    function isInsideHammer(parent, child) {
+        // get related target for IE
+        if(!child && window.event && window.event.toElement){
+            child = window.event.toElement;
+        }
+
+        if(parent === child){
+            return true;
+        }
+
+        // loop over parentNodes of child until we find hammer element
+        if(child){
+            var node = child.parentNode;
+            while(node !== null){
+                if(node === parent){
+                    return true;
+                }
+                node = node.parentNode;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * merge 2 objects into a new object
+     * @param   object  obj1
+     * @param   object  obj2
+     * @return  object  merged object
+     */
+    function mergeObject(obj1, obj2) {
+        var output = {};
+
+        if(!obj2) {
+            return obj1;
+        }
+
+        for (var prop in obj1) {
+            if (prop in obj2) {
+                output[prop] = obj2[prop];
+            } else {
+                output[prop] = obj1[prop];
+            }
+        }
+        return output;
+    }
+
+
+    /**
+     * check if object is a function
+     * @param   object  obj
+     * @return  bool    is function
+     */
+    function isFunction( obj ){
+        return Object.prototype.toString.call( obj ) == "[object Function]";
+    }
+
+
+    /**
+     * attach event
+     * @param   node    element
+     * @param   string  types
+     * @param   object  callback
+     */
+    function addEvent(element, types, callback) {
+        types = types.split(" ");
+        for(var t= 0,len=types.length; t<len; t++) {
+            if(element.addEventListener){
+                element.addEventListener(types[t], callback, false);
+            }
+            else if(document.attachEvent){
+                element.attachEvent("on"+ types[t], callback);
+            }
+        }
+    }
+
+
+    /**
+     * detach event
+     * @param   node    element
+     * @param   string  types
+     * @param   object  callback
+     */
+    function removeEvent(element, types, callback) {
+        types = types.split(" ");
+        for(var t= 0,len=types.length; t<len; t++) {
+            if(element.removeEventListener){
+                element.removeEventListener(types[t], callback, false);
+            }
+            else if(document.detachEvent){
+                element.detachEvent("on"+ types[t], callback);
+            }
+        }
+    }
+}
