@@ -31,14 +31,16 @@ section {
 	display: none;
 }
 
-#off-canvas {
-	display: none;
+#left-nav {
 	position: absolute;
-	top: 10px;
-	right: 100%;
-	width: 83%;
-	max-width: 350px;
-	padding-left: 10px;
+	z-index: -1;
+	width: 84%;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background: #232323;
+	color: white;
+	overflow-y: scroll;
 }
 
 .block {

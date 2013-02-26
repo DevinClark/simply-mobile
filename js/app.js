@@ -205,10 +205,12 @@ var ShowNavigation = {
 				$('.js-content-wrap')
 					.animate({'left': '83.5%'},200)
 					.addClass('js-left-nav-open');
+				$("html, body").css("overflow-x", "hidden");
 			} else {
 				$('.js-content-wrap')
 					.animate({'left': 0},200)
 					.removeClass('js-left-nav-open');
+				$("html, body").css("overflow-x", "auto");
 			}
 		});
 	}
@@ -229,7 +231,7 @@ Zepto(function($){
 	console.log(window.localStorage);*/
 
 	//Geolocation
-	Geolocation.getLocation();
+	//Geolocation.getLocation();
 
 	// Make form styling easier
 	$('input[type="button"]').addClass('btn');
