@@ -1,8 +1,7 @@
 {
   "name": "hammer.js",
-  "version": "0.0.0",
-  "main": "hammer.js",
-  "commit": "0000b92fa9e873febeb16595209a63822257a2a6",
+  "version": "1.0.1",
+  "main": "dist/hammer.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/EightMedia/hammer.js.git"

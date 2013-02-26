@@ -1,214 +1,284 @@
-#[New Hammer.js is coming soon, check it out!](https://github.com/EightMedia/hammer.js/tree/v2)
----
-# Hammer.js
-## A javascript library for multi-touch gestures
+# Hammer.js [![Build Status](https://travis-ci.org/EightMedia/hammer.js.png)](https://travis-ci.org/EightMedia/hammer.js/)
+
+### A javascript library for multi-touch gestures
 
 > I told you, homeboy /
 > You *CAN* touch this /
 > Yeah, that's how we living and you know /
 > You *CAN* touch this
 
-Hammer.js is a javascript library that can be used to control gestures on touch devices. It supports the following gestures:
 
-- Tap
-- Double tap
-- Hold
-- Drag
-- Swipe
-- Transform (pinch)
+## Why the rewrite
+- The previous Hammer.js became old, and too much of a hobby project: Inefficient code, bad documentation.
+- It wasn't possible to add custom gestures, or change anything about the (inner) working of the gestures.
+- It needed DOM events, to use with event delegation.
+- Windows8 has touch AND mouse, so the Pointer Events API needs to be implemented, also other browsers on windows8 didn't respond to touches.
 
 
-## Demo's
-> While it's rollin', hold on /
-> Pump a little bit and let 'em know it's goin' on /
-> Like that, like that
-
-We've created some demo's to show you the immense power of hammer.js:
-
-### Basic demo
-A simple demo that demonstrates that hammer.js works and is able to recognize gestures. We output the gestures that are recognized. [Check it out](http://eightmedia.github.com/hammer.js/demo/)
-
-### Slideshow
-A slideshow that uses hammer.js to switch slides. Note that the drag event in the slideshow is non-blocking for the scrolling of the page. [Check it out](http://eightmedia.github.com/hammer.js/slideshow/)
-
-### Scroll content
-A touch-scrollable div. [Check it out](http://eightmedia.github.com/hammer.js/scroll/)
-
-### Drag
-Move boxes around. [Check it out](http://eightmedia.github.com/hammer.js/drag/)
-
-### Color traces
-We use hammer.js to generate beautiful traces with colorful balls. Balls! [Check it out](http://eightmedia.github.com/hammer.js/draw/)
-
-### Pinch to zoom
-We use hammer.js to zoom in and out on an image by pinching. [Check it out](http://eightmedia.github.com/hammer.js/zoom/)
-Also take a look at the demo of Maros Hluska [Check it out](http://eightmedia.github.com/hammer.js/zoom/index2.html)
-
-### Momentum
-Simulate the drag/throw experience on iOS/Android. [Try it](http://eightmedia.github.com/hammer.js/momentum/)
-
-### Sites using Hammer.js
-[Eight Media](http://www.eight.nl)
-
-Want to add your site? Contact me at [Twitter](http://www.twitter.com/jorikdelaporik)
+## Features
+- DOM Events
+- Debug plugins
+- Custom gestures
+- Better swipe event
+- Chainable instance methods
+- jQuery plugin with events delegation (the on/off methods) available
+- Efficient code, lower memory usage
+- IE8 and older compatibility with jQuery plugin
+- More events for faster implementation (swipeleft, dragright)
+- AMD support (RequireJS)
+- Unit tests
 
 
-## Documentation
-> So wave your hands in the air /
-> Bust a few moves /
-> Run your fingers through your hair
+## Getting Started
+Hammer became simpler to use, with an jQuery-like API. You don't need to add the new keyword, and the eventlisteners are chainable.
 
-A step by step guide on how to use hammer.js:
+````js
+    var element = document.getElementById('test_el');
+    var hammertime = Hammer(element).on("tap", function(event) {
+        alert('hello!');
+    });
+````
 
-* [Download the hammer javascript](https://github.com/EightMedia/hammer.js/zipball/master) or clone the latest version from our github repository:
+You can change the default settings by adding an second argument with options
 
-```$ git clone git@github.com:eightmedia/hammer.js.git```
+````js
+    var hammertime = Hammer(element, {
+        drag: false,
+        transform: false
+    });
+````
 
-* Import jquery and import hammer.js in your project:
-    
-```<script src="http://eightmedia.github.com/hammer.js/hammer.js"></script>```
+Events can be added/removed with the on and off methods, just like you would in jQuery.
+Event delegation is also possible when you use the jQuery plugin.
 
-* Hammertime! Bind hammer to a container element:
+````js
+    $('#test_el').hammer().on("tap", ".nested_el", function(event) {
+        console.log(this, event);
+    });
+````
 
-```var hammer = new Hammer(document.getElementById("container"));```
+### Gesture Events
+The following gestures are available, you can find options for it in gestures.js
 
-Now, on every gesture that is performed on the container element, you'll receive a callback object with information on the gesture.
-
-    hammer.ondragstart = function(ev) { };
-    hammer.ondrag = function(ev) { };
-    hammer.ondragend = function(ev) { };
-    hammer.onswipe = function(ev) { };
-
-    hammer.ontap = function(ev) { };
-    hammer.ondoubletap = function(ev) { };
-    hammer.onhold = function(ev) { };
-
-    hammer.ontransformstart = function(ev) { };
-    hammer.ontransform = function(ev) { };
-    hammer.ontransformend = function(ev) { };
-
-    hammer.onrelease = function(ev) { };
-
-A jQuery plugin is also available and can be found in this repos.
-
-   ```<script src="http://eightmedia.github.com/hammer.js/jquery.hammer.js"></script>```
-
-    $("#element")
-       .hammer({
-            // options...
-       })
-       .bind("tap", function(ev) {
-            console.log(ev);
-       });
+- hold
+- tap
+- doubletap
+- drag, dragstart, dragend, dragup, dragdown, dragleft, dragright
+- swipe, swipeup, swipedown, swipeleft, swiperight
+- transform, transformstart, transformend
+- rotate
+- pinch, pinchin, pinchout
+- touch (gesture detection starts)
+- release (gesture detection ends)
 
 
-[Brian Rinaldi](https://twitter.com/remotesynth) has written a blogpost about Hammer.js, it explains things a bit more and has a nice looking demo. [Read it here.](http://www.remotesynthesis.com/post.cfm/add-gesture-support-to-your-web-application-via-hammer-js)
+### Gesture Options
+The following gestures are available, you can find options for it in gestures.js
+
+    doubletap_distance: 20
+    doubletap_interval: 300
+    drag: true
+    drag_block_horizontal: false
+    drag_block_vertical: false
+    drag_lock_to_axis: false
+    drag_max_touches: 1
+    drag_min_distance: 10
+    hold: true
+    hold_threshold: 3
+    hold_timeout: 500
+    prevent_default: true
+    release: true
+    show_touches: true
+    stop_browser_behavior: Object
+    swipe: true
+    swipe_max_touches: 1
+    swipe_velocity: 0.7
+    tap: true
+    tap_max_distance: 10
+    tap_max_touchtime: 250
+    touch: true
+    transform: true
+    transform_always_block: false
+    transform_min_rotation: 1
+    transform_min_scale: 0.01
 
 
-### The Hammer callback objects:
+### Event Data
+The ````event```` argument in the callback contains the same properties for each gesture, making more sense for some than for others.
+The gesture that was triggered is found in ````event.type````. Following properties are available in ````event.gesture````
 
-All gestures return:
-
-- originalEvent: The original DOM event.
-- position: An object with the x and y position of the gesture (e.g. the position of a tap and the center position of a transform).
-- touches: An array of touches, containing an object with the x and the y position for every finger.
-
-Besides these, the Transform gesture returns:
-
-- scale: The distance between two fingers since the start of an event as a multiplier of the initial distance. The initial value is 1.0. If less than 1.0 the gesture is pinch close to zoom out. If greater than 1.0 the gesture is pinch open to zoom in.
-- rotation: A delta rotation since the start of an event in degrees where clockwise is positive and counter-clockwise is negative. The initial value is 0.0.
-
-The Drag and Swipe gesture also returns:
-
-- angle: The angle of the drag movement, where right is 0 degrees, left is -180 degrees, up is -90 degrees and down is 90 degrees. [This picture makes this approach somewhat clearer](http://paperjs.org/tutorials/geometry/vector-geometry/resources/Angles.gif)
-- direction: Based on the angle, we return a simplified direction, which can be either up, right, down or left.
-- distance: The distance of the drag in pixels.
-- distanceX: The distance on the X axis of the drag in pixels.
-- distanceY: The distance on the Y axis of the drag in pixels.
-
-In addition to this the Transform and Drag gestures return start and end events.
-
-
-### Defaults
-|                    | default |                           |
-|:-----------------------------------|:--------------------------|-----------------|
-| prevent_default    | false         | when true all default browser actions are blocked. For instance if you want to drag vertically, try setting this to true. |
-| css_hacks          | true          | css userSelect, touchCallout, touchAction, userDrag, tapHighlightColor are added |
-| drag               | true          |                           |
-| drag_vertical      | true          |                           |
-| drag_horizontal    | true          |                           |
-| drag_min_distance  | 20            | pixels                    |
-| swipe              | true          |                           |
-| swipe_time         | 500           | max ms of movement        |
-| swipe_min_distance | 20            | minimal movement          |
-| transform          | true          |                           |
-| scale_treshold     | 0.1           | how much scaling needs to be done before firing the transform event |                   
-| rotation_treshold  | 15            | degrees before firing the transform event | 
-| tap                | true          |                           |
-| tap_double         | true          |                           |
-| tap_max_interval   | 300           | ms                          |
-| tap_double_distance:| 20           | pixels, distance between taps  |
-| hold               | true          |                           |
-| hold_timeout       | 500           | ms                          |
+    timestamp   {Number}        time the event occurred
+    target      {HTMLElement}   target element
+    touches     {Array}         touches (fingers, mouse) on the screen
+    pointerType {String}        kind of pointer that was used. matches Hammer.POINTER_MOUSE|TOUCH
+    center      {Object}        center position of the touches. contains pageX and pageY
+    deltaTime   {Number}        the total time of the touches in the screen
+    deltaX      {Number}        the delta on x axis we haved moved
+    deltaY      {Number}        the delta on y axis we haved moved
+    velocityX   {Number}        the velocity on the x
+    velocityY   {Number}        the velocity on y
+    angle       {Number}        the angle we are moving
+    direction   {String}        the direction we are moving. matches Hammer.DIRECTION_UP|DOWN|LEFT|RIGHT
+    distance    {Number}        the distance we haved moved
+    scale       {Number}        scaling of the touches, needs 2 touches
+    rotation    {Number}        rotation of the touches, needs 2 touches *
+    eventType   {String}        matches Hammer.EVENT_START|MOVE|END
+    srcEvent    {Object}        the source event, like TouchStart or MouseDown *
+    startEvent  {Object}        contains the same properties as above,
+                                but from the first touch. this is used to calculate
+                                distances, deltaTime, scaling etc
 
 
-### Compatibility
-|                                   | Tap | Double Tap | Hold | Drag | Transform |
-|:----------------------------------|:----|:-----------|:-----|:-----|:----------|
-| **Windows**                                                                    |
-| Internet Explorer 8               | X   | X          | X    | X    |           |
-| Internet Explorer 9               | X   | X          | X    | X    |           |
-| Internet Explorer 10              | X   | X          | X    | X    |           |
-|                                                                                |
-| **Windows Phone**                                                              |
-| Windows Phone 8                   | X   | X          | X    | X    |           |
-| Windows Phone 7.5                 | X   |            |      |      |           |
-|                                                                                |
-| **OSX**                                                                        |
-| Firefox 11                        | X   | X          | X    | X    |           |
-| Opera 11                          | X   | X          | X    | X    |           |
-| Chrome 16                         | X   | X          | X    | X    |           |
-| Safari 5                          | X   | X          | X    | X    |           |
-|                                                                                |
-| **BlackBerry**                                                                 |
-| Playbook                          | X   | X          | X    | X    | X         |
-| BlackBerry 10                     | X   | X          | X    | X    | X         |
-|                                                                                |
-| **iOS**                                                                        |
-| iPad iOS 5                        | X   | X          | X    | X    | X         |
-| iPhone iOS 5                      | X   | X          | X    | X    | X         |
-| iPhone/iPod iOS 6                 | X   | X          | X    | X    | X         |
-|                                                                                |
-| **Android 4**                                                                  |
-| Default browser                   | X   | X          | X    | X    | X         |
-| Chrome                            | X   | X          | X    | X    | X         |
-|                                                                                |
-| **Android 3**                                                                  |
-| Default browser                   | X   | X          | X    | X    | X         |
-|                                                                                |
-| **Android 2**                                                                  |
-| Default browser                   | X   | X          | X    | X    |           |
-| Firefox 10                        | X   | X          | X    | X    |           |
-| Opera Mobile 12                   | X   | X          | X    | X    |           |
-| Opera Mini 6.5                    | X   |            |      |      |           |
-| Opera Mini 7.0                    | X   |            |      |      |           |
-|                                                                                |
-| **Others**                                                                     |
-| Kindle Fire                       | X   | X          | X    | X    | X         |
-| Nokia N900 - Firefox 1.1          | X   |            |      |      |           |
+## Compatibility
+|                                   | Tap | Double Tap | Hold | Swipe | Drag | Multitouch |
+|:----------------------------------|:----|:-----------|:-----|:------|:-----|:----------|
+| **BlackBerry**                                                                         |
+| Playbook                          | X   | X          | X    | X     | X    | X         |
+| BlackBerry 10                     | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **iOS**                                                                                |
+| iPhone/iPod iOS 6                 | X   | X          | X    | X     | X    | X         |
+| iPad/iPhone iOS 5                 | X   | X          | X    | X     | X    | X         |
+| iPhone iOS 4                      | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **Android 4**                                                                          |
+| Default browser                   | X   | X          | X    | X     | X    | X         |
+| Chrome                            | X   | X          | X    | X     | X    | X         |
+| Opera                             | X   | X          | X    | X     | X    | X         |
+| Firefox                           | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **Android 3**                                                                          |
+| Default browser                   | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **Android 2**                                                                          |
+| Default browser                   | X   | X          | X    | X     | X    |           |
+| Firefox                           | X   | X          | X    | X     | X    |           |
+| Opera Mobile                      | X   | X          | X    | X     | X    |           |
+| Opera Mini                        | X   |            |      |       |      |           |
+|                                                                                        |
+| **Windows 8 touch**                                                                    |
+| Internet Explorer 10              | X   | X          | X    | X     | X    | X         |
+| Chrome                            | X   | X          | X    | X     | X    | X         |
+| Firefox                           | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **Windows Phone 8**                                                                    |
+| Internet Explorer 10              | X   | X          | X    | X     | X    | X         |
+|                                                                                        |
+| **Windows Phone 7.5**                                                                  |
+| Internet Explorer                 | X   |            |      |       |      |           |
+|                                                                                        |
+| **Other devices**                                                                      |
+| Kindle Fire                       | X   | X          | X    | X     | X    | X         |
+| Nokia N900 - Firefox 1.1          | X   |            |      |       |      |           |
+|                                                                                        |
+| **Windows Dekstop**                                                                    |
+| Internet Explorer 7**             | X   | X          | X    | X     | X    | X*        |
+| Internet Explorer 8**             | X   | X          | X    | X     | X    | X*        |
+| Internet Explorer 9               | X   | X          | X    | X     | X    | X*        |
+| Internet Explorer 10              | X   | X          | X    | X     | X    | X*        |
+|                                                                                        |
+| **OSX**                                                                                |
+| Firefox                           | X   | X          | X    | X     | X    | X*        |
+| Opera                             | X   | X          | X    | X     | X    | X*        |
+| Chrome                            | X   | X          | X    | X     | X    | X*        |
+| Safari                            | X   | X          | X    | X     | X    | X*        |
+|                                   | **Tap** | **Double Tap** | **Hold** | **Swipe** | **Drag** | **Multitouch** |
 
+Android 2 doesn't support multi-touch events, so there's no transform callback on these Android versions.
+Windows Phone 7.5 doesnt support touch and minimal mouse events.
 
-On a desktop browser the mouse can be used to simulate touch events with one finger.
-On Android 2 (and 3?) doesn't support multi-touch events, so there's no transform callback on these Android versions.
-Firefox 1.1 (Nokia N900) and Windows Phone 7.5 doesnt support touch events, and mouse events are badly supported.
-
-Not all gestures are supported on every device. This matrix shows the support we have tested. This is ofcourse far from extensive.
+Not all gestures are supported on every device. This matrix shows the support we have tested. This is of course far from extensive.
 If you've tested hammer.js on a different device, please let us know.
+
+*Multitouch gestures are available with the hammer.fakemultitouch.js plugin.
+
+**Only when using the jQuery plugin.
+
+## Custom Gestures##
+####Gesture object####
+The object structure of a gesture:
+
+````js
+{ 
+  name: 'mygesture',
+  index: 1337,
+  defaults: {
+     mygesture_option: true
+  }
+  handler: function(type, ev, inst) {
+     // trigger gesture event
+     inst.trigger(this.name, ev);
+  }
+}
+````
+
+###### `{String} name`
+this should be the name of the gesture, lowercase
+it is also being used to disable/enable the gesture per instance config.
+
+###### `{Number} [index=1000]`
+the index of the gesture, where it is going to be in the stack of gestures detection
+like when you build an gesture that depends on the drag gesture, it is a good
+idea to place it after the index of the drag gesture.
+
+###### `{Object} [defaults={}]`
+the default settings of the gesture. these are added to the instance settings,
+and can be overruled per instance. you can also add the name of the gesture,
+but this is also added by default (and set to true).
+
+###### `{Function} handler`
+this handles the gesture detection of your custom gesture and receives the
+following arguments:
+
+###### `{Object} eventData`
+As described above, its the same data as the gesture events
+
+###### `{Hammer.Instance} inst`
+the instance we are doing the detection for. you can get the options from
+the inst.options object and trigger the gesture event by calling inst.trigger
+
+
+####Handle gestures####
+inside the handler you can get/set Hammer.detection.current. This is the current
+detection session. It has the following properties
+
+###### `{String} name`
+contains the name of the gesture we have detected. it has not a real function,
+only to check in other gestures if something is detected.
+like in the drag gesture we set it to 'drag' and in the swipe gesture we can
+check if the current gesture is 'drag' by accessing Hammer.detection.current.name
+
+###### `@readonly {Hammer.Instance} inst`
+the instance we do the detection for
+
+###### `@readonly {Object} startEvent`
+contains the properties of the first gesture detection in this session.
+Used for calculations about timing, distance, etc.
+
+###### `@readonly {Object} lastEvent`
+contains all the properties of the last gesture detect in this session.
+
+after the gesture detection session has been completed (user has released the screen) the 
+Hammer.detection.current object is copied into Hammer.detection.previous, this is usefull for gestures 
+like doubletap, where you need to know if the previous gesture was a tap
+
+options that have been set by the instance can be received by calling inst.options
+
+You can trigger a gesture event by calling `inst.trigger("mygesture", event)`. The first param is the name of 
+your gesture, the second the event argument
+
+####Register gestures####
+When an gesture is added to the `Hammer.gestures` object, it is auto registered at the setup of the first 
+Hammer instance. You can also call `Hammer.detection.register` manually and pass your gesture object as a param
+
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style.
+Add unit tests for any new or changed functionality. Lint and test your code using grunt.
+Please don't commit the dist versions with your changes, only the changed source files.
 
 
 ## Further notes
-Created by [Jorik Tangelder](http://twitter.com/jorikdelaporik) and developed further by everyone at [Eight Media](http://www.eight.nl/) in Arnhem, the Netherlands.
+Created by [Jorik Tangelder](http://twitter.com/jorikdelaporik) and developed at [Eight Media](http://www.eight.nl/) in Arnhem, the Netherlands.
 
-Add your feature suggestions and bug reports on [Github](http://github.com/eightmedia/hammer.js/issues).
-
-We recommend listening to [this loop](http://soundcloud.com/eightmedia/hammerhammerhammer) while using hammer.js.
+It's recommend to listen to [this loop](http://soundcloud.com/eightmedia/hammerhammerhammer) while using hammer.js.
