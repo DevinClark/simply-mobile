@@ -138,7 +138,7 @@ var ShowNavigation = {
 	UIbind: function (){
 		var docHeight = document.documentElement.clientHeight;
 
-		$('.js-open-nav-left').on('touchstart',function() {
+		$('.js-open-nav-left').on('touchstart',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
 				$('.js-content-wrap')
 					.animate({'left': '83.5%'},200)
@@ -166,10 +166,37 @@ var ShowNavigation = {
 	}
 };
 
+var ScrollingFixes = {
+	init: function (){
+		this.setScrolling();
+	},
+	setScrolling: function() {
+		var docHeight = document.documentElement.clientHeight;
+		var headerHeight = $('.js-content-wrap header').height();
+		
+		$('.js-content-wrap')
+			.css({
+				'height':docHeight,
+			})
+			.find('section')
+			.css({
+				'height': docHeight - headerHeight,
+				'overflow': 'scroll',
+				'-webkit-overflow-scrolling': 'touch'
+			});
+	},
+	blockElastic: function() {
+		// Coming soon...  I hope.
+	}
+}
+
 jQuery(function($){
 	OrientationCheck.init();
-
+	
+	ScrollingFixes.init();
+	
 	ShowNavigation.init();
+	
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
