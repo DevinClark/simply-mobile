@@ -21,44 +21,6 @@ var OrientationCheck = {
 	}
 };
 
-
-/*
-var OffCanvas = {
-	settings: {
-		$triggerButton: $("#off-canvas-btn"),
-		$canvas: $("#off-canvas"),
-		onSwipe: true,
-		isShown: false
-	},
-	init: function(s) {
-		for(key in s){
-			this.settings[key] = s[key];
-		}
-		this.button();
-		if(this.settings.onSwipe === true) {
-			this.swipe();
-		}
-	},
-	show: function() {
-		$("header h1").html("shown");
-	},
-	button: function() {
-		this.settings.$triggerButton.on("click", function() {
-			if(this.settings.isShown === true) {
-				this.hide();
-			}
-			else {
-				this.show();
-			}
-		});
-	},
-	swipe: function() {
-
-	}
-};
-*/
-
-
 var LocalStorage = {
 	settings: {
 		supports: (Modernizr.localstorage) ? true : false,
@@ -141,13 +103,13 @@ var Geolocation = {
 	settings: {
 		supports: (Modernizr.geolocation) ? true : false,
 	},
-	getLocation: function() {
+	getLocation: function(mapSelector) {
 		if(this.settings.supports) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
 				var long = position.coords.longitude;
 
-				Geolocation.showMap(lat, long);
+				Geolocation.showMap(lat, long, mapSelector);
 			});
 		}
 	},
@@ -161,8 +123,8 @@ var Geolocation = {
 			scale: 2
 		};
 		var src = "http://maps.googleapis.com/maps/api/staticmap?" + $.param(mapOptions, true).replace("%2C", ",");
-		$("#js-map").append("<img />");
-		$("#js-map img").attr({
+		$(mapSelector).append("<img />");
+		$(mapSelector + " img").attr({
 			src: src,
 			width: 300,
 			height: 300
@@ -231,7 +193,7 @@ Zepto(function($){
 	console.log(window.localStorage);*/
 
 	//Geolocation
-	//Geolocation.getLocation();
+	//Geolocation.getLocation("#js-map");
 
 	// Make form styling easier
 	$('input[type="button"]').addClass('btn');
