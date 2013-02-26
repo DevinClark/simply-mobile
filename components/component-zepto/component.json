@@ -1,0 +1,9 @@
+{
+  "name": "zepto-component",
+  "version": "1.0.0",
+  "description": "Zepto component",
+  "scripts": [
+    "index.js"
+  ],
+  "repo": "https://raw.github.com/component/zepto"
+}

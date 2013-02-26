@@ -1,0 +1,54 @@
+
+.btn {
+	-webkit-appearance: none;
+	display: block;
+	width: 100%;
+	color: white;
+	text-decoration: none;
+	background: #2ba6cb;
+	border: 1px solid #1e728c;
+	font-weight: bold;
+	font-size: 1em;
+	line-height: 1;
+	margin: 0;
+	padding: 10px 20px 11px;
+	position: relative;
+	text-align: center;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+.btn.success {
+	background: #BADA55;
+	border: 1px solid #93ad41;
+}
+.btn.alert {
+	background: #c60f13;
+	border: 1px solid #7f0a0c;
+}
+
+form .text,
+form .email,
+textarea {
+	-webkit-appearance: none;
+	background-color: white;
+	font-family: inherit;
+	border: 1px solid #cccccc;
+	border-radius: 2px;
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	color: rgba(0, 0, 0, 0.75);
+	display: block;
+	font-size: 14px;
+	margin: 0 0 12px 0;
+	padding: 6px;
+	height: 32px;
+	width: 100%;
+	-webkit-transition: all 0.15s linear;
+	transition: all 0.15s linear;
+}
+textarea {
+	height: auto;
+}

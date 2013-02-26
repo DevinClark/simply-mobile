@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "matthewmueller/hogan": "*",
+    "component/zepto": "*"
+  }
+}
