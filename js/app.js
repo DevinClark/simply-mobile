@@ -178,10 +178,6 @@ var ShowNavigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
-<<<<<<< HEAD
-=======
-		//this.blockElastic();
->>>>>>> Fixed navigation
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
