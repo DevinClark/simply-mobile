@@ -169,7 +169,6 @@ var ShowNavigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
-		this.blockElastic();
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
@@ -187,22 +186,7 @@ var ScrollingFixes = {
 			});
 	},
 	blockElastic: function() {
-		var $el = $("section");
-		var startY, startTopScroll;
 
-		if(!$el)
-			return;
-
-		$el.on('touchstart', function(event){
-			startY = event.touches[0].pageY;
-			startTopScroll = $el.scrollTop;
-
-			if(startTopScroll <= 0)
-				$el.scrollTop = 1;
-
-			if(startTopScroll + $el.offsetHeight >= $el.scrollHeight)
-				$el.scrollTop = $el.scrollHeight - $el.offsetHeight - 1;
-		});
 	}
 }
 
