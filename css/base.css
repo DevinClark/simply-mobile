@@ -2308,6 +2308,10 @@ textarea {
 textarea {
   height: auto; }
 
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-user-select: none; }
+
 html, body {
   min-height: 100%; }
 
@@ -2350,9 +2354,32 @@ section {
   top: 0;
   bottom: 0;
   left: 0;
-  background: #232323;
+  background: #3d3d3d;
   color: white;
   overflow-y: scroll; }
+
+#left-nav ul li a {
+  display: block;
+  border-width: 1px 0 1px 0;
+  border-style: solid;
+  border-color: #4c4c4c transparent #2d2d2d transparent;
+  color: #cecece;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 0 1px 0 black;
+  padding: 10px 10px; }
+
+#left-nav ul li a span {
+  margin: 0 6px 0 5px;
+  width: 20px;
+  display: inline-block;
+  text-align: center; }
+
+#left-nav li a.active {
+  border-color: transparent transparent #2d2d2d transparent;
+  background: #2f2f2f;
+  color: #bada55; }
 
 .block {
   margin: 0;
