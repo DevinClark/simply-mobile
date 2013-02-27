@@ -195,7 +195,6 @@ var ScrollingFixes = {
 			});
 	},
 	blockElastic: function() {
-
 	}
 }
 
