@@ -1,7 +1,6 @@
 {
   "name": "hammer.js",
-  "version": "1.0.1",
-  "main": "dist/jquery.hammer.js",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/EightMedia/hammer.js.git"

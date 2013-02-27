@@ -9594,7 +9594,7 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 	define( "jquery", [], function () { return jQuery; } );
 }
 
-})( window );/*! Hammer.JS - v1.0.1 - 2013-02-26
+})( window );/*! Hammer.JS - v1.0.2 - 2013-02-27
  * http://eightmedia.github.com/hammer.js
  *
  * Copyright (c) 2013 Jorik Tangelder <j.tangelder@gmail.com>;
@@ -9656,6 +9656,11 @@ Hammer.EVENT_START = 'start';
 Hammer.EVENT_MOVE = 'move';
 Hammer.EVENT_END = 'end';
 
+// stop mouse events on ios and android
+var ua = navigator.userAgent;
+Hammer.STOP_MOUSEEVENTS = Hammer.HAS_TOUCHEVENTS &&
+    ua.match(/(like mac os x.*mobile.*safari)|android|blackberry/i);
+
 // plugins namespace
 Hammer.plugins = {};
 
@@ -9680,7 +9685,7 @@ function setup() {
         }
     }
 
-    // Add touch events on the window
+    // Add touch events on the document
     Hammer.event.onTouch(document, Hammer.EVENT_MOVE, Hammer.detection.detect);
     Hammer.event.onTouch(document, Hammer.EVENT_END, Hammer.detection.endDetect);
 
@@ -9837,6 +9842,11 @@ Hammer.event = {
         this.bindDom(element, Hammer.EVENT_TYPES[eventType], function(ev) {
             var sourceEventType = ev.type.toLowerCase();
 
+            // stop mouseevents on ios and android
+            if(sourceEventType.match(/mouse/) && Hammer.STOP_MOUSEEVENTS) {
+                return;
+            }
+
             // mousebutton must be down or a touch event
             if(sourceEventType.match(/start|down|move/) &&
                 (   ev.which === 1 ||   // mousedown
@@ -9883,6 +9893,7 @@ Hammer.event = {
             if(sourceEventType.match(/up|cancel|end/)) {
                 enable_detect = false;
                 touch_triggered = false;
+                last_move_event = null;
                 Hammer.PointerEvent.reset();
             }
         });
@@ -10192,9 +10203,10 @@ Hammer.utils = {
     stopDefaultBrowserBehavior: function stopDefaultBrowserBehavior(inst) {
         var prop,
             vendors = ['webkit','khtml','moz','ms','o',''],
-            css_props = inst.options.stop_browser_behavior;
+            css_props = inst.options.stop_browser_behavior,
+            el = inst.element;
 
-        if(!css_props) {
+        if(!css_props || !el.style) {
             return;
         }
 
@@ -10206,14 +10218,14 @@ Hammer.utils = {
                     if(vendors[i]) {
                         prop = vendors[i] + prop.substring(0, 1).toUpperCase() + prop.substring(1);
                     }
-                    inst.element.style[prop] = css_props[p];
+                    el.style[prop] = css_props[p];
                 }
             }
         }
 
         // also the disable onselectstart
         if(css_props.userSelect == 'none') {
-            inst.element.onselectstart = function() {
+            el.onselectstart = function() {
                 return false;
             };
         }
@@ -10882,98 +10894,3 @@ if(typeof window.define === 'function' && window.define.amd) {
 }
 
 })(window);
-
-(function($) {
-    /**
-     * bind dom events
-     * this overwrites addEventListener
-     * @param   {HTMLElement}   element
-     * @param   {String}        eventTypes
-     * @param   {Function}      handler
-     */
-    Hammer.event.bindDom = function(element, eventTypes, handler) {
-        $(element).on(eventTypes, function(ev) {
-            var data = ev.originalEvent;
-
-            // IE pageX fix
-            if(!data.pageX) {
-                data.pageX = ev.pageX;
-                data.pageY = ev.pageY;
-            }
-
-            // IE target fix
-            if(!data.target) {
-                data.target = ev.target;
-            }
-
-            // IE button fix
-            if(data.button) {
-                data.which = data.button;
-            }
-
-            // IE preventDefault
-            if(!data.preventDefault) {
-                data.preventDefault = ev.preventDefault;
-            }
-
-            // IE stopPropagation
-            if(!data.stopPropagation) {
-                data.stopPropagation = ev.stopPropagation;
-            }
-
-            handler.call(this, data);
-        });
-    };
-
-    /**
-     * the methods are called by the instance, but with the jquery plugin
-     * we use the jquery event methods instead.
-     * @this    {Hammer.Instance}
-     * @return  {jQuery}
-     */
-    Hammer.Instance.prototype.on = function(types, handler) {
-        return $(this.element).on(types, handler);
-    };
-    Hammer.Instance.prototype.off = function(types, handler) {
-        return $(this.element).off(types, handler);
-    };
-
-
-    /**
-     * trigger events
-     * this is called by the gestures to trigger an event like 'tap'
-     * @this    {Hammer.Instance}
-     * @param   {String}    gesture
-     * @param   {Object}    eventData
-     * @return  {jQuery}
-     */
-    Hammer.Instance.prototype.trigger = function(gesture, eventData){
-        return $(eventData.srcEvent.target).trigger({
-            type: gesture,
-            gesture: eventData
-        });
-    };
-
-
-    /**
-     * jQuery plugin
-     * create instance of Hammer and watch for gestures,
-     * and when called again you can change the options
-     * @param   {Object}    [options={}]
-     * @return  {jQuery}
-     */
-    $.fn.hammer = function(options) {
-        return this.each(function() {
-            var el = $(this);
-            var inst = el.data('hammer');
-            // start new hammer instance
-            if(!inst) {
-                el.data('hammer', Hammer(this, options || {}));
-            }
-            // change the options
-            else if(inst && options) {
-                Hammer.utils.extend(inst.options, options);
-            }
-        });
-    };
-})(jQuery);

@@ -17,7 +17,7 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li><li><a href="../../docs/js/assets.js.html#bindDom">bindDom</a></li><li><a href="../../docs/js/assets.js.html#on">on</a></li><li><a href="../../docs/js/assets.js.html#trigger">trigger</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="Callbacks">Callbacks</h1><h5 class="subheader">jQuery.Callbacks()</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><h2>Create a callback list using the following parameters</h2>
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="Callbacks">Callbacks</h1><h5 class="subheader">jQuery.Callbacks()</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><h2>Create a callback list using the following parameters</h2>
 
 <pre><code>options: an optional list of space-separated options that will change how
         the callback list behaves or a more traditional option object
@@ -8422,6 +8422,11 @@ Hammer.EVENT_START = 'start';
 Hammer.EVENT_MOVE = 'move';
 Hammer.EVENT_END = 'end';
 
+// stop mouse events on ios and android
+var ua = navigator.userAgent;
+Hammer.STOP_MOUSEEVENTS = Hammer.HAS_TOUCHEVENTS &amp;&amp;
+    ua.match(/(like mac os x.*mobile.*safari)|android|blackberry/i);
+
 // plugins namespace
 Hammer.plugins = {};
 
@@ -8441,7 +8446,7 @@ Hammer.READY = false;</code></pre></div><div class="comment"><div class="label r
         }
     }
 
-    // Add touch events on the window
+    // Add touch events on the document
     Hammer.event.onTouch(document, Hammer.EVENT_MOVE, Hammer.detection.detect);
     Hammer.event.onTouch(document, Hammer.EVENT_END, Hammer.detection.endDetect);
 
@@ -8517,6 +8522,11 @@ Hammer.event = {</code></pre></div><div class="comment"><div class="tags"><ul cl
         this.bindDom(element, Hammer.EVENT_TYPES[eventType], function(ev) {
             var sourceEventType = ev.type.toLowerCase();
 
+            // stop mouseevents on ios and android
+            if(sourceEventType.match(/mouse/) &amp;&amp; Hammer.STOP_MOUSEEVENTS) {
+                return;
+            }
+
             // mousebutton must be down or a touch event
             if(sourceEventType.match(/start|down|move/) &amp;&amp;
                 (   ev.which === 1 ||   // mousedown
@@ -8563,6 +8573,7 @@ Hammer.event = {</code></pre></div><div class="comment"><div class="tags"><ul cl
             if(sourceEventType.match(/up|cancel|end/)) {
                 enable_detect = false;
                 touch_triggered = false;
+                last_move_event = null;
                 Hammer.PointerEvent.reset();
             }
         });
@@ -8720,9 +8731,10 @@ Hammer.utils = {</code></pre></div><div class="comment"><div class="tags"><ul cl
     },</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@param: </strong><span class="types"> {Hammer.Instance} </span><span class="name">inst </span></li></ul></div><div class="description"><p>stop browser default behavior with css props</p></div><pre><code class="language-javascript">stopDefaultBrowserBehavior: function stopDefaultBrowserBehavior(inst) {
         var prop,
             vendors = ['webkit','khtml','moz','ms','o',''],
-            css_props = inst.options.stop_browser_behavior;
+            css_props = inst.options.stop_browser_behavior,
+            el = inst.element;
 
-        if(!css_props) {
+        if(!css_props || !el.style) {
             return;
         }
 
@@ -8734,14 +8746,14 @@ Hammer.utils = {</code></pre></div><div class="comment"><div class="tags"><ul cl
                     if(vendors[i]) {
                         prop = vendors[i] + prop.substring(0, 1).toUpperCase() + prop.substring(1);
                     }
-                    inst.element.style[prop] = css_props[p];
+                    el.style[prop] = css_props[p];
                 }
             }
         }
 
         // also the disable onselectstart
         if(css_props.userSelect == 'none') {
-            inst.element.onselectstart = function() {
+            el.onselectstart = function() {
                 return false;
             };
         }
@@ -9205,65 +9217,7 @@ if(typeof window.define === 'function' &amp;&amp; window.define.amd) {
     });
 }
 
-})(window);
-
-(function($) {</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="bindDom">bindDom</h1><h5 class="subheader">Hammer.event.bindDom()</h5><div class="tags"><ul class="no-bullet"><li><strong>@param: </strong><span class="types"> {HTMLElement} </span><span class="name">element </span></li><li><strong>@param: </strong><span class="types"> {String} </span><span class="name">eventTypes </span></li><li><strong>@param: </strong><span class="types"> {Function} </span><span class="name">handler </span></li></ul></div><div class="description"><p>bind dom events<br />this overwrites addEventListener</p></div><pre><code class="language-javascript">Hammer.event.bindDom = function(element, eventTypes, handler) {
-        $(element).on(eventTypes, function(ev) {
-            var data = ev.originalEvent;
-
-            // IE pageX fix
-            if(!data.pageX) {
-                data.pageX = ev.pageX;
-                data.pageY = ev.pageY;
-            }
-
-            // IE target fix
-            if(!data.target) {
-                data.target = ev.target;
-            }
-
-            // IE button fix
-            if(data.button) {
-                data.which = data.button;
-            }
-
-            // IE preventDefault
-            if(!data.preventDefault) {
-                data.preventDefault = ev.preventDefault;
-            }
-
-            // IE stopPropagation
-            if(!data.stopPropagation) {
-                data.stopPropagation = ev.stopPropagation;
-            }
-
-            handler.call(this, data);
-        });
-    };</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="on">on</h1><h5 class="subheader">Hammer.Instance.prototype.on()</h5><div class="tags"><ul class="no-bullet"><li><strong>@this: </strong><span class="string">{Hammer.Instance}</span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>the methods are called by the instance, but with the jquery plugin<br />we use the jquery event methods instead.</p></div><pre><code class="language-javascript">Hammer.Instance.prototype.on = function(types, handler) {
-        return $(this.element).on(types, handler);
-    };
-    Hammer.Instance.prototype.off = function(types, handler) {
-        return $(this.element).off(types, handler);
-    };</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="trigger">trigger</h1><h5 class="subheader">Hammer.Instance.prototype.trigger()</h5><div class="tags"><ul class="no-bullet"><li><strong>@this: </strong><span class="string">{Hammer.Instance}</span></li><li><strong>@param: </strong><span class="types"> {String} </span><span class="name">gesture </span></li><li><strong>@param: </strong><span class="types"> {Object} </span><span class="name">eventData </span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>trigger events<br />this is called by the gestures to trigger an event like 'tap'</p></div><pre><code class="language-javascript">Hammer.Instance.prototype.trigger = function(gesture, eventData){
-        return $(eventData.srcEvent.target).trigger({
-            type: gesture,
-            gesture: eventData
-        });
-    };</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@param: </strong><span class="types"> {Object} </span><span class="name">[options={}] </span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>jQuery plugin<br />create instance of Hammer and watch for gestures,<br />and when called again you can change the options</p></div><pre><code class="language-javascript">$.fn.hammer = function(options) {
-        return this.each(function() {
-            var el = $(this);
-            var inst = el.data('hammer');
-            // start new hammer instance
-            if(!inst) {
-                el.data('hammer', Hammer(this, options || {}));
-            }
-            // change the options
-            else if(inst &amp;&amp; options) {
-                Hammer.utils.extend(inst.options, options);
-            }
-        });
-    };
-})(jQuery);</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
+})(window);</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  * MIT license http://www.opensource.org/licenses/mit-license.php/
  * @author Lea Verou http://lea.verou.me
