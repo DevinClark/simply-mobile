@@ -169,7 +169,7 @@ var ShowNavigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
-		this.blockElastic($("section"));
+		this.blockElastic();
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
@@ -186,7 +186,8 @@ var ScrollingFixes = {
 				'-webkit-overflow-scrolling': 'touch'
 			});
 	},
-	blockElastic: function($el) {
+	blockElastic: function() {
+		var $el = $("section");
 		var startY, startTopScroll;
 
 		if(!$el)
