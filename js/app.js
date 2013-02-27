@@ -138,14 +138,21 @@ var ShowNavigation = {
 	UIbind: function (){
 		var docHeight = document.documentElement.clientHeight;
 
-		$('.js-open-nav-left').on('touchstart',function (){
+		$('.js-open-nav-left').on('touchstart mousedown',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
 				$('.js-content-wrap')
 					.animate({'left': '83.5%'},200)
-					.addClass('js-left-nav-open');
+					.addClass('js-left-nav-open')
 
-				$('.js-left-navigation').addClass('i-am-open');
+				$('.js-left-navigation')
+					.addClass('i-am-open')
+					.css({
+						'position': 'fixed',
+						'-webkit-overflow-scrolling': 'touch'
+					});
 
+				$('.js-open-nav-left').css('color','#bada55');
+				
 				$("html, body").css({
 					"overflow": "hidden",
 					"height": docHeight
@@ -156,6 +163,8 @@ var ShowNavigation = {
 					.removeClass('js-left-nav-open');
 
 				$('.js-left-navigation').removeClass('i-am-open');
+
+				$('.js-open-nav-left').css('color','#fff');
 
 				$("html, body").css({
 					"overflow-x": "auto",
@@ -169,6 +178,10 @@ var ShowNavigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
+<<<<<<< HEAD
+=======
+		//this.blockElastic();
+>>>>>>> Fixed navigation
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
