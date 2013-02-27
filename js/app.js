@@ -43,7 +43,7 @@ var LocalStorage = {
 		try {
 			var output = [];
 			for (var key in localStorage){
-			   output.push(key);
+				output.push(key);
 			}
 			return output;
 		} catch(e) {
