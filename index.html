@@ -14,6 +14,43 @@
 	<meta name="apple-mobile-web-app-title" content="">
 
 	<link rel="stylesheet" href="css/base.css">
+	
+	<style>
+	html {
+	    -webkit-tap-highlight-color: rgba(0,0,0,0); 
+	    -webkit-user-select: none;
+	}
+	#left-nav {
+		background: #3d3d3d;
+		z-index: 0;
+	}
+	#left-nav ul li a {
+		display: block;		
+		border-width: 1px 0 1px 0;
+		border-style: solid;
+		border-color: #4c4c4c transparent #2d2d2d transparent;
+		color: #cecece;
+		font-size: 18px;
+		font-weight: 700;
+		text-decoration: none;
+		text-shadow: 0 1px 0 rgba(0,0,0,1);
+		padding: 10px 10px;
+	}
+	#left-nav ul li a span {
+		margin: 0 6px 0 5px;
+		width: 20px;
+		display: inline-block;
+		text-align: center;
+	}	
+	#left-nav li a.active {
+		border-color: transparent transparent #2d2d2d transparent;
+		background: #2f2f2f;
+		color: #bada55;
+	}
+	.page {
+		z-index: 1;
+	}
+	</style>
 </head>
 <body>
 	<div class="page page-active js-content-wrap">
@@ -142,36 +179,36 @@
 
 	<div id="left-nav" class="js-left-navigation">
 		<ul class="list-view">
-			<li><a href="#">Apple</a></li>
-			<li><a href="#">Banana</a></li>
-			<li><a href="#">Cherry</a></li>
-			<li><a href="#">Cranberry</a></li>
-			<li><a href="#">Grape</a></li>
-			<li><a href="#">Orange</a></li>
-			<li><a href="#">Apple</a></li>
-			<li><a href="#">Banana</a></li>
-			<li><a href="#">Cherry</a></li>
-			<li><a href="#">Cranberry</a></li>
-			<li><a href="#">Grape</a></li>
-			<li><a href="#">Orange</a></li>
-			<li><a href="#">Apple</a></li>
-			<li><a href="#">Banana</a></li>
-			<li><a href="#">Cherry</a></li>
-			<li><a href="#">Cranberry</a></li>
-			<li><a href="#">Grape</a></li>
-			<li><a href="#">Orange</a></li>
-			<li><a href="#">Apple</a></li>
-			<li><a href="#">Banana</a></li>
-			<li><a href="#">Cherry</a></li>
-			<li><a href="#">Cranberry</a></li>
-			<li><a href="#">Grape</a></li>
-			<li><a href="#">Orange</a></li>
-			<li><a href="#">Apple</a></li>
-			<li><a href="#">Banana</a></li>
-			<li><a href="#">Cherry</a></li>
-			<li><a href="#">Cranberry</a></li>
-			<li><a href="#">Grape</a></li>
-			<li><a href="#">Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>	
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
 		</ul>
 	</div>
 

@@ -1,5 +1,7 @@
 "use strict";
 var Modernizr = Modernizr;
+var triggerDown = 'touchstart mousedown';
+var triggerUp = 'touchend mouseup';
 
 var OrientationCheck = {
 	init: function() {
@@ -131,75 +133,70 @@ var Geolocation = {
 	}
 };
 
-var ShowNavigation = {
-	init: function (){
-		this.UIbind();
+var MenuActions = {
+	settings: {
+		docHeight: document.documentElement.clientHeight,
+		speed: 200
 	},
-	UIbind: function (){
-		var docHeight = document.documentElement.clientHeight;
-
-/*
-		$('.js-content-wrap').hammer().on("drag", function(ev) {
-	        var touches = ev.gesture.touches;
-	        var startTouch = ev.gesture.pageY;
-	        var distTouch = ev.gesture.distance;
-	         	        
- 	        if( touches[0].pageX < 60 && distTouch > 50 ) {
-				$('.js-content-wrap')
-					.animate({'left': '83.5%'},200)
-					.addClass('js-left-nav-open');
-
-				$('.js-open-nav-left').css('color','#bada55');
-					
-				$("html, body").css({
-					"overflow": "hidden",
-					"height": docHeight
-				});					
-			}
-	    });
-*/
+	open: function (){
+		$('.js-content-wrap')
+			.animate({'left': '83.5%'}, this.settings.speed)
+			.addClass('js-left-nav-open')
+	
+		$('.js-left-navigation')
+			.addClass('i-am-open')
+			.css({
+				'position': 'fixed',
+				'-webkit-overflow-scrolling': 'touch'
+			});
+	
+		$('.js-open-nav-left').css('color','#bada55');
 		
-		$('.js-open-nav-left').on('touchstart mousedown',function (){
+		$("html, body").css({
+			"overflow": "hidden",
+			"height": this.settings.docHeight
+		});
+	},
+	close: function (){
+		$('.js-content-wrap')
+			.animate({'left': 0}, this.settings.speed)
+			.removeClass('js-left-nav-open');
+	
+		$('.js-left-navigation').removeClass('i-am-open');
+	
+		$('.js-open-nav-left').css('color','#fff');
+	
+		$("html, body").css({
+			"overflow-x": "auto",
+			"height": "auto"
+		});
+	}
+};
+
+var OffCanvasNavigation = {
+	init: function (){
+		this.toggleNavigation();
+		this.useNavigation();
+	},
+	menuMove: {
+		close: function (){ alert('o')}
+	},
+	toggleNavigation: function (){		
+		$('.js-open-nav-left').hammer().on('tap',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
-				$('.js-content-wrap')
-					.animate({'left': '83.5%'},200)
-					.addClass('js-left-nav-open')
-
-				$('.js-left-navigation')
-					.addClass('i-am-open')
-					.css({
-						'position': 'fixed',
-						'-webkit-overflow-scrolling': 'touch'
-					});
-
-				$('.js-open-nav-left').css('color','#bada55');
-				
-				$("html, body").css({
-					"overflow": "hidden",
-					"height": docHeight
-				});
+				MenuActions.open();
 			} else {
-				$('.js-content-wrap')
-					.animate({'left': 0},200)
-					.removeClass('js-left-nav-open');
-
-				$('.js-left-navigation').removeClass('i-am-open');
-
-				$('.js-open-nav-left').css('color','#fff');
-
-				$("html, body").css({
-					"overflow-x": "auto",
-					"height": "auto"
-				});
+				MenuActions.close();
 			}
 		});
+	},
+	useNavigation: function (){
 	}
 };
 
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
-		this.blockElastic();
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
@@ -215,8 +212,6 @@ var ScrollingFixes = {
 				'overflow': 'scroll',
 				'-webkit-overflow-scrolling': 'touch'
 			});
-	},
-	blockElastic: function() {
 	}
 }
 
@@ -225,7 +220,7 @@ jQuery(function($){
 
 	ScrollingFixes.init();
 
-	ShowNavigation.init();
+	OffCanvasNavigation.init();
 
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";

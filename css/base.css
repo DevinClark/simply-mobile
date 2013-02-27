@@ -2319,6 +2319,7 @@ body {
 
 .page {
   position: relative;
+  z-index: 1;
   min-height: 100%;
   background: #eee; }
 
@@ -2344,7 +2345,7 @@ section {
 
 #left-nav {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   width: 84%;
   top: 0;
   bottom: 0;
