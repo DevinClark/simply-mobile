@@ -138,12 +138,13 @@ var ShowNavigation = {
 	UIbind: function (){
 		var docHeight = document.documentElement.clientHeight;
 
+/*
 		$('.js-content-wrap').hammer().on("drag", function(ev) {
 	        var touches = ev.gesture.touches;
 	        var startTouch = ev.gesture.pageY;
 	        var distTouch = ev.gesture.distance;
 	         	        
- 	        if( touches[0].pageX < 50 && distTouch > 30 ) {
+ 	        if( touches[0].pageX < 60 && distTouch > 50 ) {
 				$('.js-content-wrap')
 					.animate({'left': '83.5%'},200)
 					.addClass('js-left-nav-open');
@@ -156,6 +157,7 @@ var ShowNavigation = {
 				});					
 			}
 	    });
+*/
 		
 		$('.js-open-nav-left').on('touchstart mousedown',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
