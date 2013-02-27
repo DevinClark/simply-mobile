@@ -138,6 +138,25 @@ var ShowNavigation = {
 	UIbind: function (){
 		var docHeight = document.documentElement.clientHeight;
 
+		$('.js-content-wrap').hammer().on("drag", function(ev) {
+	        var touches = ev.gesture.touches;
+	        var startTouch = ev.gesture.pageY;
+	        var distTouch = ev.gesture.distance;
+	         	        
+ 	        if( touches[0].pageX < 50 && distTouch > 30 ) {
+				$('.js-content-wrap')
+					.animate({'left': '83.5%'},200)
+					.addClass('js-left-nav-open');
+
+				$('.js-open-nav-left').css('color','#bada55');
+					
+				$("html, body").css({
+					"overflow": "hidden",
+					"height": docHeight
+				});					
+			}
+	    });
+		
 		$('.js-open-nav-left').on('touchstart mousedown',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
 				$('.js-content-wrap')
@@ -178,6 +197,7 @@ var ShowNavigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
+		this.blockElastic();
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
