@@ -173,11 +173,11 @@ var ScrollingFixes = {
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
-		var headerHeight = $('.js-content-wrap header').height();
+		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 
 		$('.js-content-wrap')
 			.css({
-				'height':docHeight,
+				'height':docHeight
 			})
 			.find('section')
 			.css({
