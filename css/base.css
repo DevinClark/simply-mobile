@@ -2308,6 +2308,9 @@ textarea {
 textarea {
   height: auto; }
 
+html {
+  height: 100%; }
+
 html, body {
   min-height: 100%; }
 
@@ -2353,10 +2356,6 @@ section {
   color: white;
   overflow-y: scroll; }
 
-#left-nav.i-am-open {
-   -webkit-overflow-scrolling: touch;
-   position: fixed; }	
-	
 .block {
   margin: 0;
   margin-bottom: 12px;
