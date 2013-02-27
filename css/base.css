@@ -141,149 +141,149 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .eleven-twelfths {
   width: 91.666%; }
 
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-  .lap-one-whole {
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .medium-one-whole {
     width: 100%; }
 
-  .lap-one-half, .lap-two-quarters, .lap-three-sixths, .lap-four-eighths, .lap-five-tenths, .lap-six-twelfths {
+  .medium-one-half, .medium-two-quarters, .medium-three-sixths, .medium-four-eighths, .medium-five-tenths, .medium-six-twelfths {
     width: 50%; }
 
-  .lap-one-third, .lap-two-sixths, .lap-four-twelfths {
+  .medium-one-third, .medium-two-sixths, .medium-four-twelfths {
     width: 33.333%; }
 
-  .lap-two-thirds, .lap-four-sixths, .lap-eight-twelfths {
+  .medium-two-thirds, .medium-four-sixths, .medium-eight-twelfths {
     width: 66.666%; }
 
-  .lap-one-quarter, .lap-two-eighths, .lap-three-twelfths {
+  .medium-one-quarter, .medium-two-eighths, .medium-three-twelfths {
     width: 25%; }
 
-  .lap-three-quarters, .lap-six-eighths, .lap-nine-twelfths {
+  .medium-three-quarters, .medium-six-eighths, .medium-nine-twelfths {
     width: 75%; }
 
-  .lap-one-fifth, .lap-two-tenths {
+  .medium-one-fifth, .medium-two-tenths {
     width: 20%; }
 
-  .lap-two-fifths, .lap-four-tenths {
+  .medium-two-fifths, .medium-four-tenths {
     width: 40%; }
 
-  .lap-three-fifths, .lap-six-tenths {
+  .medium-three-fifths, .medium-six-tenths {
     width: 60%; }
 
-  .lap-four-fifths, .lap-eight-tenths {
+  .medium-four-fifths, .medium-eight-tenths {
     width: 80%; }
 
-  .lap-one-sixth, .lap-two-twelfths {
+  .medium-one-sixth, .medium-two-twelfths {
     width: 16.666%; }
 
-  .lap-five-sixths, .lap-ten-twelfths {
+  .medium-five-sixths, .medium-ten-twelfths {
     width: 83.333%; }
 
-  .lap-one-eighth {
+  .medium-one-eighth {
     width: 12.5%; }
 
-  .lap-three-eighths {
+  .medium-three-eighths {
     width: 37.5%; }
 
-  .lap-five-eighths {
+  .medium-five-eighths {
     width: 62.5%; }
 
-  .lap-seven-eighths {
+  .medium-seven-eighths {
     width: 87.5%; }
 
-  .lap-one-tenth {
+  .medium-one-tenth {
     width: 10%; }
 
-  .lap-three-tenths {
+  .medium-three-tenths {
     width: 30%; }
 
-  .lap-seven-tenths {
+  .medium-seven-tenths {
     width: 70%; }
 
-  .lap-nine-tenths {
+  .medium-nine-tenths {
     width: 90%; }
 
-  .lap-one-twelfth {
+  .medium-one-twelfth {
     width: 8.333%; }
 
-  .lap-five-twelfths {
+  .medium-five-twelfths {
     width: 41.666%; }
 
-  .lap-seven-twelfths {
+  .medium-seven-twelfths {
     width: 58.333%; }
 
-  .lap-eleven-twelfths {
+  .medium-eleven-twelfths {
     width: 91.666%; } }
-@media only screen and (max-width: 1024px) {
-  .portable-one-whole {
+@media only screen and (min-width: 769px) {
+  .large-one-whole {
     width: 100%; }
 
-  .portable-one-half, .portable-two-quarters, .portable-three-sixths, .portable-four-eighths, .portable-five-tenths, .portable-six-twelfths {
+  .large-one-half, .large-two-quarters, .large-three-sixths, .large-four-eighths, .large-five-tenths, .large-six-twelfths {
     width: 50%; }
 
-  .portable-one-third, .portable-two-sixths, .portable-four-twelfths {
+  .large-one-third, .large-two-sixths, .large-four-twelfths {
     width: 33.333%; }
 
-  .portable-two-thirds, .portable-four-sixths, .portable-eight-twelfths {
+  .large-two-thirds, .large-four-sixths, .large-eight-twelfths {
     width: 66.666%; }
 
-  .portable-one-quarter, .portable-two-eighths, .portable-three-twelfths {
+  .large-one-quarter, .large-two-eighths, .large-three-twelfths {
     width: 25%; }
 
-  .portable-three-quarters, .portable-six-eighths, .portable-nine-twelfths {
+  .large-three-quarters, .large-six-eighths, .large-nine-twelfths {
     width: 75%; }
 
-  .portable-one-fifth, .portable-two-tenths {
+  .large-one-fifth, .large-two-tenths {
     width: 20%; }
 
-  .portable-two-fifths, .portable-four-tenths {
+  .large-two-fifths, .large-four-tenths {
     width: 40%; }
 
-  .portable-three-fifths, .portable-six-tenths {
+  .large-three-fifths, .large-six-tenths {
     width: 60%; }
 
-  .portable-four-fifths, .portable-eight-tenths {
+  .large-four-fifths, .large-eight-tenths {
     width: 80%; }
 
-  .portable-one-sixth, .portable-two-twelfths {
+  .large-one-sixth, .large-two-twelfths {
     width: 16.666%; }
 
-  .portable-five-sixths, .portable-ten-twelfths {
+  .large-five-sixths, .large-ten-twelfths {
     width: 83.333%; }
 
-  .portable-one-eighth {
+  .large-one-eighth {
     width: 12.5%; }
 
-  .portable-three-eighths {
+  .large-three-eighths {
     width: 37.5%; }
 
-  .portable-five-eighths {
+  .large-five-eighths {
     width: 62.5%; }
 
-  .portable-seven-eighths {
+  .large-seven-eighths {
     width: 87.5%; }
 
-  .portable-one-tenth {
+  .large-one-tenth {
     width: 10%; }
 
-  .portable-three-tenths {
+  .large-three-tenths {
     width: 30%; }
 
-  .portable-seven-tenths {
+  .large-seven-tenths {
     width: 70%; }
 
-  .portable-nine-tenths {
+  .large-nine-tenths {
     width: 90%; }
 
-  .portable-one-twelfth {
+  .large-one-twelfth {
     width: 8.333%; }
 
-  .portable-five-twelfths {
+  .large-five-twelfths {
     width: 41.666%; }
 
-  .portable-seven-twelfths {
+  .large-seven-twelfths {
     width: 58.333%; }
 
-  .portable-eleven-twelfths {
+  .large-eleven-twelfths {
     width: 91.666%; } }
 @font-face {
   font-family: 'IcoMoon';

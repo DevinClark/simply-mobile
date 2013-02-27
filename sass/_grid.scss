@@ -4,10 +4,11 @@ $class-type: unquote(".");
 @if $use-silent-classes == true{
 	$class-type: unquote("%");
 }
-$lap-start: 481px;
-$desk-start: 1025px;
-$palm-end: $lap-start - 1px;
-$lap-end: $desk-start - 1px;
+$medium-start: 481px;
+$medium-end: 768px;
+$large-start: 769px;
+$large-end: 1026px;
+$small-end: $medium-start - 1px;
 
 #{$class-type}grid{
 	list-style:none;
@@ -87,10 +88,10 @@ $lap-end: $desk-start - 1px;
 
 @include device-type();
 
-@media only screen and (min-width:$lap-start) and (max-width:$lap-end){
-	@include device-type("lap-");
+@media only screen and (min-width:$medium-start) and (max-width:$medium-end){
+	@include device-type("medium-");
 }
 
-@media only screen and (max-width:$lap-end){
-	@include device-type("portable-");
+@media only screen and (min-width:$large-start) {
+	@include device-type("large-");
 }
