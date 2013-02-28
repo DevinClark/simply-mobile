@@ -17,7 +17,7 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="Callbacks">Callbacks</h1><h5 class="subheader">jQuery.Callbacks()</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><h2>Create a callback list using the following parameters</h2>
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li><li><a href="../../docs/js/assets.js.html#bindDom">bindDom</a></li><li><a href="../../docs/js/assets.js.html#on">on</a></li><li><a href="../../docs/js/assets.js.html#trigger">trigger</a></li><li><a href="../../docs/js/assets.js.html#unlockModal">unlockModal</a></li><li><a href="../../docs/js/assets.js.html#lockModal">lockModal</a></li><li><a href="../../docs/js/assets.js.html#closeOpenModals">closeOpenModals</a></li><li><a href="../../docs/js/assets.js.html#openAnimation">openAnimation</a></li><li><a href="../../docs/js/assets.js.html#closeAnimation">closeAnimation</a></li><li><a href="../../docs/js/assets.js.html#destroy">destroy</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="Callbacks">Callbacks</h1><h5 class="subheader">jQuery.Callbacks()</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><h2>Create a callback list using the following parameters</h2>
 
 <pre><code>options: an optional list of space-separated options that will change how
         the callback list behaves or a more traditional option object
@@ -9217,7 +9217,678 @@ if(typeof window.define === 'function' &amp;&amp; window.define.amd) {
     });
 }
 
-})(window);</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
+})(window);
+
+(function($) {</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="bindDom">bindDom</h1><h5 class="subheader">Hammer.event.bindDom()</h5><div class="tags"><ul class="no-bullet"><li><strong>@param: </strong><span class="types"> {HTMLElement} </span><span class="name">element </span></li><li><strong>@param: </strong><span class="types"> {String} </span><span class="name">eventTypes </span></li><li><strong>@param: </strong><span class="types"> {Function} </span><span class="name">handler </span></li></ul></div><div class="description"><p>bind dom events<br />this overwrites addEventListener</p></div><pre><code class="language-javascript">Hammer.event.bindDom = function(element, eventTypes, handler) {
+        $(element).on(eventTypes, function(ev) {
+            var data = ev.originalEvent;
+
+            // IE pageX fix
+            if(!data.pageX) {
+                data.pageX = ev.pageX;
+                data.pageY = ev.pageY;
+            }
+
+            // IE target fix
+            if(!data.target) {
+                data.target = ev.target;
+            }
+
+            // IE button fix
+            if(data.button) {
+                data.which = data.button;
+            }
+
+            // IE preventDefault
+            if(!data.preventDefault) {
+                data.preventDefault = ev.preventDefault;
+            }
+
+            // IE stopPropagation
+            if(!data.stopPropagation) {
+                data.stopPropagation = ev.stopPropagation;
+            }
+
+            handler.call(this, data);
+        });
+    };</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="on">on</h1><h5 class="subheader">Hammer.Instance.prototype.on()</h5><div class="tags"><ul class="no-bullet"><li><strong>@this: </strong><span class="string">{Hammer.Instance}</span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>the methods are called by the instance, but with the jquery plugin<br />we use the jquery event methods instead.</p></div><pre><code class="language-javascript">Hammer.Instance.prototype.on = function(types, handler) {
+        return $(this.element).on(types, handler);
+    };
+    Hammer.Instance.prototype.off = function(types, handler) {
+        return $(this.element).off(types, handler);
+    };</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="trigger">trigger</h1><h5 class="subheader">Hammer.Instance.prototype.trigger()</h5><div class="tags"><ul class="no-bullet"><li><strong>@this: </strong><span class="string">{Hammer.Instance}</span></li><li><strong>@param: </strong><span class="types"> {String} </span><span class="name">gesture </span></li><li><strong>@param: </strong><span class="types"> {Object} </span><span class="name">eventData </span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>trigger events<br />this is called by the gestures to trigger an event like 'tap'</p></div><pre><code class="language-javascript">Hammer.Instance.prototype.trigger = function(gesture, eventData){
+        return $(eventData.srcEvent.target).trigger({
+            type: gesture,
+            gesture: eventData
+        });
+    };</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@param: </strong><span class="types"> {Object} </span><span class="name">[options={}] </span></li><li><strong>@return: </strong><span class="types"> {jQuery} </span></li></ul></div><div class="description"><p>jQuery plugin<br />create instance of Hammer and watch for gestures,<br />and when called again you can change the options</p></div><pre><code class="language-javascript">$.fn.hammer = function(options) {
+        return this.each(function() {
+            var el = $(this);
+            var inst = el.data('hammer');
+            // start new hammer instance
+            if(!inst) {
+                el.data('hammer', Hammer(this, options || {}));
+            }
+            // change the options
+            else if(inst &amp;&amp; options) {
+                Hammer.utils.extend(inst.options, options);
+            }
+        });
+    };
+})(jQuery);</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>jQuery Reveal Plugin 1.1<br />www.ZURB.com<br />Copyright 2010, ZURB<br />Free to use under the MIT license.<br /><a href='http://www.opensource.org/licenses/mit-license.php'>http://www.opensource.org/licenses/mit-license.php</a></p></div></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>lobals jQuery</p></div><pre><code class="language-javascript">(function ($) {
+  'use strict';
+  //
+  // Global variable.
+  // Helps us determine if the current modal is being queued for display.
+  //
+  var modalQueued = false;
+
+  //
+  // Bind the live 'click' event to all anchor elemnets with the data-reveal-id attribute.
+  //
+  $(document).on('click', 'a[data-reveal-id]', function ( event ) {
+    //
+    // Prevent default action of the event.
+    //
+    event.preventDefault();
+    //
+    // Get the clicked anchor data-reveal-id attribute value.
+    //
+    var modalLocation = $( this ).attr( 'data-reveal-id' );
+    //
+    // Find the element with that modalLocation id and call the reveal plugin.
+    //
+    $( '#' + modalLocation ).reveal( $( this ).data() );
+
+  });</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">{Object} [options] Reveal options</span></li></ul></div><div class="description"><p>@module reveal</p></div><pre><code class="language-javascript">$.fn.reveal = function ( options ) {</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Cache the document object.</p></div><pre><code class="language-javascript">var $doc = $( document ),</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Default property values.</p></div><pre><code class="language-javascript">defaults = {</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">animation</span></li><li><strong>@type: </strong><span class="types"> {String} </span></li><li><strong>@default: </strong><span class="string">fadeAndPop</span></li></ul></div><div class="description"><p>Possible options: fade, fadeAndPop, none</p></div><pre><code class="language-javascript">animation: 'fadeAndPop',</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">animationSpeed</span></li><li><strong>@type: </strong><span class="types"> {Integer} </span></li><li><strong>@default: </strong><span class="string">300</span></li></ul></div><div class="description"><p>Speed at which the reveal should show. How fast animtions are.</p></div><pre><code class="language-javascript">animationSpeed: 300,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">closeOnBackgroundClick</span></li><li><strong>@type: </strong><span class="types"> {Boolean} </span></li><li><strong>@default: </strong><span class="string">true</span></li></ul></div><div class="description"><p>Should the modal close when the background is clicked?</p></div><pre><code class="language-javascript">closeOnBackgroundClick: true,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">dismissModalClass</span></li><li><strong>@type: </strong><span class="types"> {String} </span></li><li><strong>@default: </strong><span class="string">close-reveal-modal</span></li></ul></div><div class="description"><p>Specify a class name for the 'close modal' element.<br />This element will close an open modal.</p>
+
+<pre><code>       @example
+       &lt;a href='#close' class='close-reveal-modal'&gt;Close Me&lt;/a&gt;
+</code></pre></div><pre><code class="language-javascript">dismissModalClass: 'close-reveal-modal',</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">open</span></li><li><strong>@type: </strong><span class="types"> {Function} </span></li><li><strong>@default: </strong><span class="string">function(){}</span></li></ul></div><div class="description"><p>Specify a callback function that triggers 'before' the modal opens.</p></div><pre><code class="language-javascript">open: $.noop,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">opened</span></li><li><strong>@type: </strong><span class="types"> {Function} </span></li><li><strong>@default: </strong><span class="string">function(){}</span></li></ul></div><div class="description"><p>Specify a callback function that triggers 'after' the modal is opened.</p></div><pre><code class="language-javascript">opened: $.noop,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">close</span></li><li><strong>@type: </strong><span class="types"> {Function} </span></li><li><strong>@default: </strong><span class="string">function(){}</span></li></ul></div><div class="description"><p>Specify a callback function that triggers 'before' the modal prepares to close.</p></div><pre><code class="language-javascript">close: $.noop,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"><li><strong>@property: </strong><span class="string">closed</span></li><li><strong>@type: </strong><span class="types"> {Function} </span></li><li><strong>@default: </strong><span class="string">function(){}</span></li></ul></div><div class="description"><p>Specify a callback function that triggers 'after' the modal is closed.</p></div><pre><code class="language-javascript">closed: $.noop
+        }
+    ;
+    //
+    // Extend the default options.
+    // This replaces the passed in option (options) values with default values.
+    //
+    options = $.extend( {}, defaults, options );
+
+    //
+    // Apply the plugin functionality to each element in the jQuery collection.
+    //
+    return this.not('.reveal-modal.open').each( function () {
+        //
+        // Cache the modal element
+        //
+      var modal = $( this ),
+        //
+        // Get the current css 'top' property value in decimal format.
+        //
+        topMeasure = parseInt( modal.css( 'top' ), 10 ),
+        //
+        // Calculate the top offset.
+        //
+        topOffset = modal.height() + topMeasure,
+        //
+        // Helps determine if the modal is locked.
+        // This way we keep the modal from triggering while it's in the middle of animating.
+        //
+        locked = false,
+        //
+        // Get the modal background element.
+        //
+        modalBg = $( '.reveal-modal-bg' ),
+        //
+        // Show modal properties
+        //
+        cssOpts = {
+          //
+          // Used, when we show the modal.
+          //
+          open : {
+            //
+            // Set the 'top' property to the document scroll minus the calculated top offset.
+            //
+            'top': 0,
+            //
+            // Opacity gets set to 0.
+            //
+            'opacity': 0,
+            //
+            // Show the modal
+            //
+            'visibility': 'visible',
+            //
+            // Ensure it's displayed as a block element.
+            //
+            'display': 'block'
+          },
+          //
+          // Used, when we hide the modal.
+          //
+          close : {
+            //
+            // Set the default 'top' property value.
+            //
+            'top': topMeasure,
+            //
+            // Has full opacity.
+            //
+            'opacity': 1,
+            //
+            // Hide the modal
+            //
+            'visibility': 'hidden',
+            //
+            // Ensure the elment is hidden.
+            //
+            'display': 'none'
+          }
+
+        },
+        //
+        // Initial closeButton variable.
+        //
+        $closeButton
+      ;
+
+      //
+      // Do we have a modal background element?
+      //
+      if ( modalBg.length === 0 ) {
+        //
+        // No we don't. So, let's create one.
+        //
+        modalBg = $( '&lt;div /&gt;', { 'class' : 'reveal-modal-bg' } )
+        //
+        // Then insert it after the modal element.
+        //
+        .insertAfter( modal );
+        //
+        // Now, fade it out a bit.
+        //
+        modalBg.fadeTo( 'fast', 0.8 );
+      }
+
+      //
+      // Helper Methods
+      //</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="unlockModal">unlockModal</h1><h5 class="subheader">unlockModal()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">unlockModal</span></li></ul></div><div class="description"><p>Unlock the modal for animation.</p></div><pre><code class="language-javascript">function unlockModal() {
+        locked = false;
+      }</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="lockModal">lockModal</h1><h5 class="subheader">lockModal()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">lockModal</span></li></ul></div><div class="description"><p>Lock the modal to prevent further animation.</p></div><pre><code class="language-javascript">function lockModal() {
+        locked = true;
+      }</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="closeOpenModals">closeOpenModals</h1><h5 class="subheader">closeOpenModals()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">closeOpenModal</span></li></ul></div><div class="description"><p>Closes all open modals.</p></div><pre><code class="language-javascript">function closeOpenModals() {
+        //
+        // Get all reveal-modal elements with the .open class.
+        //
+        var $openModals = $( &quot;.reveal-modal.open&quot; );
+        //
+        // Do we have modals to close?
+        //
+        if ( $openModals.length === 1 ) {
+          //
+          // Set the modals for animation queuing.
+          //
+          modalQueued = true;
+          //
+          // Trigger the modal close event.
+          //
+          $openModals.trigger( &quot;reveal:close&quot; );
+        }
+
+      }</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="openAnimation">openAnimation</h1><h5 class="subheader">openAnimation()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">openAnimation</span></li></ul></div><div class="description"><p>Animates the modal opening.<br />Handles the modal 'open' event.</p></div><pre><code class="language-javascript">function openAnimation() {
+        //
+        // First, determine if we're in the middle of animation.
+        //
+        if ( !locked ) {
+          //
+          // We're not animating, let's lock the modal for animation.
+          //
+          lockModal();
+          //
+          // Close any opened modals.
+          //
+          closeOpenModals();
+          //
+          // Now, add the open class to this modal.
+          //
+          modal.addClass( &quot;open&quot; );
+
+          //
+          // Are we executing the 'fadeAndPop' animation?
+          //
+          if ( options.animation === &quot;fadeAndPop&quot; ) {
+            //
+            // Yes, we're doing the 'fadeAndPop' animation.
+            // Okay, set the modal css properties.
+            //
+            //
+            // Set the 'top' property to the document scroll minus the calculated top offset.
+            //
+            cssOpts.open.top = $doc.scrollTop() - topOffset;
+            //
+            // Flip the opacity to 0.
+            //
+            cssOpts.open.opacity = 0;
+            //
+            // Set the css options.
+            //
+            modal.css( cssOpts.open );
+            //
+            // Fade in the background element, at half the speed of the modal element.
+            // So, faster than the modal element.
+            //
+            modalBg.fadeIn( options.animationSpeed / 2 );
+
+            //
+            // Let's delay the next animation queue.
+            // We'll wait until the background element is faded in.
+            //
+            modal.delay( options.animationSpeed / 2 )
+            //
+            // Animate the following css properties.
+            //
+            .animate( {
+              //
+              // Set the 'top' property to the document scroll plus the calculated top measure.
+              //
+              &quot;top&quot;: $doc.scrollTop() + topMeasure + 'px',
+              //
+              // Set it to full opacity.
+              //
+              &quot;opacity&quot;: 1
+
+            },</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Fade speed.</p></div><pre><code class="language-javascript">options.animationSpeed,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+              //
+              // Trigger the modal reveal:opened event.
+              // This should trigger the functions set in the options.opened property.
+              //
+              modal.trigger( 'reveal:opened' );
+
+            }); // end of animate.
+
+          } // end if 'fadeAndPop'
+
+          //
+          // Are executing the 'fade' animation?
+          //
+          if ( options.animation === &quot;fade&quot; ) {
+            //
+            // Yes, were executing 'fade'.
+            // Okay, let's set the modal properties.
+            //
+            cssOpts.open.top = $doc.scrollTop() + topMeasure;
+            //
+            // Flip the opacity to 0.
+            //
+            cssOpts.open.opacity = 0;
+            //
+            // Set the css options.
+            //
+            modal.css( cssOpts.open );
+            //
+            // Fade in the modal background at half the speed of the modal.
+            // So, faster than modal.
+            //
+            modalBg.fadeIn( options.animationSpeed / 2 );
+
+            //
+            // Delay the modal animation.
+            // Wait till the modal background is done animating.
+            //
+            modal.delay( options.animationSpeed / 2 )
+            //
+            // Now animate the modal.
+            //
+            .animate( {
+              //
+              // Set to full opacity.
+              //
+              &quot;opacity&quot;: 1
+            },</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Animation speed.</p></div><pre><code class="language-javascript">options.animationSpeed,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+              //
+              // Trigger the modal reveal:opened event.
+              // This should trigger the functions set in the options.opened property.
+              //
+              modal.trigger( 'reveal:opened' );
+
+            });
+
+          } // end if 'fade'
+
+          //
+          // Are we not animating?
+          //
+          if ( options.animation === &quot;none&quot; ) {
+            //
+            // We're not animating.
+            // Okay, let's set the modal css properties.
+            //
+            //
+            // Set the top property.
+            //
+            cssOpts.open.top = $doc.scrollTop() + topMeasure;
+            //
+            // Set the opacity property to full opacity, since we're not fading (animating).
+            //
+            cssOpts.open.opacity = 1;
+            //
+            // Set the css property.
+            //
+            modal.css( cssOpts.open );
+            //
+            // Show the modal Background.
+            //
+            modalBg.css( { &quot;display&quot;: &quot;block&quot; } );
+            //
+            // Trigger the modal opened event.
+            //
+            modal.trigger( 'reveal:opened' );
+
+          } // end if animating 'none'
+
+        }// end if !locked
+
+      }// end openAnimation
+
+
+      function openVideos() {
+        var video = modal.find('.flex-video'),
+            iframe = video.find('iframe');
+        if (iframe.length &gt; 0) {
+          iframe.attr(&quot;src&quot;, iframe.data(&quot;src&quot;));
+          video.fadeIn(100);
+        }
+      }
+
+      //
+      // Bind the reveal 'open' event.
+      // When the event is triggered, openAnimation is called
+      // along with any function set in the options.open property.
+      //
+      modal.bind( 'reveal:open.reveal', openAnimation );
+      modal.bind( 'reveal:open.reveal', openVideos);</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="closeAnimation">closeAnimation</h1><h5 class="subheader">closeAnimation()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">closeAnimation</span></li></ul></div><div class="description"><p>Closes the modal element(s)<br />Handles the modal 'close' event.</p></div><pre><code class="language-javascript">function closeAnimation() {
+        //
+        // First, determine if we're in the middle of animation.
+        //
+        if ( !locked ) {
+          //
+          // We're not animating, let's lock the modal for animation.
+          //
+          lockModal();
+          //
+          // Clear the modal of the open class.
+          //
+          modal.removeClass( &quot;open&quot; );
+
+          //
+          // Are we using the 'fadeAndPop' animation?
+          //
+          if ( options.animation === &quot;fadeAndPop&quot; ) {
+            //
+            // Yes, okay, let's set the animation properties.
+            //
+            modal.animate( {
+              //
+              // Set the top property to the document scrollTop minus calculated topOffset.
+              //
+              &quot;top&quot;:  $doc.scrollTop() - topOffset + 'px',
+              //
+              // Fade the modal out, by using the opacity property.
+              //
+              &quot;opacity&quot;: 0
+
+            },</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Fade speed.</p></div><pre><code class="language-javascript">options.animationSpeed / 2,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+              //
+              // Set the css hidden options.
+              //
+              modal.css( cssOpts.close );
+
+            });
+            //
+            // Is the modal animation queued?
+            //
+            if ( !modalQueued ) {
+              //
+              // Oh, the modal(s) are mid animating.
+              // Let's delay the animation queue.
+              //
+              modalBg.delay( options.animationSpeed )
+              //
+              // Fade out the modal background.
+              //
+              .fadeOut(</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Animation speed.</p></div><pre><code class="language-javascript">options.animationSpeed,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+                //
+                // Trigger the modal 'closed' event.
+                // This should trigger any method set in the options.closed property.
+                //
+                modal.trigger( 'reveal:closed' );
+
+              });
+
+            } else {
+              //
+              // We're not mid queue.
+              // Trigger the modal 'closed' event.
+              // This should trigger any method set in the options.closed propety.
+              //
+              modal.trigger( 'reveal:closed' );
+
+            } // end if !modalQueued
+
+          } // end if animation 'fadeAndPop'
+
+          //
+          // Are we using the 'fade' animation.
+          //
+          if ( options.animation === &quot;fade&quot; ) {
+            //
+            // Yes, we're using the 'fade' animation.
+            //
+            modal.animate( { &quot;opacity&quot; : 0 },</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Animation speed.</p></div><pre><code class="language-javascript">options.animationSpeed,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+              //
+              // Set the css close options.
+              //
+              modal.css( cssOpts.close );
+
+            }); // end animate
+
+            //
+            // Are we mid animating the modal(s)?
+            //
+            if ( !modalQueued ) {
+              //
+              // Oh, the modal(s) are mid animating.
+              // Let's delay the animation queue.
+              //
+              modalBg.delay( options.animationSpeed )
+              //
+              // Let's fade out the modal background element.
+              //
+              .fadeOut(</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Animation speed.</p></div><pre><code class="language-javascript">options.animationSpeed,</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>End of animation callback.</p></div><pre><code class="language-javascript">function () {
+                  //
+                  // Trigger the modal 'closed' event.
+                  // This should trigger any method set in the options.closed propety.
+                  //
+                  modal.trigger( 'reveal:closed' );
+
+              }); // end fadeOut
+
+            } else {
+              //
+              // We're not mid queue.
+              // Trigger the modal 'closed' event.
+              // This should trigger any method set in the options.closed propety.
+              //
+              modal.trigger( 'reveal:closed' );
+
+            } // end if !modalQueued
+
+          } // end if animation 'fade'
+
+          //
+          // Are we not animating?
+          //
+          if ( options.animation === &quot;none&quot; ) {
+            //
+            // We're not animating.
+            // Set the modal close css options.
+            //
+            modal.css( cssOpts.close );
+            //
+            // Is the modal in the middle of an animation queue?
+            //
+            if ( !modalQueued ) {
+              //
+              // It's not mid queueu. Just hide it.
+              //
+              modalBg.css( { 'display': 'none' } );
+            }
+            //
+            // Trigger the modal 'closed' event.
+            // This should trigger any method set in the options.closed propety.
+            //
+            modal.trigger( 'reveal:closed' );
+
+          } // end if not animating
+          //
+          // Reset the modalQueued variable.
+          //
+          modalQueued = false;
+        } // end if !locked
+
+      } // end closeAnimation</code></pre></div><div class="comment"><div class="label radius ctx-type">function</div><h1 id="destroy">destroy</h1><h5 class="subheader">destroy()</h5><div class="tags"><ul class="no-bullet"><li><strong>@method: </strong><span class="string">destroy</span></li></ul></div><div class="description"><p>Destroys the modal and it's events.</p></div><pre><code class="language-javascript">function destroy() {
+        //
+        // Unbind all .reveal events from the modal.
+        //
+        modal.unbind( '.reveal' );
+        //
+        // Unbind all .reveal events from the modal background.
+        //
+        modalBg.unbind( '.reveal' );
+        //
+        // Unbind all .reveal events from the modal 'close' button.
+        //
+        $closeButton.unbind( '.reveal' );
+        //
+        // Unbind all .reveal events from the body.
+        //
+        $( 'body' ).unbind( '.reveal' );
+
+      }
+
+      function closeVideos() {
+        var video = modal.find('.flex-video'),
+            iframe = video.find('iframe');
+        if (iframe.length &gt; 0) {
+          iframe.data(&quot;src&quot;, iframe.attr(&quot;src&quot;));
+          iframe.attr(&quot;src&quot;, &quot;&quot;);
+          video.fadeOut(100);  
+        }
+      }
+
+      //
+      // Bind the modal 'close' event
+      //
+      modal.bind( 'reveal:close.reveal', closeAnimation );
+      modal.bind( 'reveal:closed.reveal', closeVideos );
+      //
+      // Bind the modal 'opened' + 'closed' event
+      // Calls the unlockModal method.
+      //
+      modal.bind( 'reveal:opened.reveal reveal:closed.reveal', unlockModal );
+      //
+      // Bind the modal 'closed' event.
+      // Calls the destroy method.
+      //
+      modal.bind( 'reveal:closed.reveal', destroy );
+      //
+      // Bind the modal 'open' event
+      // Handled by the options.open property function.
+      //
+      modal.bind( 'reveal:open.reveal', options.open );
+      //
+      // Bind the modal 'opened' event.
+      // Handled by the options.opened property function.
+      //
+      modal.bind( 'reveal:opened.reveal', options.opened );
+      //
+      // Bind the modal 'close' event.
+      // Handled by the options.close property function.
+      //
+      modal.bind( 'reveal:close.reveal', options.close );
+      //
+      // Bind the modal 'closed' event.
+      // Handled by the options.closed property function.
+      //
+      modal.bind( 'reveal:closed.reveal', options.closed );
+
+      //
+      // We're running this for the first time.
+      // Trigger the modal 'open' event.
+      //
+      modal.trigger( 'reveal:open' );
+
+      //
+      // Get the closeButton variable element(s).
+      //
+     $closeButton = $( '.' + options.dismissModalClass )
+     //
+     // Bind the element 'click' event and handler.
+     //
+     .bind( 'click.reveal', function () {
+        //
+        // Trigger the modal 'close' event.
+        //
+        modal.trigger( 'reveal:close' );
+
+      });
+
+     //
+     // Should we close the modal background on click?
+     //
+     if ( options.closeOnBackgroundClick ) {
+      //
+      // Yes, close the modal background on 'click'
+      // Set the modal background css 'cursor' propety to pointer.
+      // Adds a pointer symbol when you mouse over the modal background.
+      //
+      modalBg.css( { &quot;cursor&quot;: &quot;pointer&quot; } );
+      //
+      // Bind a 'click' event handler to the modal background.
+      //
+      modalBg.bind( 'click.reveal', function () {
+        //
+        // Trigger the modal 'close' event.
+        //
+        modal.trigger( 'reveal:close' );
+
+      });
+
+     }
+
+     //
+     // Bind keyup functions on the body element.
+     // We'll want to close the modal when the 'escape' key is hit.
+     //
+     $( 'body' ).bind( 'keyup.reveal', function ( event ) {
+      //
+      // Did the escape key get triggered?
+      //
+       if ( event.which === 27 ) { // 27 is the keycode for the Escape key
+         //
+         // Escape key was triggered.
+         // Trigger the modal 'close' event.
+         //
+         modal.trigger( 'reveal:close' );
+       }
+
+      }); // end $(body)
+
+    }); // end this.each
+
+  }; // end $.fn
+
+} ( jQuery ) );</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  * MIT license http://www.opensource.org/licenses/mit-license.php/
  * @author Lea Verou http://lea.verou.me

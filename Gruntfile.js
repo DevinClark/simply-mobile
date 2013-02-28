@@ -27,7 +27,8 @@ module.exports = function(grunt) {
 			*/
 			packages: {
 				"jquery": '',
-				"hammer.js": ''
+				"hammer.js": '',
+				"jquery.foundation.reveal": ""
 			},
 		}
 	});

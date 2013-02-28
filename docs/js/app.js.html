@@ -17,7 +17,219 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>ocalStorage.settings.prefix = "taco-";<br />    LocalStorage.set("foo", "taco");<br />    LocalStorage.set("bar", "bell");<br />    LocalStorage.removeAll();<br />    console.log(LocalStorage.getAll());<br />    console.log(window.localStorage);</p></div><pre><code class="language-javascript">//Geolocation
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Simply Mobile</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../docs/js/app.js.html">js/app.js</a><ul></ul></li><li><a href="../../docs/js/app.min.js.html">js/app.min.js</a><ul><li><a href="../../docs/js/app.min.js.html#Modernizr">Modernizr</a></li></ul></li><li><a href="../../docs/js/assets.js.html">js/assets.js</a><ul><li><a href="../../docs/js/assets.js.html#Callbacks">Callbacks</a></li><li><a href="../../docs/js/assets.js.html#event">event</a></li><li><a href="../../docs/js/assets.js.html#isNative">isNative</a></li><li><a href="../../docs/js/assets.js.html#createCache">createCache</a></li><li><a href="../../docs/js/assets.js.html#markFunction">markFunction</a></li><li><a href="../../docs/js/assets.js.html#assert">assert</a></li><li><a href="../../docs/js/assets.js.html#ajaxHandleResponses">ajaxHandleResponses</a></li><li><a href="../../docs/js/assets.js.html#Hammer">Hammer</a></li><li><a href="../../docs/js/assets.js.html#setup">setup</a></li><li><a href="../../docs/js/assets.js.html#Instance">Instance</a></li><li><a href="../../docs/js/assets.js.html#last_move_event">last_move_event</a></li><li><a href="../../docs/js/assets.js.html#enable_detect">enable_detect</a></li><li><a href="../../docs/js/assets.js.html#touch_triggered">touch_triggered</a></li><li><a href="../../docs/js/assets.js.html#bindDom">bindDom</a></li><li><a href="../../docs/js/assets.js.html#on">on</a></li><li><a href="../../docs/js/assets.js.html#trigger">trigger</a></li><li><a href="../../docs/js/assets.js.html#unlockModal">unlockModal</a></li><li><a href="../../docs/js/assets.js.html#lockModal">lockModal</a></li><li><a href="../../docs/js/assets.js.html#closeOpenModals">closeOpenModals</a></li><li><a href="../../docs/js/assets.js.html#openAnimation">openAnimation</a></li><li><a href="../../docs/js/assets.js.html#closeAnimation">closeAnimation</a></li><li><a href="../../docs/js/assets.js.html#destroy">destroy</a></li></ul></li><li><a href="../../docs/js/modernizr.js.html">js/modernizr.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>shint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true</p></div><pre><code class="language-javascript">&quot;use strict&quot;;
+var Modernizr = Modernizr;
+var triggerDown = 'touchstart mousedown';
+var triggerUp = 'touchend mouseup';
+
+var OrientationCheck = {
+	init: function() {
+		$(&quot;body&quot;).addClass(&quot;landscape&quot;);
+		OrientationCheck.check();
+		OrientationCheck.resize();
+	},
+	check: function() {
+		if(window.innerWidth &gt; window.innerHeight) {
+			$(&quot;body&quot;).addClass(&quot;landscape&quot;).removeClass(&quot;portrait&quot;);
+		} else {
+			$(&quot;body&quot;).addClass(&quot;portrait&quot;).removeClass(&quot;landscape&quot;);
+		}
+	},
+	resize: function() {
+		window.addEventListener(&quot;resize&quot;, function() {
+			OrientationCheck.check();
+		}, false);
+	}
+};
+
+var LocalStorage = {
+	settings: {
+		supports: (Modernizr.localstorage) ? true : false,
+		prefix: &quot;sm-&quot; // include separator
+	},
+	get: function(key) {
+		if(!this.settings.supports || key === &quot;&quot;) {
+			return false;
+		}
+		try {
+			return JSON.parse(localStorage.getItem(this.settings.prefix + key));
+		} catch(e) {
+			return false;
+		}
+	},
+	getAll: function() {
+		if(!this.settings.supports) {
+			return false;
+		}
+		try {
+			var output = [];
+			for (var key in localStorage){
+				output.push(key);
+			}
+			return output;
+		} catch(e) {
+			console.log(e);
+			return false;
+		}
+	},
+	set: function(key, value) {
+		if(!this.settings.supports || key === &quot;&quot; || value === &quot;&quot;) {
+			return false;
+		}
+		try {
+			localStorage.setItem(this.settings.prefix + key, value);
+			return true;
+		} catch(e) {
+			return false;
+		}
+	},
+	remove: function(key) {
+		if(!this.settings.supports || key === &quot;&quot;) {
+			return false;
+		}
+		try {
+			localStorage.removeItem(key);
+			return true;
+		} catch(e) {
+			return false;
+		}
+	},
+	removeAll: function() {
+		if(!this.settings.supports) {
+			return false;
+		}
+		try {
+			localStorage.clear();
+			return true;
+		} catch(e) {
+			return false;
+		}
+	}
+};
+
+var Geolocation = {
+	settings: {
+		supports: (Modernizr.geolocation) ? true : false
+	},
+	getLocation: function(mapSelector) {
+		if(this.settings.supports) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var lat = position.coords.latitude;
+				var lon = position.coords.longitude;
+
+				Geolocation.showMap(lat, lon, mapSelector);
+			});
+		}
+	},
+	showMap: function(lat, lon, mapSelector) {
+		var mapOptions = {
+			center: lat + &quot;,&quot; + lon,
+			zoom: 12,
+			size: &quot;300x300&quot;,
+			maptype: &quot;roadmap&quot;,
+			sensor: &quot;true&quot;,
+			scale: 2
+		};
+		var src = &quot;http://maps.googleapis.com/maps/api/staticmap?&quot; + $.param(mapOptions, true).replace(&quot;%2C&quot;, &quot;,&quot;);
+		$(mapSelector).append(&quot;&lt;img /&gt;&quot;);
+		$(mapSelector + &quot; img&quot;).attr({
+			src: src,
+			width: 300,
+			height: 300
+		});
+	}
+};
+
+var MenuActions = {
+	settings: {
+		docHeight: document.documentElement.clientHeight,
+		speed: 200
+	},
+	open: function (){
+		$('.js-content-wrap')
+			.animate({'left': '83.5%'}, this.settings.speed)
+			.addClass('js-left-nav-open');
+
+		$('.js-left-navigation')
+			.addClass('i-am-open')
+			.css({
+				'position': 'fixed',
+				'-webkit-overflow-scrolling': 'touch'
+			});
+
+		$('.js-open-nav-left').css('color','#bada55');
+
+		$(&quot;html, body&quot;).css({
+			&quot;overflow&quot;: &quot;hidden&quot;,
+			&quot;height&quot;: this.settings.docHeight
+		});
+	},
+	close: function (){
+		$('.js-content-wrap')
+			.animate({'left': 0}, this.settings.speed)
+			.removeClass('js-left-nav-open');
+
+		$('.js-left-navigation').removeClass('i-am-open');
+
+		$('.js-open-nav-left').css('color','#fff');
+
+		$(&quot;html, body&quot;).css({
+			&quot;overflow-x&quot;: &quot;auto&quot;,
+			&quot;height&quot;: &quot;auto&quot;
+		});
+	}
+};
+
+var OffCanvasNavigation = {
+	init: function (){
+		this.toggleNavigation();
+		this.useNavigation();
+	},
+	menuMove: {
+		close: function (){ alert('o');}
+	},
+	toggleNavigation: function (){
+		$('.js-open-nav-left').hammer().on('tap',function (){
+			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
+				MenuActions.open();
+			} else {
+				MenuActions.close();
+			}
+		});
+	},
+	useNavigation: function (){
+	}
+};
+
+var ScrollingFixes = {
+	init: function (){
+		this.setScrolling();
+	},
+	setScrolling: function() {
+		var docHeight = document.documentElement.clientHeight;
+		var headerHeight = $('.js-content-wrap header').outerHeight(false);
+
+		$('.js-content-wrap')
+			.css({
+				'height':docHeight
+			})
+			.find('section')
+			.css({
+				'height': docHeight - headerHeight,
+				'overflow': 'scroll',
+				'-webkit-overflow-scrolling': 'touch'
+			});
+	}
+};
+
+jQuery(function($){
+	OrientationCheck.init();
+
+	ScrollingFixes.init();
+
+	OffCanvasNavigation.init();
+
+	// Local Storage</code></pre></div><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>ocalStorage.settings.prefix = "taco-";<br />    LocalStorage.set("foo", "taco");<br />    LocalStorage.set("bar", "bell");<br />    LocalStorage.removeAll();<br />    console.log(LocalStorage.getAll());<br />    console.log(window.localStorage);</p></div><pre><code class="language-javascript">//Geolocation
 	//Geolocation.getLocation(&quot;#js-map&quot;);
 
 	// Make form styling easier

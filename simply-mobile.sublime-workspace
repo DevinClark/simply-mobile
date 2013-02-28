@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"input",
+				"input	input - submit"
+			],
+			[
+				"inner",
+				"process.addListener(type, listener);"
+			],
+			[
 				"daily",
 				"daily_fields_to_display"
 			],
@@ -116,10 +124,6 @@
 				"list-style-image:   (property)"
 			],
 			[
-				"input",
-				"input: input - submit"
-			],
-			[
 				"link",
 				"link: link - icon"
 			],
@@ -140,10 +144,42 @@
 	"buffers":
 	[
 		{
-			"file": "sass/base.scss",
+			"file": "sass/_grid.scss",
 			"settings":
 			{
-				"buffer_size": 335,
+				"buffer_size": 4243,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sass/_mobile.scss",
+			"settings":
+			{
+				"buffer_size": 1328,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "component.json",
+			"settings":
+			{
+				"buffer_size": 170,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "build.sh",
+			"settings":
+			{
+				"buffer_size": 310,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/app.js",
+			"settings":
+			{
+				"buffer_size": 5658,
 				"line_ending": "Unix"
 			}
 		}
@@ -240,6 +276,40 @@
 	},
 	"file_history":
 	[
+		"/Users/dclarkdesign/Sites/simply-mobile/gyro.html",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/hammer.js/examples/carousel.html",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/hammer.js/component.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/index.html",
+		"/Users/dclarkdesign/Sites/simply-mobile/build.sh",
+		"/Users/dclarkdesign/Sites/simply-mobile/component.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/css/base.css",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_mobile.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_grid.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/js/app.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/Gruntfile.js",
+		"/Users/dclarkdesign/Downloads/LeapGamer.com-Leap.jQuery.Three.js.Template v1.0/leap.jquery.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/jquery/component.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/zepto/component.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/assets.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/package.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/grunt.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/js/modernizr.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/js/app.min.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_forms.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_icons.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_tablet.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/base.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_utils.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/fonts/index.html",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_type.scss",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/_reset.scss",
+		"/Users/dclarkdesign/Dropbox/Overdid.it/themeforest-2543882-aquincum-premium-responsive-admin-template/Icomoon icons/style.css",
+		"/Users/dclarkdesign/Sites/simply-mobile/config.rb",
+		"/Users/dclarkdesign/Sites/simply-mobile/css/grid.css",
+		"/Users/dclarkdesign/Sites/simply-mobile/sass/grid.scss",
+		"/Users/dclarkdesign/Downloads/offcanvas 2/javascripts/foundation/jquery.offcanvas.js",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/jb55-domready/component.json",
+		"/Users/dclarkdesign/Sites/simply-mobile/components/component-zepto/component.json",
 		"/Users/dclarkdesign/Sites/simply-mobile/sass/mobile.scss",
 		"/Users/dclarkdesign/Sites/simply-mobile/sass/tablet.scss",
 		"/Users/dclarkdesign/Dropbox/School/Spring 2013/2563 - C#/Lesson4/Lesson 4 Demo Files/ClassDemo7/Person.cs",
@@ -333,41 +403,7 @@
 		"/Users/dclarkdesign/Sites/Class.php",
 		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/single.php",
 		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/js/scripts.js",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/js/snippets.js",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/js/snippets-ck.js",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/portfolio-grid.php",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/portfolio-list.php",
-		"/Users/dclarkdesign/Downloads/sync_wordpress.sh",
-		"/Users/dclarkdesign/Sites/thedev/deploy.ini",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/contact.php",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/plugins/simple-twitter-widget/twitter.php",
-		"/Users/dclarkdesign/Desktop/Class.php",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/zootool.php",
-		"/Users/dclarkdesign/Desktop/transient_caching.php",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/codekit-config.json",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/config.rb",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/404.php",
-		"/Users/dclarkdesign/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/SublimeLinter.sublime-settings",
-		"/Users/dclarkdesign/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/README.rst",
-		"/Users/dclarkdesign/Library/Application Support/Sublime Text 2/Packages/User/SublimeLinter.sublime-settings",
-		"/Users/dclarkdesign/Downloads/h5ai-0.18/h5ai.htaccess",
-		"/Users/dclarkdesign/Downloads/synergy-1.3.8-MacOSX107-Universal/synergy.conf.example",
-		"/Users/dclarkdesign/Downloads/scriptsSourceCode/math3.sh",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/_formalize.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/print.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/config/compass.rb",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/main.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/style.css",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/style.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/_style.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/_formalize.sass",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/_colors.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/blog.php",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/css/ie.css",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/sass/ie.scss",
-		"/Users/dclarkdesign/Sites/thedev/wp-content/plugins/wp-codewall-badges/wp-codewall-badges.php",
-		"/Users/dclarkdesign/Sites/thedev/REVISION",
-		"/Volumes/PATRIOT/Java/Lesson3/Homework3/DevinClarkP3.java"
+		"/Users/dclarkdesign/Sites/thedev/wp-content/themes/thedev/js/snippets.js"
 	],
 	"find":
 	{
@@ -396,6 +432,31 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"for",
+			"palm-",
+			"desk-",
+			"lap-",
+			"portable",
+			"desk-",
+			"lap-",
+			"ele",
+			"doc.",
+			"doc",
+			"win",
+			"MBP",
+			"elem",
+			"touch",
+			"tap",
+			"on(",
+			"on",
+			"2",
+			"math",
+			"web",
+			"Web",
+			"websocket",
+			"));;",
+			"grid",
+			"a",
 			"/* Welcome to Compass.\n * In this file you should write your main styles. (or centralize your imports)\n * Import this file using the following HTML or equivalent:\n * <link href=\"/stylesheets/screen.css\" media=\"screen, projection\" rel=\"stylesheet\" type=\"text/css\" /> */\n\n",
 			"attribute_escape",
 			"getToken",
@@ -499,6 +560,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"small-",
+			"large-",
+			"medium-",
+			"large-",
+			"medium-",
 			"esc_attr",
 			"custom",
 			"Custom",
@@ -521,28 +587,132 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sass/base.scss",
+					"file": "sass/_grid.scss",
 					"settings":
 					{
-						"buffer_size": 335,
+						"buffer_size": 4243,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								325,
-								325
+								4243,
+								4243
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/SCSS/SCSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3262.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "sass/_mobile.scss",
+					"settings":
+					{
+						"buffer_size": 1328,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								677,
+								677
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SCSS/SCSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1743.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "component.json",
+					"settings":
+					{
+						"buffer_size": 170,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "build.sh",
+					"settings":
+					{
+						"buffer_size": 310,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								81,
+								65
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/app.js",
+					"settings":
+					{
+						"buffer_size": 5658,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								306,
+								306
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -641,6 +811,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 228.0,
+	"side_bar_width": 232.0,
 	"status_bar_visible": true
 }

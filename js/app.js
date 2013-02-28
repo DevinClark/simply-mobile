@@ -89,18 +89,6 @@ var LocalStorage = {
 	}
 };
 
-var Modal = {
-	settings: {
-
-	},
-	init: function(s) {
-		for(var key in s){
-			this.settings[key] = s[key];
-		}
-
-	}
-};
-
 var Geolocation = {
 	settings: {
 		supports: (Modernizr.geolocation) ? true : false
@@ -233,6 +221,11 @@ jQuery(function($){
 
 	//Geolocation
 	//Geolocation.getLocation("#js-map");
+
+	$("input[type='submit']").on("click", function() {
+		$("#myModal").reveal();
+		return false;
+	});
 
 	// Make form styling easier
 	$('input[type="button"]').addClass('btn');
