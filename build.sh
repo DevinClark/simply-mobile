@@ -1,5 +1,5 @@
 echo "Building..."
-bower update
+#bower update
 grunt default
 echo "Linting..."
 jshint js/app.js

@@ -2,3 +2,5 @@ js/.DS_Store
 .DS_Store
 
 node_modules/*
+
+*.sublime-workspace

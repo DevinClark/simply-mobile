@@ -1,3 +1,4 @@
+/*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
 "use strict";
 var Modernizr = Modernizr;
 var triggerDown = 'touchstart mousedown';
@@ -10,10 +11,11 @@ var OrientationCheck = {
 		OrientationCheck.resize();
 	},
 	check: function() {
-		if(window.innerWidth > window.innerHeight)
+		if(window.innerWidth > window.innerHeight) {
 			$("body").addClass("landscape").removeClass("portrait");
-		else
+		} else {
 			$("body").addClass("portrait").removeClass("landscape");
+		}
 	},
 	resize: function() {
 		window.addEventListener("resize", function() {
@@ -33,7 +35,6 @@ var LocalStorage = {
 		}
 		try {
 			return JSON.parse(localStorage.getItem(this.settings.prefix + key));
-			return true;
 		} catch(e) {
 			return false;
 		}
@@ -93,7 +94,7 @@ var Modal = {
 
 	},
 	init: function(s) {
-		for(key in s){
+		for(var key in s){
 			this.settings[key] = s[key];
 		}
 
@@ -102,21 +103,21 @@ var Modal = {
 
 var Geolocation = {
 	settings: {
-		supports: (Modernizr.geolocation) ? true : false,
+		supports: (Modernizr.geolocation) ? true : false
 	},
 	getLocation: function(mapSelector) {
 		if(this.settings.supports) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var lat = position.coords.latitude;
-				var long = position.coords.longitude;
+				var lon = position.coords.longitude;
 
-				Geolocation.showMap(lat, long, mapSelector);
+				Geolocation.showMap(lat, lon, mapSelector);
 			});
 		}
 	},
-	showMap: function(lat, long) {
+	showMap: function(lat, lon, mapSelector) {
 		var mapOptions = {
-			center: lat + "," + long,
+			center: lat + "," + lon,
 			zoom: 12,
 			size: "300x300",
 			maptype: "roadmap",
@@ -141,17 +142,17 @@ var MenuActions = {
 	open: function (){
 		$('.js-content-wrap')
 			.animate({'left': '83.5%'}, this.settings.speed)
-			.addClass('js-left-nav-open')
-	
+			.addClass('js-left-nav-open');
+
 		$('.js-left-navigation')
 			.addClass('i-am-open')
 			.css({
 				'position': 'fixed',
 				'-webkit-overflow-scrolling': 'touch'
 			});
-	
+
 		$('.js-open-nav-left').css('color','#bada55');
-		
+
 		$("html, body").css({
 			"overflow": "hidden",
 			"height": this.settings.docHeight
@@ -161,11 +162,11 @@ var MenuActions = {
 		$('.js-content-wrap')
 			.animate({'left': 0}, this.settings.speed)
 			.removeClass('js-left-nav-open');
-	
+
 		$('.js-left-navigation').removeClass('i-am-open');
-	
+
 		$('.js-open-nav-left').css('color','#fff');
-	
+
 		$("html, body").css({
 			"overflow-x": "auto",
 			"height": "auto"
@@ -179,9 +180,9 @@ var OffCanvasNavigation = {
 		this.useNavigation();
 	},
 	menuMove: {
-		close: function (){ alert('o')}
+		close: function (){ alert('o');}
 	},
-	toggleNavigation: function (){		
+	toggleNavigation: function (){
 		$('.js-open-nav-left').hammer().on('tap',function (){
 			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
 				MenuActions.open();
@@ -213,7 +214,7 @@ var ScrollingFixes = {
 				'-webkit-overflow-scrolling': 'touch'
 			});
 	}
-}
+};
 
 jQuery(function($){
 	OrientationCheck.init();
