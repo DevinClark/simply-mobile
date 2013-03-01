@@ -89,12 +89,6 @@
 		<ul class="list-view">
 			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
 			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
 			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
 			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
 			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
@@ -104,19 +98,11 @@
 			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
 			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
 			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
 			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
 			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
 			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
 			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+		<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
 		</ul>
 	</div>
 	
@@ -124,7 +110,7 @@
 	<div class="page page-active js-content-wrap">
 		<header class="fixed-header">
 			<div class="btn-group-left">
-				<a href="#" id="off-canvas-btn" class="btn btn-left icon-list-2 js-open-nav-left"></a>
+				<a href="#" id="off-canvas-btn" class="btn btn-left icon-list-2 js-open-nav"></a>
 				<a href="#" href="#" class="btn btn-left icon-home tablet-only"></a>
 				<a href="#" class="btn btn-left icon-grid-view"></a>
 				<a href="#" class="btn btn-left icon-link tablet-only"></a>
@@ -251,40 +237,6 @@
 		</div>
 	</div>
 
-	<div id="left-nav" class="js-left-navigation">
-		<ul class="list-view">
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-		</ul>
-	</div>
 	<script src="js/modernizr.js"></script>
 	<script src="js/assets.js"></script>
 	<script src="js/app.js"></script>
@@ -292,6 +244,8 @@
 	<script>
 	$(function(){
 		var navWidth = $(document).outerWidth();
+		var delay = 450;
+		var closeDelay = 200;
 
 		$('#test-nav ul li a').each(function(index){
 			if (index%2 !== 0) 
@@ -299,39 +253,43 @@
 			else
 				$(this).css({'right': -navWidth}).addClass('even');
 		});
-	
-	$('.test').on('click',function(){
-		var delay = 550;
-		var num = $('#test-nav ul li a').length;
-
-		if( ! $(this).hasClass('menuopen') ) {
-			$('#test-nav').fadeIn(200);
 		
-			$('.odd').animate({
-				'left': 0
-			}, 500);
-				
-			$('.even').animate({
-				'right': 0
-			}, 500);	
-
-			$(this).html('close').addClass('menuopen');
-		} else {
-			$('.odd').animate({
-				'left': -navWidth
-			}, 400);
-				
-			$('.even').animate({
-				'right': -navWidth
-			}, 400);
+		function menuOpen() {
+			$('#test-nav').fadeIn(200, function(){
+				$('.odd').animate({'left': 0}, delay);
+				$('.even').animate({'right': 0}, delay);
+			});
+		}
+		
+		function menuClose() {
+			$('.odd').animate({'left': -navWidth}, delay);	
+			$('.even').animate({'right': -navWidth}, delay);
 
 			setTimeout(function(){
-				$('#test-nav').fadeOut(400);
-			}, 400)
-			
-			$(this).html('open').removeClass('menuopen');
+				$('#test-nav').fadeOut(200);
+			}, closeDelay)			
 		}
-	});
+		
+		$('#test-nav ul li a').on('click',function(){
+			$('#test-nav ul li a.active').removeClass('active');
+			$(this).addClass('active');
+			
+			setTimeout(function(){
+				menuClose()
+			}, delay-100)
+		});
+	
+		$('.js-open-nav').on('click',function(){	
+			if( ! $(this).hasClass('menuopen') ) {
+				menuOpen();
+				
+				$(this).addClass('menuopen');
+			} else {
+				menuClose();
+			
+				$(this).removeClass('menuopen');
+			}
+		});
 	});
 
 	</script>
