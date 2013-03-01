@@ -220,7 +220,7 @@ var ScrollingFixes = {
 			.css({
 				'height': docHeight - headerHeight,
 				'overflow': 'scroll',
-				'-webkit-overflow-scrolling': 'touchendh'
+				'-webkit-overflow-scrolling': 'touch'
 			});
 	}
 };
