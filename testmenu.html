@@ -18,66 +18,66 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/ico-114.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/ico-144.png" />
 
+	<link rel="stylesheet" href="css/base.css">
 
-<style>
-ul, li {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-#test-nav {
-  position: absolute;
-  z-index: 0;
-  width: 250px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  color: white; }
-
-#test-nav ul li a {
-  opacity: 0;
-  display: block;
-  margin-bottom: 0px;
-  color: #cecece;
-  font-size: 18px;
-  font-weight: 700;
-  text-decoration: none;
-  background: #333;
-  text-shadow: 0 1px 0 black;
-  position: relative;
-  top: 0;
-  left: -250px;
-  padding: 10px 10px; }
-
-#test-nav ul li:nth-child(odd) a {
-	background: #242424
-} 
-
-#test-nav ul {
-	position: relative;
-	background: rgba(0,0,0, .6);
-	padding: 40px 40px 40px 0;	
-}
-#test-nav li {
-	display: block;
-	position: relative;
-}
-
-.test {
-	position: absolute;
-	right: 200px;
-	top: 200px;
-}
-</style>
-
-
+	<style>
+	#test-nav ul li a span {
+		margin: 0 6px 0 5px;
+		width: 20px;
+		display: inline-block;
+		text-align: center; }
+	
+	#test-nav {
+		display: none;
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		top: 47px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+		color: white; }
+	
+	#test-nav ul li a {
+		opacity: 0;
+		display: block;
+		margin-bottom: 0px;
+		color: #cecece;
+		font-size: 18px;
+		font-weight: 700;
+		text-decoration: none;
+		background: #333;
+		text-shadow: 0 1px 0 black;
+		position: relative;
+		top: 0;
+		left: -100%;
+		padding: 10px 10px; }
+	
+	#test-nav ul li a.active {
+		background: #bada55 !important;
+		text-shadow: 0 1px 0 rgba(255,255,255,.5);
+		color: black; }
+	
+	#test-nav ul li:nth-child(odd) a {
+		background: #242424 } 
+	
+	#test-nav ul {
+		position: relative;
+		height: 100%;
+		width: 100%; }
+	
+	#test-nav li {
+		display: block;
+		position: relative; }
+	</style>
 
 </head>
 <body>
-	<div class="test">open</div>
 
-	<div id="test-nav" style="display: block">
+
+	<div id="test-nav">
 		<ul class="list-view">
 			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
 			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
@@ -88,24 +88,211 @@ ul, li {
 			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
 			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
 			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
 		</ul>
 	</div>
 	
+	
+	<div class="page page-active js-content-wrap">
+		<header class="fixed-header">
+			<div class="btn-group-left">
+				<a href="#" id="off-canvas-btn" class="btn btn-left icon-list-2 js-open-nav-left"></a>
+				<a href="#" href="#" class="btn btn-left icon-home tablet-only"></a>
+				<a href="#" class="btn btn-left icon-grid-view"></a>
+				<a href="#" class="btn btn-left icon-link tablet-only"></a>
+				<a href="#" class="btn btn-left icon-cloud tablet-only"></a>
+				<a href="#" class="btn btn-left icon-export tablet-only"></a>
+			</div>
+			<h1 class="test">AppName</h1>
+			<div class="btn-group-right">
+				<a href="#" class="btn icon-user-5 tablet-only"></a>
+				<a href="#" class="btn icon-bookmark tablet-only"></a>
+				<a href="#" class="btn icon-remove-2 tablet-only"></a>
+				<a href="#" class="btn icon-search-2"></a>
+				<a href="#" class="btn icon-wrench tablet-only"></a>
+				<a href="#" class="btn icon-info-3 tablet-only"></a>
+				<a href="#" class="btn icon-settings"></a>
+			</div>
+		</header>
+
+		<section>
+			<h2>Location</h2>
+			<div id="js-map"></div>
+			<div id="location"></div>
+
+			<h2>Grid</h2>
+			<ul class="grid">
+				<li class="grid__item  one-whole  medium-one-half  large-one-fifth">
+					<div class="grid">
+						<div class="grid__item  one-half">
+							<p class="block">Grid</p>
+						</div>
+						<div class="grid__item  one-half">
+							<p class="block">Grid</p>
+						</div>
+					</div>
+				</li>
+				<li class="grid__item  one-whole  medium-one-half  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-quarter  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-half  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-quarter  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-third  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-third  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-third  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-half  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+				<li class="grid__item  one-whole  medium-one-half  large-one-fifth">
+					<p class="block">Grid</p>
+				</li>
+			</ul>
+			<h2>Device Supports</h2>
+			<div id="supports"></div>
+
+			<h2 id="forms">Forms</h2>
+			<form class="one-whole medium-two-thirds">
+				<ul>
+					<li class="one-whole">
+						<label>This is a label.</label>
+						<input type="text" placeholder="Standard Input">
+					</li>
+					<li class="one-whole">
+						<label>Address</label>
+						<input type="text" placeholder="Street">
+					</li>
+					<li class="grid">
+						<div class="grid__item one-whole medium-six-twelfths">
+							<input type="text" placeholder="City">
+						</div>
+						<div class="grid__item one-whole medium-three-twelfths">
+							<input type="text" placeholder="State">
+						</div>
+						<div class="grid__item one-whole medium-three-twelfths">
+							<input type="text" placeholder="ZIP">
+						</div>
+					</li>
+					<li class="one-whole">
+						<textarea placeholder="Message"></textarea>
+					</li>
+					<li class="one-whole">
+						<input type="submit" name="submit" value="Submit">
+					</li>
+				</ul>
+			</form>
+
+			<h2>Buttons</h2>
+			<a href="#" data-reveal-id="myModal" class="btn">Button</a>
+			<br>
+			<a href="#" class="btn success">Success</a>
+			<br>
+			<a href="#" class="btn alert">Alert</a>
+
+			<h2>Typography</h2>
+			<h1>h1 header</h1>
+			<h2>h2 header</h2>
+			<h3>h3 header</h3>
+			<h4>h4 header</h4>
+			<h5>h5 header</h5>
+			<h6>h6 header</h6>
+			<h1><small>Small header text.</small></h1>
+			<h2><small>Small header text.</small></h2>
+			<h3><small>Small header text.</small></h3>
+			<h4><small>Small header text.</small></h4>
+			<h5><small>Small header text.</small></h5>
+			<h6><small>Small header text.</small></h6>
+		</section>
+		<div id="myModal" class="reveal-modal expand">
+			<h2>Awesome. I have it.</h2>
+			<p class="lead">Your couch.  It is mine.</p>
+			<p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+	</div>
+
+	<div id="left-nav" class="js-left-navigation">
+		<ul class="list-view">
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+		</ul>
+	</div>
 	<script src="js/modernizr.js"></script>
 	<script src="js/assets.js"></script>
 	<script src="js/app.js"></script>
+
+	<script>
 	
-	
-	
-	
-	
-	<script>	
 	$('.test').on('click',function(){
 		var delay = 150;
-		
+		var navWidth = $(document).outerWidth();
+		var num = $('#test-nav ul li a').length;
+
 		if( ! $(this).hasClass('menuopen') ) {
+			$('#test-nav').fadeIn(200);
+			
 			$('#test-nav ul li a').each(function(index){
-				$(this).stop().delay(index * (delay/2.5)).animate({
+				$(this).stop().delay(index * (delay/1.5)).animate({
 					'left': 0,
 					'opacity': 1,
 					'-webkit-transform': 'rotateZ(5deg)'
@@ -115,18 +302,21 @@ ul, li {
 			$(this).html('close').addClass('menuopen');
 		} else {
 			$('#test-nav ul li a').each(function(index){
-				$(this).stop().delay(index * (delay/2.5)).animate({
-					'left': -250,
+				$(this).stop().delay(index * (delay/2)).animate({
 					'opacity': 0
 				}, delay);
 			});
 			
+			setTimeout(function(){
+				$('#test-nav').fadeOut(500);
+				$('#test-nav ul li a').css({'left': -navWidth});
+			}, 700)
+			
 			$(this).html('open').removeClass('menuopen');
 		}
 	});
-	
-	
 	</script>
-
+	
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>
