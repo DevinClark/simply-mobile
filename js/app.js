@@ -125,11 +125,14 @@ var Geolocation = {
 var MenuActions = {
 	settings: {
 		docHeight: document.documentElement.clientHeight,
+		docWidth: document.documentElement.clientWidth,
 		speed: 200
 	},
-	open: function (){
+	open: function (amount, speed){
+		amount = (typeof amount === "undefined") ? "83.5%" : (parseInt(amount) + "px");
+		speed = (typeof speed === "undefined") ? 200 : speed;
 		$('.js-content-wrap')
-			.animate({'left': '83.5%'}, this.settings.speed)
+			.animate({'left': amount}, speed)
 			.addClass('js-left-nav-open');
 
 		$('.js-left-navigation')
@@ -146,9 +149,10 @@ var MenuActions = {
 			"height": this.settings.docHeight
 		});
 	},
-	close: function (){
+	close: function (amount){
+		amount = (typeof amount === "undefined") ? "0" : (amount + "px");
 		$('.js-content-wrap')
-			.animate({'left': 0}, this.settings.speed)
+			.animate({'left': amount}, this.settings.speed)
 			.removeClass('js-left-nav-open');
 
 		$('.js-left-navigation').removeClass('i-am-open');
@@ -165,6 +169,7 @@ var MenuActions = {
 var OffCanvasNavigation = {
 	init: function (){
 		this.toggleNavigation();
+		this.swipeNavigation();
 		this.useNavigation();
 	},
 	menuMove: {
@@ -176,6 +181,22 @@ var OffCanvasNavigation = {
 				MenuActions.open();
 			} else {
 				MenuActions.close();
+			}
+		});
+	},
+	swipeNavigation: function() {
+		$('.js-content-wrap').hammer().on("dragleft dragright", function(ev) {
+			ev.gesture.preventDefault();
+			var touches = ev.gesture.touches;
+			var startTouch = ev.gesture.pageY;
+			var distTouch = ev.gesture.distance;
+			if(ev.type === "dragright") {
+				if( touches[0].pageX < (document.documentElement.clientWidth - 60)) {
+					MenuActions.open(touches[0].pageX, 50);
+				}
+			}
+			else if (ev.type === "dragleft") {
+				//MenuActions.close(document.documentElement.clientWidth -touches[0].pageX, 50);
 			}
 		});
 	},
@@ -199,7 +220,7 @@ var ScrollingFixes = {
 			.css({
 				'height': docHeight - headerHeight,
 				'overflow': 'scroll',
-				'-webkit-overflow-scrolling': 'touch'
+				'-webkit-overflow-scrolling': 'touchendh'
 			});
 	}
 };
