@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Simply Mobile</title>
+	<meta name="description" content="">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="cleartype" content="on">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="SimplyMobile">
+	
+	<link rel="apple-touch-icon-precomposed" href="img/ico/ico-57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/ico-72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/ico-114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/ico-144.png" />
+
+
+<style>
+ul, li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#test-nav {
+  position: absolute;
+  z-index: 0;
+  width: 250px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  color: white; }
+
+#test-nav ul li a {
+  opacity: 0;
+  display: block;
+  margin-bottom: 0px;
+  color: #cecece;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  background: #333;
+  text-shadow: 0 1px 0 black;
+  position: relative;
+  top: 0;
+  left: -250px;
+  padding: 10px 10px; }
+
+#test-nav ul li:nth-child(odd) a {
+	background: #242424
+} 
+
+#test-nav ul {
+	position: relative;
+	background: rgba(0,0,0, .6);
+	padding: 40px 40px 40px 0;	
+}
+#test-nav li {
+	display: block;
+	position: relative;
+}
+
+.test {
+	position: absolute;
+	right: 200px;
+	top: 200px;
+}
+</style>
+
+
+
+</head>
+<body>
+	<div class="test">open</div>
+
+	<div id="test-nav" style="display: block">
+		<ul class="list-view">
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+		</ul>
+	</div>
+	
+	<script src="js/modernizr.js"></script>
+	<script src="js/assets.js"></script>
+	<script src="js/app.js"></script>
+	
+	
+	
+	
+	
+	<script>	
+	$('.test').on('click',function(){
+		var delay = 150;
+		
+		if( ! $(this).hasClass('menuopen') ) {
+			$('#test-nav ul li a').each(function(index){
+				$(this).stop().delay(index * (delay/2.5)).animate({
+					'left': 0,
+					'opacity': 1,
+					'-webkit-transform': 'rotateZ(5deg)'
+				}, delay);
+			});
+			
+			$(this).html('close').addClass('menuopen');
+		} else {
+			$('#test-nav ul li a').each(function(index){
+				$(this).stop().delay(index * (delay/2.5)).animate({
+					'left': -250,
+					'opacity': 0
+				}, delay);
+			});
+			
+			$(this).html('open').removeClass('menuopen');
+		}
+	});
+	
+	
+	</script>
+
+</body>
+</html>
