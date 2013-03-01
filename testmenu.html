@@ -38,22 +38,30 @@
 		right: 0;
 		overflow: scroll;
 		-webkit-overflow-scrolling: touch;
+		background: rgba(0,0,0,.5);
 		color: white; }
 	
 	#test-nav ul li a {
-		opacity: 0;
+		opacity: 1;
 		display: block;
 		margin-bottom: 0px;
-		color: #cecece;
+		color: black;
 		font-size: 18px;
 		font-weight: 700;
 		text-decoration: none;
-		background: #333;
+		background: #fff;
 		text-shadow: 0 1px 0 black;
 		position: relative;
 		top: 0;
-		left: -100%;
+		text-shadow: 0 1px 0 rgba(255,255,255,.5);
 		padding: 10px 10px; }
+
+	#test-nav ul li a.odd {
+		left: 0;
+	}
+	#test-nav ul li a.even {
+		right: 0;
+	}
 	
 	#test-nav ul li a.active {
 		background: #bada55 !important;
@@ -61,7 +69,7 @@
 		color: black; }
 	
 	#test-nav ul li:nth-child(odd) a {
-		background: #242424 } 
+		background: #f2f2f2 } 
 	
 	#test-nav ul {
 		position: relative;
@@ -282,39 +290,50 @@
 	<script src="js/app.js"></script>
 
 	<script>
+	$(function(){
+		var navWidth = $(document).outerWidth();
+
+		$('#test-nav ul li a').each(function(index){
+			if (index%2 !== 0) 
+				$(this).css({'left': -navWidth}).addClass('odd');
+			else
+				$(this).css({'right': -navWidth}).addClass('even');
+		});
 	
 	$('.test').on('click',function(){
-		var delay = 150;
-		var navWidth = $(document).outerWidth();
+		var delay = 550;
 		var num = $('#test-nav ul li a').length;
 
 		if( ! $(this).hasClass('menuopen') ) {
 			$('#test-nav').fadeIn(200);
-			
-			$('#test-nav ul li a').each(function(index){
-				$(this).stop().delay(index * (delay/1.5)).animate({
-					'left': 0,
-					'opacity': 1,
-					'-webkit-transform': 'rotateZ(5deg)'
-				}, delay);
-			});
-			
+		
+			$('.odd').animate({
+				'left': 0
+			}, 500);
+				
+			$('.even').animate({
+				'right': 0
+			}, 500);	
+
 			$(this).html('close').addClass('menuopen');
 		} else {
-			$('#test-nav ul li a').each(function(index){
-				$(this).stop().delay(index * (delay/2)).animate({
-					'opacity': 0
-				}, delay);
-			});
-			
+			$('.odd').animate({
+				'left': -navWidth
+			}, 400);
+				
+			$('.even').animate({
+				'right': -navWidth
+			}, 400);
+
 			setTimeout(function(){
-				$('#test-nav').fadeOut(500);
-				$('#test-nav ul li a').css({'left': -navWidth});
-			}, 700)
+				$('#test-nav').fadeOut(400);
+			}, 400)
 			
 			$(this).html('open').removeClass('menuopen');
 		}
 	});
+	});
+
 	</script>
 	
 	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
