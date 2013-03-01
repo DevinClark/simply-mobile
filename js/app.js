@@ -161,14 +161,14 @@ var Navigation = {
 		$('.odd').animate({'left': -self.s.navWidth}, self.s.delay);	
 		$('.even').animate({'right': -self.s.navWidth}, self.s.delay);
 
-		setTimeout(function(){
+		setTimeout(function (){
 			$(self.s.menuContainer).fadeOut(self.s.fadeDelay);
 		}, self.s.closeDelay);
 	},
 	openEvent: function (){
 		var self = this;
 		
-		$(self.s.navTrigger).on('click',function(){	
+		$(self.s.navTrigger).on('click',function (){	
 			if( ! $(this).hasClass('menuopen') ) {
 				self.showMenu();			
 				$(this).addClass('menuopen');
@@ -181,11 +181,11 @@ var Navigation = {
 	clickNavItem: function (){
 		var self = this;
 
-		$(self.s.menuItems).on('click',function(){
+		$(self.s.menuItems).on('click',function (){
 			$(self.s.menuItems).removeClass('active');
 			$(this).addClass('active');
 			
-			setTimeout(function(){
+			setTimeout(function (){
 				self.hideMenu();
 			}, 200)
 		});
@@ -195,6 +195,7 @@ var Navigation = {
 var ScrollingFixes = {
 	init: function (){
 		this.setScrolling();
+		this.disableElastic();
 	},
 	setScrolling: function() {
 		var docHeight = document.documentElement.clientHeight;
@@ -210,8 +211,65 @@ var ScrollingFixes = {
 				'overflow': 'scroll',
 				'-webkit-overflow-scrolling': 'touch'
 			});
-	}
+	},
+	disableElastic: function (){
+		var initialY = null;
+		var nodeStack = [];
+		var $window = $(window);
+
+		$window.bind('touchstart', function(e) {
+			initialY = e.originalEvent.pageY;
+			nodeStack = $(e.target).parents().andSelf().filter(':not(body, html)').get().reverse();
+			nodeStack = nodeStack.map(function(node) {
+				return $(node);
+			});
+		});
+		
+		$window.bind('touchend touchcancel', function(e) {
+			initialY = null;
+			nodeStack = [];
+		});
+
+		$window.bind('touchmove', function(e) {		
+			if (!initialY)
+				e.preventDefault();
+			
+			var direction = e.originalEvent.pageY - initialY;
+			
+			for (var i = 0; i < nodeStack.length; i +=1) {
+				var $node = nodeStack[i];
+				var nodeHeight = $node.height();
+				var scrollHeight = $node[0].scrollHeight - 2;
+				var nodeScrollTop = $node.scrollTop();
+				
+				if (scrollHeight > nodeHeight) {
+					var allowedUp = direction > 0 && nodeScrollTop > 0;
+				
+					var allowedDown = direction < 0 && nodeScrollTop < scrollHeight - nodeHeight;
+					
+					if (allowedUp || allowedDown) {
+						return;
+					}
+				}
+			}
+			
+			e.preventDefault();
+		});
+	}	
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 jQuery(function($){
 	OrientationCheck.init();
