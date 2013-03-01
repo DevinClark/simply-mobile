@@ -245,7 +245,8 @@
 	$(function(){
 		var navWidth = $(document).outerWidth();
 		var delay = 450;
-		var closeDelay = 200;
+		var closeDelay = 300;
+		var fadeDelay = 400;
 
 		$('#test-nav ul li a').each(function(index){
 			if (index%2 !== 0) 
@@ -255,7 +256,7 @@
 		});
 		
 		function menuOpen() {
-			$('#test-nav').fadeIn(200, function(){
+			$('#test-nav').fadeIn(fadeDelay, function(){
 				$('.odd').animate({'left': 0}, delay);
 				$('.even').animate({'right': 0}, delay);
 			});
@@ -266,7 +267,7 @@
 			$('.even').animate({'right': -navWidth}, delay);
 
 			setTimeout(function(){
-				$('#test-nav').fadeOut(200);
+				$('#test-nav').fadeOut(fadeDelay);
 			}, closeDelay)			
 		}
 		
@@ -276,17 +277,15 @@
 			
 			setTimeout(function(){
 				menuClose()
-			}, delay-100)
+			}, 200)
 		});
 	
-		$('.js-open-nav').on('click',function(){	
+		$('.js-open-nav-left').on('touchstart',function(){	
 			if( ! $(this).hasClass('menuopen') ) {
-				menuOpen();
-				
+				menuOpen();				
 				$(this).addClass('menuopen');
 			} else {
 				menuClose();
-			
 				$(this).removeClass('menuopen');
 			}
 		});

@@ -21,14 +21,93 @@
 	<link rel="stylesheet" href="css/base.css">
 
 	<style>
+	#main-nav ul li a span {
+		margin: 0 6px 0 5px;
+		width: 20px;
+		display: inline-block;
+		text-align: center; }
+	
+	#main-nav {
+		display: none;
+		position: absolute;
+		z-index: 2;
+		width: 100%;
+		top: 47px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+		background: rgba(0,0,0,.5);
+		color: white; }
+	
+	#main-nav ul li a {
+		opacity: 1;
+		display: block;
+		margin-bottom: 0px;
+		color: black;
+		font-size: 18px;
+		font-weight: 700;
+		text-decoration: none;
+		background: #fff;
+		text-shadow: 0 1px 0 black;
+		position: relative;
+		top: 0;
+		text-shadow: 0 1px 0 rgba(255,255,255,.5);
+		padding: 10px 10px; }
 
+	#main-nav ul li a.odd {
+		left: 0;
+	}
+	#main-nav ul li a.even {
+		right: 0;
+	}
+	
+	#main-nav ul li a.active {
+		background: #bada55 !important;
+		text-shadow: 0 1px 0 rgba(255,255,255,.5);
+		color: black; }
+	
+	#main-nav ul li:nth-child(odd) a {
+		background: #f2f2f2 } 
+	
+	#main-nav ul {
+		position: relative;
+		height: 100%;
+		width: 100%; }
+	
+	#main-nav li {
+		display: block;
+		position: relative; }
 	</style>
 </head>
 <body>
+	<div id="main-nav">
+		<ul class="list-view">
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
+			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
+			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
+			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
+		<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
+		</ul>
+	</div>
+	
+	
 	<div class="page page-active js-content-wrap">
 		<header class="fixed-header">
 			<div class="btn-group-left">
-				<a href="#" id="off-canvas-btn" class="btn btn-left icon-list-2 js-open-nav-left"></a>
+				<a href="#" id="off-canvas-btn" class="btn btn-left icon-list-2 js-open-nav"></a>
 				<a href="#" href="#" class="btn btn-left icon-home tablet-only"></a>
 				<a href="#" class="btn btn-left icon-grid-view"></a>
 				<a href="#" class="btn btn-left icon-link tablet-only"></a>
@@ -155,40 +234,6 @@
 		</div>
 	</div>
 
-	<div id="left-nav" class="js-left-navigation">
-		<ul class="list-view">
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a class="active" href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-			<li><a href="#"><span class="icon-heart"></span> Apple</a></li>
-			<li><a href="#"><span class="icon-document_alt_fill"></span> Banana</a></li>
-			<li><a href="#"><span class="icon-movie"></span> Cherry</a></li>
-			<li><a href="#"><span class="icon-pin"></span> Cranberry</a></li>
-			<li><a href="#"><span class="icon-trash_fill"></span> Grape</a></li>
-			<li><a href="#"><span class="icon-beaker"></span> Orange</a></li>
-		</ul>
-	</div>
 	<script src="js/modernizr.js"></script>
 	<script src="js/assets.js"></script>
 	<script src="js/app.js"></script>

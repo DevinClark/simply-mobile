@@ -122,87 +122,75 @@ var Geolocation = {
 	}
 };
 
-var MenuActions = {
-	settings: {
-		docHeight: document.documentElement.clientHeight,
-		docWidth: document.documentElement.clientWidth,
-		speed: 200
+var Navigation = {
+	s: {
+		navWidth: $(document).width(),
+		delay: 450,
+		closeDelay: 300,
+		fadeDelay: 400,
+		navTrigger: '.js-open-nav',
+		menuContainer: '#main-nav',
+		menuItems: '#main-nav ul li a',
 	},
-	open: function (amount, speed){
-		amount = (typeof amount === "undefined") ? "83.5%" : (parseInt(amount) + "px");
-		speed = (typeof speed === "undefined") ? 200 : speed;
-		$('.js-content-wrap')
-			.animate({'left': amount}, speed)
-			.addClass('js-left-nav-open');
-
-		$('.js-left-navigation')
-			.addClass('i-am-open')
-			.css({
-				'position': 'fixed',
-				'-webkit-overflow-scrolling': 'touch'
-			});
-
-		$('.js-open-nav-left').css('color','#bada55');
-
-		$("html, body").css({
-			"overflow": "hidden",
-			"height": this.settings.docHeight
-		});
-	},
-	close: function (amount){
-		amount = (typeof amount === "undefined") ? "0" : (amount + "px");
-		$('.js-content-wrap')
-			.animate({'left': amount}, this.settings.speed)
-			.removeClass('js-left-nav-open');
-
-		$('.js-left-navigation').removeClass('i-am-open');
-
-		$('.js-open-nav-left').css('color','#fff');
-
-		$("html, body").css({
-			"overflow-x": "auto",
-			"height": "auto"
-		});
-	}
-};
-
-var OffCanvasNavigation = {
 	init: function (){
-		this.toggleNavigation();
-		this.swipeNavigation();
-		this.useNavigation();
+		this.addClasses();
+		this.openEvent();
+		this.clickNavItem();
 	},
-	menuMove: {
-		close: function (){ alert('o');}
+	addClasses: function (){
+		var self = this;
+		
+		$(self.s.menuItems).each(function (index){			
+			if (index%2 !== 0) 
+				$(this).css({'left': -self.s.navWidth}).addClass('odd');
+			else
+				$(this).css({'right': -self.s.navWidth}).addClass('even');
+		});	
 	},
-	toggleNavigation: function (){
-		$('.js-open-nav-left').hammer().on('tap',function (){
-			if( ! $('.js-content-wrap').hasClass('js-left-nav-open') ) {
-				MenuActions.open();
+	showMenu: function (){
+		var self = this;
+		
+		$(this.s.menuContainer).fadeIn(self.s.fadeDelay, function (){
+			$('.odd').animate({'left': 0}, self.s.delay);
+			$('.even').animate({'right': 0}, self.s.delay);
+		});
+	},
+	hideMenu: function (){
+		var self = this;
+		
+		$('.odd').animate({'left': -self.s.navWidth}, self.s.delay);	
+		$('.even').animate({'right': -self.s.navWidth}, self.s.delay);
+
+		setTimeout(function(){
+			$(self.s.menuContainer).fadeOut(self.s.fadeDelay);
+		}, self.s.closeDelay);
+	},
+	openEvent: function (){
+		var self = this;
+		
+		$(self.s.navTrigger).on('click',function(){	
+			if( ! $(this).hasClass('menuopen') ) {
+				self.showMenu();			
+				$(this).addClass('menuopen');
 			} else {
-				MenuActions.close();
+				self.hideMenu();
+				$(this).removeClass('menuopen');
 			}
 		});
 	},
-	swipeNavigation: function() {
-		$('.js-content-wrap').hammer().on("dragleft dragright", function(ev) {
-			ev.gesture.preventDefault();
-			var touches = ev.gesture.touches;
-			if(ev.type === "dragright") {
-				if( touches[0].pageX < 50 ) {
-					MenuActions.open(undefined, 200);
-					ev.gesture.stopDetect();
-				}
-			}
-			else if (ev.type === "dragleft") {
-				MenuActions.close(undefined, 200);
-				ev.gesture.stopDetect();
-			}
+	clickNavItem: function (){
+		var self = this;
+
+		$(self.s.menuItems).on('click',function(){
+			$(self.s.menuItems).removeClass('active');
+			$(this).addClass('active');
+			
+			setTimeout(function(){
+				self.hideMenu();
+			}, 200)
 		});
-	},
-	useNavigation: function (){
 	}
-};
+}
 
 var ScrollingFixes = {
 	init: function (){
@@ -230,8 +218,8 @@ jQuery(function($){
 
 	ScrollingFixes.init();
 
-	OffCanvasNavigation.init();
-
+	Navigation.init();
+	
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
