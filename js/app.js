@@ -188,15 +188,15 @@ var OffCanvasNavigation = {
 		$('.js-content-wrap').hammer().on("dragleft dragright", function(ev) {
 			ev.gesture.preventDefault();
 			var touches = ev.gesture.touches;
-			var startTouch = ev.gesture.pageY;
-			var distTouch = ev.gesture.distance;
 			if(ev.type === "dragright") {
-				if( touches[0].pageX < (document.documentElement.clientWidth - 60)) {
-					MenuActions.open(touches[0].pageX, 50);
+				if( touches[0].pageX < 50 ) {
+					MenuActions.open(undefined, 200);
+					ev.gesture.stopDetect();
 				}
 			}
 			else if (ev.type === "dragleft") {
-				//MenuActions.close(document.documentElement.clientWidth -touches[0].pageX, 50);
+				MenuActions.close(undefined, 200);
+				ev.gesture.stopDetect();
 			}
 		});
 	},
