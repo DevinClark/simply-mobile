@@ -125,8 +125,7 @@ var Geolocation = {
 var Navigation = {
 	s: {
 		navWidth: $(document).width(),
-		delay: 450,
-		closeDelay: 300,
+		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
 		menuContainer: '#main-nav',
@@ -150,10 +149,9 @@ var Navigation = {
 	showMenu: function (){
 		var self = this;
 		
-		$(this.s.menuContainer).fadeIn(self.s.fadeDelay, function (){
-			$('.odd').animate({'left': 0}, self.s.delay);
-			$('.even').animate({'right': 0}, self.s.delay);
-		});
+		$(this.s.menuContainer).show();
+		$('.odd').animate({'left': 0}, {duration: self.s.delay, easing: 'linear'});
+		$('.even').animate({'right': 0}, self.s.delay);
 	},
 	hideMenu: function (){
 		var self = this;
@@ -162,13 +160,13 @@ var Navigation = {
 		$('.even').animate({'right': -self.s.navWidth}, self.s.delay);
 
 		setTimeout(function (){
-			$(self.s.menuContainer).fadeOut(self.s.fadeDelay);
-		}, self.s.closeDelay);
+			$(self.s.menuContainer).hide();
+		}, self.s.delay);
 	},
 	openEvent: function (){
 		var self = this;
 		
-		$(self.s.navTrigger).on('click',function (){	
+		$(self.s.navTrigger).on('touchstart',function (){	
 			if( ! $(this).hasClass('menuopen') ) {
 				self.showMenu();			
 				$(this).addClass('menuopen');
