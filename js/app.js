@@ -11,17 +11,43 @@ var AjaxController = {
 	init: function (){
 		var self = this;
 	},
-	load: function (htmlPage){		
-		$('.page section').fadeOut(200, function (){
-			$.ajax({
-				url: htmlPage,
-				cache: false
-			}).done(function( html ) {
+	loadingShow: function (){
+		$('#ajaxLoading').show();
+		
+		$('#busy').activity({
+			segments: 10, 
+			align: 'center', 
+			valign: 'center', 
+			steps: 7, 
+			width: 14, 
+			space: 10, 
+			length: 20, 
+			opacity: 0,
+			color: '#fff', 
+			speed: 2
+		});
+	},
+	loadingHide: function (){
+		$('#ajaxLoading').hide();
+		$('#busy').activity('false');
+	},
+	load: function (htmlPage){
+		var self = this;
+
+		self.loadingShow();
+		
+		$.ajax({
+			url: htmlPage,
+			cache: false
+		}).done(function (html){
+			setTimeout(function (){
 				$('.page section')
-					.html(html)
-					.delay(200)
-					.fadeIn(200);
-			});
+					.html(html)								
+					.delay(1200)
+					
+				self.loadingHide();
+			
+			}, 1000);
 		});
 	}
 }
@@ -191,7 +217,7 @@ var Navigation = {
 	openEvent: function (){
 		var self = this;
 		
-		$(self.s.navTrigger).on('touchstart',function (){	
+		$(self.s.navTrigger).on('click',function (){	
 			if( ! $(this).hasClass('menuopen') ) {
 				self.showMenu();			
 				$(this).addClass('menuopen');
@@ -304,6 +330,9 @@ var ScrollingFixes = {
 
 
 jQuery(function($){
+
+
+	
 	OrientationCheck.init();
 
 	ScrollingFixes.init();
