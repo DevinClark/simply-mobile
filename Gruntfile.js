@@ -27,14 +27,37 @@ module.exports = function(grunt) {
 			*/
 			packages: {
 				"jquery": '',
-				"hammer.js": '',
+				"jquery.hammer": '',
 				"jquery.foundation.reveal": "",
 				"jquery.easing.1.3": ""
 			},
+		},
+		jshint: {
+			all: ['js/app.js']
+		},
+		uglify: {
+			build: {
+				files: {
+					'js/app.min.js': [
+						'js/modernizr.js',
+						'js/assets.js',
+						'js/app.js'
+					]
+				}
+			}
+		},
+		cssmin: {
+			build: {
+				src: 'css/base.css',
+				dest: 'css/base.min.css'
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-bowerful');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-css');
 
-	grunt.registerTask('default', ['bowerful']);
+	grunt.registerTask('default', ['bowerful', 'uglify', 'cssmin', 'jshint']);
 };
