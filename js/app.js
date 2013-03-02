@@ -4,6 +4,29 @@ var Modernizr = Modernizr;
 var triggerDown = 'touchstart mousedown';
 var triggerUp = 'touchend mouseup';
 
+var AjaxController = {
+	s: {
+		
+	},
+	init: function (){
+		var self = this;
+	},
+	load: function (htmlPage){		
+		$('.page section').fadeOut(200, function (){
+			$.ajax({
+				url: htmlPage,
+				cache: false
+			}).done(function( html ) {
+				$('.page section')
+					.html(html)
+					.delay(200)
+					.fadeIn(200);
+			});
+		});
+	}
+}
+
+
 var OrientationCheck = {
 	init: function() {
 		$("body").addClass("landscape");
@@ -130,6 +153,8 @@ var Navigation = {
 		navTrigger: '.js-open-nav',
 		menuContainer: '#main-nav',
 		menuItems: '#main-nav ul li a',
+		easingIn: 'easeOutQuart',
+		easingOut: 'easeInOutQuart'
 	},
 	init: function (){
 		this.addClasses();
@@ -150,14 +175,14 @@ var Navigation = {
 		var self = this;
 		
 		$(this.s.menuContainer).show();
-		$('.odd').animate({'left': 0}, {duration: self.s.delay, easing: 'linear'});
-		$('.even').animate({'right': 0}, self.s.delay);
+		$('.odd').animate({'left': 0}, self.s.delay, self.s.easingIn);
+		$('.even').animate({'right': 0}, self.s.delay, self.s.easingIn);
 	},
 	hideMenu: function (){
 		var self = this;
 		
-		$('.odd').animate({'left': -self.s.navWidth}, self.s.delay);	
-		$('.even').animate({'right': -self.s.navWidth}, self.s.delay);
+		$('.odd').animate({'left': -self.s.navWidth}, self.s.delay, self.s.easingOut);	
+		$('.even').animate({'right': -self.s.navWidth}, self.s.delay, self.s.easingOut);
 
 		setTimeout(function (){
 			$(self.s.menuContainer).hide();
@@ -179,13 +204,22 @@ var Navigation = {
 	clickNavItem: function (){
 		var self = this;
 
-		$(self.s.menuItems).on('click',function (){
+		$(self.s.menuItems).on('click',function (e){
+			e.preventDefault();
+			
+			var href = $(this).data('href');
+			
 			$(self.s.menuItems).removeClass('active');
+			
 			$(this).addClass('active');
 			
 			setTimeout(function (){
 				self.hideMenu();
-			}, 200)
+			
+				setTimeout(function (){
+					AjaxController.load(href);
+				}, 500);
+			}, 200);
 		});
 	}
 }
@@ -276,6 +310,8 @@ jQuery(function($){
 
 	Navigation.init();
 	
+	
+	AjaxController.init();
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
@@ -303,6 +339,15 @@ jQuery(function($){
 	$('input[type="reset"]').addClass('reset');
 	$('input[type="text"]').addClass('text');
 	$('input[type="email"]').addClass('email');
+
+	var a = document.getElementsByTagName("a");
+
+	for (var i = 0; i < a.length; i++){
+		a[i].onclick = function (){
+			window.location = this.getAttribute("href");
+			return false
+		}
+	}
 
 	// Lists what the device supports.
 	var supportsOutput = "";
