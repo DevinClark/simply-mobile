@@ -29,7 +29,8 @@ module.exports = function(grunt) {
 				"jquery": '',
 				"jquery.hammer": '',
 				"jquery.foundation.reveal": "",
-				"jquery.easing.1.3": ""
+				"jquery.easing.1.3": "",
+				"activity-indicator": ""
 			},
 		},
 		jshint: {
