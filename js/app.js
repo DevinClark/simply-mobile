@@ -43,14 +43,14 @@ var AjaxController = {
 			setTimeout(function (){
 				$('.page section')
 					.html(html)								
-					.delay(1200)
+					.delay(1200);
 					
 				self.loadingHide();
 			
 			}, 1000);
 		});
 	}
-}
+};
 
 
 var OrientationCheck = {
@@ -191,10 +191,11 @@ var Navigation = {
 		var self = this;
 		
 		$(self.s.menuItems).each(function (index){			
-			if (index%2 !== 0) 
+			if (index%2 !== 0) {
 				$(this).css({'left': -self.s.navWidth}).addClass('odd');
-			else
+			} else {
 				$(this).css({'right': -self.s.navWidth}).addClass('even');
+			}
 		});	
 	},
 	showMenu: function (){
@@ -248,7 +249,7 @@ var Navigation = {
 			}, 200);
 		});
 	}
-}
+};
 
 var ScrollingFixes = {
 	init: function (){
