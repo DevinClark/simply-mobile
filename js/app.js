@@ -12,7 +12,7 @@ var AjaxController = {
 		var self = this;
 	},
 	loadingShow: function (){
-		$('#ajaxLoading').show();
+		$("body").prepend("<div id='ajaxLoading'><div id='busy'></div></div>");
 		
 		$('#busy').activity({
 			segments: 10, 
@@ -28,7 +28,7 @@ var AjaxController = {
 		});
 	},
 	loadingHide: function (){
-		$('#ajaxLoading').hide();
+		$('#ajaxLoading').remove();
 		$('#busy').activity('false');
 	},
 	load: function (htmlPage){
