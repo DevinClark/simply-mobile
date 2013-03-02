@@ -374,8 +374,11 @@ jQuery(function($){
 
 	for (var i = 0; i < a.length; i++){
 		a[i].onclick = function (){
-			window.location = this.getAttribute("href");
-			return false
+			var href = this.getAttribute("href");
+			if(href != null) {
+				window.location = href;
+				return false;
+			}
 		}
 	}
 
