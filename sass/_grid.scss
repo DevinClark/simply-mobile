@@ -1,14 +1,8 @@
-$gutter: 24px;
 $use-silent-classes: false;
 $class-type: unquote(".");
 @if $use-silent-classes == true{
 	$class-type: unquote("%");
 }
-$medium-start: 481px;
-$medium-end: 768px;
-$large-start: 769px;
-$large-end: 1026px;
-$small-end: $medium-start - 1px;
 
 #{$class-type}grid{
 	list-style:none;

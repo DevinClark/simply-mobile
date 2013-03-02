@@ -2,6 +2,13 @@
 
 @import "_reset";
 
+$gutter: 24px;
+$medium-start: 481px;
+$medium-end: 768px;
+$large-start: 769px;
+$large-end: 1026px;
+$small-end: $medium-start - 1px;
+
 @import "_grid";
 @import "_utils";
 @import "_icons";

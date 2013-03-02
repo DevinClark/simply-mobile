@@ -2349,21 +2349,53 @@ textarea {
     text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
     font-weight: bold;
     cursor: pointer; }
-  .reveal-modal.small {
-    width: 30%;
-    margin-left: -15%; }
-  .reveal-modal.medium {
+  .reveal-modal.one-fifth, .reveal-modal.two-tenths {
+    width: 20%;
+    margin-left: -10%; }
+  .reveal-modal.two-fifths, .reveal-modal.four-tenths {
     width: 40%;
     margin-left: -20%; }
-  .reveal-modal.large {
-    width: 60%;
-    margin-left: -30%; }
-  .reveal-modal.xlarge {
-    width: 70%;
-    margin-left: -35%; }
-  .reveal-modal.expand {
+  .reveal-modal.one-half, .reveal-modal.two-quarters, .reveal-modal.three-sixths, .reveal-modal.four-eighths, .reveal-modal.five-tenths, .reveal-modal.six-twelfths {
+    width: 50%;
+    margin-left: -25%; }
+  .reveal-modal.four-fifths, .reveal-modal.eight-tenths {
+    width: 80%;
+    margin-left: -40%; }
+  .reveal-modal.full {
     width: 90%;
     margin-left: -45%; }
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    .reveal-modal.medium-one-fifth, .reveal-modal.medium-two-tenths {
+      width: 20%;
+      margin-left: -10%; }
+    .reveal-modal.medium-two-fifths, .reveal-modal.medium-four-tenths {
+      width: 40%;
+      margin-left: -20%; }
+    .reveal-modal.medium-one-half, .reveal-modal.medium-two-quarters, .reveal-modal.medium-three-sixths, .reveal-modal.medium-four-eighths, .reveal-modal.medium-five-tenths, .reveal-modal.medium-six-twelfths {
+      width: 50%;
+      margin-left: -25%; }
+    .reveal-modal.medium-four-fifths, .reveal-modal.medium-eight-tenths {
+      width: 80%;
+      margin-left: -40%; }
+    .reveal-modal.medium-full {
+      width: 90%;
+      margin-left: -45%; } }
+  @media only screen and (min-width: 769px) {
+    .reveal-modal.large-one-fifth, .reveal-modal.large-two-tenths {
+      width: 20%;
+      margin-left: -10%; }
+    .reveal-modal.large-two-fifths, .reveal-modal.large-four-tenths {
+      width: 40%;
+      margin-left: -20%; }
+    .reveal-modal.large-one-half, .reveal-modal.large-two-quarters, .reveal-modal.large-three-sixths, .reveal-modal.large-four-eighths, .reveal-modal.large-five-tenths, .reveal-modal.large-six-twelfths {
+      width: 50%;
+      margin-left: -25%; }
+    .reveal-modal.large-four-fifths, .reveal-modal.large-eight-tenths {
+      width: 80%;
+      margin-left: -40%; }
+    .reveal-modal.large-full {
+      width: 90%;
+      margin-left: -45%; } }
   .reveal-modal .row {
     min-width: 0;
     margin-bottom: 10px;

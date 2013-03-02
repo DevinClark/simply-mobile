@@ -19,11 +19,28 @@
 		font-weight: bold;
 		cursor: pointer;
 	}
-	&.small   { width: 30%; margin-left: -15%; }
-	&.medium  { width: 40%; margin-left: -20%; }
-	&.large   { width: 60%; margin-left: -30%; }
-	&.xlarge  { width: 70%; margin-left: -35%; }
-	&.expand  { width: 90%; margin-left: -45%; }
+	&.one-fifth   { width: 20%; margin-left: -10%; }
+	&.two-fifths  { width: 40%; margin-left: -20%; }
+	&.one-half   { width: 50%; margin-left: -25%; }
+	&.four-fifths  { width: 80%; margin-left: -40%; }
+	&.full  { width: 90%; margin-left: -45%; }
+
+	@media only screen and (min-width:$medium-start) and (max-width:$medium-end) {
+		&.medium-one-fifth   { width: 20%; margin-left: -10%; }
+		&.medium-two-fifths  { width: 40%; margin-left: -20%; }
+		&.medium-one-half   { width: 50%; margin-left: -25%; }
+		&.medium-four-fifths  { width: 80%; margin-left: -40%; }
+		&.medium-full  { width: 90%; margin-left: -45%; }
+	}
+
+	@media only screen and (min-width:$large-start) {
+		&.large-one-fifth   { width: 20%; margin-left: -10%; }
+		&.large-two-fifths  { width: 40%; margin-left: -20%; }
+		&.large-one-half   { width: 50%; margin-left: -25%; }
+		&.large-four-fifths  { width: 80%; margin-left: -40%; }
+		&.large-full  { width: 90%; margin-left: -45%; }
+	}
+
 	.row { min-width: 0; margin-bottom: 10px; width: 100%; }
 	> :first-of-type { margin-top: 0; }
 	> :last-of-type { margin-bottom: 0; }

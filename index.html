@@ -12,7 +12,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="SimplyMobile">
-	
+
 	<link rel="apple-touch-icon-precomposed" href="img/ico/ico-57.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/ico-72.png" />
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/ico-114.png" />
@@ -26,7 +26,7 @@
 		width: 20px;
 		display: inline-block;
 		text-align: center; }
-	
+
 	#main-nav {
 		display: none;
 		position: absolute;
@@ -40,7 +40,7 @@
 		-webkit-overflow-scrolling: touch;
 		background: rgba(0,0,0,.0);
 		color: white; }
-	
+
 	#main-nav ul li a {
 		opacity: 1;
 		display: block;
@@ -63,17 +63,17 @@
 		background: #4a4a4a;
 		right: 0;
 	}
-	
+
 	#main-nav ul li a.active {
 		background: #bada55 !important;
 		text-shadow: 0 1px 0 rgba(255,255,255,.5);
 		color: black; }
-	
+
 	#main-nav ul {
 		position: relative;
 		height: 100%;
 		width: 100%; }
-	
+
 	#main-nav li {
 		display: block;
 		position: relative; }
@@ -133,8 +133,8 @@
 			<li><a href="#" data-href="test.html"><span class="icon-beaker"></span> Orange</a></li>
 		</ul>
 	</div>
-	
-	
+
+
 	<div class="page page-active js-content-wrap">
 		<header class="fixed-header">
 			<div class="btn-group-left">
@@ -257,10 +257,23 @@
 			<h5><small>Small header text.</small></h5>
 			<h6><small>Small header text.</small></h6>
 		</section>
-		<div id="myModal" class="reveal-modal expand">
+		<div id="myModal" class="reveal-modal full medium-half large-two-fifths">
 			<h2>Awesome. I have it.</h2>
 			<p class="lead">Your couch.  It is mine.</p>
 			<p>Im a cool paragraph that lives inside of an even cooler modal. Wins</p>
+			<br>
+			<a href="#" data-reveal-id="myOtherModal" class="btn success">Another Modal</a>
+			<a class="close-reveal-modal">&#215;</a>
+		</div>
+		<div id="myOtherModal" class="reveal-modal full medium-half large-two-fifths">
+			<h2>Awesome. I have it.</h2>
+			<p class="lead">Your couch.  It is mine.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			<a class="close-reveal-modal">&#215;</a>
 		</div>
 	</div>
