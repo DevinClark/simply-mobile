@@ -370,18 +370,6 @@ jQuery(function($){
 	$('input[type="text"]').addClass('text');
 	$('input[type="email"]').addClass('email');
 
-	var a = document.getElementsByTagName("a");
-
-	for (var i = 0; i < a.length; i++){
-		a[i].onclick = function (){
-			var href = this.getAttribute("href");
-			if(href != null) {
-				window.location = href;
-				return false;
-			}
-		}
-	}
-
 	// Lists what the device supports.
 	var supportsOutput = "";
 	for (var item in Modernizr) {
