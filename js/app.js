@@ -6,7 +6,7 @@ jQuery.error = console.error;
 
 var AjaxController = {
 	s: {
-		docWidth: $(document).width()		
+		docWidth: $(document).width()	
 	},
 	init: function (){
 		var self = this;
@@ -88,6 +88,7 @@ var OrientationCheck = {
 	resize: function() {
 		window.addEventListener("resize", function() {
 			OrientationCheck.check();
+			AjaxController.s.docWidth = $(document).width();
 		}, false);
 	}
 };
