@@ -65,7 +65,7 @@ var AjaxController = {
 						$(".page section.js-load-content").html('').css({'left': -self.s.docWidth});
 					}
 				});
-			
+				$(".page section").css({'width': "100%"});
 			}, 500);
 		});
 	}
