@@ -28,7 +28,6 @@ module.exports = function(grunt) {
 			packages: {
 				"jquery": '',
 				"jquery.hammer": '',
-				"jquery.foundation.reveal": "",
 				"jquery.easing.1.3": "",
 				"activity-indicator": ""
 			},
@@ -42,6 +41,7 @@ module.exports = function(grunt) {
 					'js/app.min.js': [
 						'js/modernizr.js',
 						'js/assets.js',
+						'js/reveal-forked.js',
 						'js/app.js'
 					]
 				}

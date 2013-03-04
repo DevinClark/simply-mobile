@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "*",
-    "hammer.js": "https://github.com/EightMedia/hammer.js.git",
-    "https://raw.github.com/zurb/foundation/master/vendor/assets/javascripts/foundation/jquery.foundation.reveal.js": "*"
+    "hammer.js": "https://github.com/EightMedia/hammer.js.git"
+  },
+  "devDependencies": {
+    "activity-indicator": "https://raw.github.com/neteye/jquery-plugins/master/activity-indicator/activity-indicator.js"
   }
 }
