@@ -2,7 +2,7 @@ html {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	-webkit-user-select: none;
 }
-html, body { min-height: 100%; }
+html, body { min-height: 100%; overflow-x: hidden; }
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 16px;
@@ -35,6 +35,63 @@ section {
 .page aside {
 	display: none;
 }
+
+#main-nav ul li a span {
+	margin: 0 6px 0 5px;
+	width: 20px;
+	display: inline-block;
+	text-align: center; }
+
+#main-nav {
+	display: none;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	top: 47px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	background: rgba(0,0,0,.0);
+	color: white; }
+
+#main-nav ul li a {
+	opacity: 1;
+	display: block;
+	margin-bottom: 0px;
+	color: white;
+	font-size: 18px;
+	font-weight: 700;
+	text-decoration: none;
+	text-shadow: 0 1px 0 black;
+	position: relative;
+	top: 0;
+	text-shadow: 0 1px 0 rgba(0,0,0,1);
+	padding: 10px 10px; }
+
+#main-nav ul li a.odd {
+	background: #404040;
+	left: 0;
+}
+#main-nav ul li a.even {
+	background: #4a4a4a;
+	right: 0;
+}
+
+#main-nav ul li a.active {
+	background: #bada55 !important;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	color: black; }
+
+#main-nav ul {
+	position: relative;
+	height: 100%;
+	width: 100%; }
+
+#main-nav li {
+	display: block;
+	position: relative; }
 
 #left-nav {
 	position: absolute;
