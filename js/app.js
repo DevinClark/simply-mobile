@@ -5,7 +5,7 @@ var Modernizr = Modernizr;
 // Override jQuery.error for display in Console.
 jQuery.error = console.error;
 
-var SimplyMobile = {
+var SM = {
 	s: {
 
 	},
@@ -24,7 +24,7 @@ var SimplyMobile = {
 
 var AjaxController = {
 	s: {
-		docWidth: SimplyMobile.s.docWidth
+		docWidth: SM.s.docWidth
 	},
 	init: function (){
 		var self = this;
@@ -105,7 +105,7 @@ var OrientationCheck = {
 	resize: function() {
 		window.addEventListener("resize", function() {
 			OrientationCheck.check();
-			SimplyMobile.refresh();
+			SM.refresh();
 		}, false);
 	}
 };
@@ -210,7 +210,7 @@ var Geolocation = {
 
 var Navigation = {
 	s: {
-		navWidth: SimplyMobile.s.docWidth,
+		navWidth: SM.s.docWidth,
 		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
@@ -342,7 +342,7 @@ var ScrollingFixes = {
 
 
 jQuery(function($){
-	SimplyMobile.init();
+	SM.init();
 
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
