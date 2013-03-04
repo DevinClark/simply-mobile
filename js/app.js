@@ -6,7 +6,7 @@ var triggerUp = 'touchend mouseup';
 
 var AjaxController = {
 	s: {
-		
+		docWidth: $(document).width()		
 	},
 	init: function (){
 		var self = this;
@@ -34,6 +34,12 @@ var AjaxController = {
 	load: function (htmlPage){
 		var self = this;
 
+		$(".page section").css({'width': self.s.docWidth});
+		
+		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
+		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
+
+
 		self.loadingShow();
 		
 		$.ajax({
@@ -41,13 +47,26 @@ var AjaxController = {
 			cache: false
 		}).done(function (html){
 			setTimeout(function (){
-				$('.page section')
-					.html(html)								
-					.delay(1200);
+				$('.page section.js-load-content').html(html);
 					
 				self.loadingHide();
 			
-			}, 1000);
+				$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
+				$(".page section.js-load-content").animate(
+					{
+						'position': 'absolute', 
+						'left': 0
+					},{ 
+					queue: false, 
+					duration: 500, 
+					complete: function (){
+						$(".page section.js-primary-content").css('left',0);
+						$(".page section.js-primary-content").html(html);
+						$(".page section.js-load-content").html('').css({'left': -self.s.docWidth});
+					}
+				});
+			
+			}, 500);
 		});
 	}
 };
@@ -331,17 +350,12 @@ var ScrollingFixes = {
 
 
 jQuery(function($){
-
-
-	
 	OrientationCheck.init();
 
 	ScrollingFixes.init();
 
 	Navigation.init();
 	
-	
-	AjaxController.init();
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");

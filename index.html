@@ -106,6 +106,9 @@
 		opacity: 1;
 */
 	}
+	body, html {
+		overflow-x: hidden;
+	}
 	</style>
 </head>
 <body>
@@ -153,7 +156,7 @@
 			</div>
 		</header>
 
-		<section>
+		<section class="js-primary-content" style="width:100%; position: absolute; left: 0">
 			<h2>Location</h2>
 			<div id="js-map"></div>
 			<div id="location"></div>
@@ -253,6 +256,9 @@
 			<h5><small>Small header text.</small></h5>
 			<h6><small>Small header text.</small></h6>
 		</section>
+
+		<section class="js-load-content" style="position: absolute; top: 47px;"></section>
+
 		<div id="myModal" class="reveal-modal full medium-half large-two-fifths">
 			<h2>Awesome. I have it.</h2>
 			<p class="lead">Your couch.  It is mine.</p>
