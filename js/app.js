@@ -46,31 +46,30 @@ var AjaxController = {
 			url: htmlPage,
 			cache: false
 		}).done(function (html){
-			setTimeout(function (){
+			setTimeout(function (){ // Just here to simulate server load
 				$('.page section.js-load-content').html(html);
-					
-				self.loadingHide();
-			
+							
 				$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
 				$(".page section.js-load-content").animate(
 					{
 						'position': 'absolute', 
 						'left': 0
 					},{ 
-					queue: false, 
-					duration: 500, 
-					complete: function (){
-						$(".page section.js-primary-content").css('left',0);
-						$(".page section.js-primary-content").html(html);
-						$(".page section.js-load-content").html('').css({'left': -self.s.docWidth});
+						queue: false, 
+						duration: 500, 
+						complete: function (){
+							$(".page section.js-primary-content").css('left',0);
+							$(".page section.js-primary-content").html(html);
+							$(".page section.js-load-content").html('').css({'left': -self.s.docWidth});
+							self.loadingHide();
+						}
 					}
-				});
+				);
 				$(".page section").css({'width': "100%"});
 			}, 500);
 		});
 	}
 };
-
 
 var OrientationCheck = {
 	init: function() {
