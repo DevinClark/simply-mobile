@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "*",
-    "hammer.js": "https://github.com/EightMedia/hammer.js.git#~1.0.1",
+    "hammer.js": "https://github.com/EightMedia/hammer.js.git",
     "https://raw.github.com/zurb/foundation/master/vendor/assets/javascripts/foundation/jquery.foundation.reveal.js": "*"
   }
 }
