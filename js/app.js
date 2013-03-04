@@ -5,9 +5,26 @@ var Modernizr = Modernizr;
 // Override jQuery.error for display in Console.
 jQuery.error = console.error;
 
+var SimplyMobile = {
+	s: {
+
+	},
+	init: function() {
+		OrientationCheck.init();
+		ScrollingFixes.init();
+		Navigation.init();
+		this.refresh();
+	},
+	refresh: function() {
+		// add new settings here
+		this.s.docWidth = $(document).width();
+		this.s.docHeight = $(document).height();
+	}
+};
+
 var AjaxController = {
 	s: {
-		docWidth: $(document).width()	
+		docWidth: SimplyMobile.s.docWidth
 	},
 	init: function (){
 		var self = this;
@@ -88,7 +105,7 @@ var OrientationCheck = {
 	resize: function() {
 		window.addEventListener("resize", function() {
 			OrientationCheck.check();
-			AjaxController.s.docWidth = $(document).width();
+			SimplyMobile.refresh();
 		}, false);
 	}
 };
@@ -193,7 +210,7 @@ var Geolocation = {
 
 var Navigation = {
 	s: {
-		navWidth: $(document).width(),
+		navWidth: SimplyMobile.s.docWidth,
 		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
@@ -325,11 +342,7 @@ var ScrollingFixes = {
 
 
 jQuery(function($){
-	OrientationCheck.init();
-
-	ScrollingFixes.init();
-
-	Navigation.init();
+	SimplyMobile.init();
 
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
