@@ -291,47 +291,21 @@ var ScrollingFixes = {
 			});
 	},
 	disableElastic: function (){
-		var initialY = null;
-		var nodeStack = [];
-		var $window = $(window);
-
-		$window.bind('touchstart', function(e) {
-			initialY = e.originalEvent.pageY;
-			nodeStack = $(e.target).parents().andSelf().filter(':not(body, html)').get().reverse();
-			nodeStack = nodeStack.map(function(node) {
-				return $(node);
-			});
-		});
-		
-		$window.bind('touchend touchcancel', function(e) {
-			initialY = null;
-			nodeStack = [];
-		});
-
-		$window.bind('touchmove', function(e) {		
-			if (!initialY)
-				e.preventDefault();
+		var link = $('.page section');
 			
-			var direction = e.originalEvent.pageY - initialY;
+		$(window).bind('touchstart',function(e){
+			var scrolled = link.scrollTop();
+			var winHeight = link.height();
+			var contentHeight = $('.page section > div').innerHeight();
+			var fromBottom = contentHeight - winHeight - scrolled;
 			
-			for (var i = 0; i < nodeStack.length; i +=1) {
-				var $node = nodeStack[i];
-				var nodeHeight = $node.height();
-				var scrollHeight = $node[0].scrollHeight - 2;
-				var nodeScrollTop = $node.scrollTop();
-				
-				if (scrollHeight > nodeHeight) {
-					var allowedUp = direction > 0 && nodeScrollTop > 0;
-				
-					var allowedDown = direction < 0 && nodeScrollTop < scrollHeight - nodeHeight;
-					
-					if (allowedUp || allowedDown) {
-						return;
-					}
-				}
+			if( scrolled < 1 ) {
+				link.animate({scrollTop: scrolled + 1}, 0);
 			}
 			
-			e.preventDefault();
+			if( fromBottom < 1 ) {
+				link.animate({scrollTop: scrolled - 1},0);
+			}	
 		});
 	}	
 };
@@ -355,7 +329,7 @@ jQuery(function($){
 	ScrollingFixes.init();
 
 	Navigation.init();
-	
+
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
