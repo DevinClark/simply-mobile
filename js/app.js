@@ -1,6 +1,9 @@
 /*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
 "use strict";
 
+// Override jQuery.error for display in Console.
+jQuery.error = console.error;
+
 var AjaxController = {
 	s: {
 		docWidth: $(document).width()		
