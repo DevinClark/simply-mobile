@@ -36,12 +36,19 @@ module.exports = function(grunt) {
 			all: ['js/app.js']
 		},
 		uglify: {
+			assets: {
+				files: {
+					'js/assets.js': [
+						'js/assets.js',
+						'js/reveal-forked.js'
+					]
+				}
+			},
 			build: {
 				files: {
 					'js/app.min.js': [
 						'js/modernizr.js',
 						'js/assets.js',
-						'js/reveal-forked.js',
 						'js/app.js'
 					]
 				}
