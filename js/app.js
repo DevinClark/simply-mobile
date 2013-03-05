@@ -6,16 +6,15 @@ var Modernizr = Modernizr;
 jQuery.error = console.error;
 
 // Global Variables
-var docWidth, docHeight;
-function updateGlobals() {
-	docWidth = $(document).width();
-	docHeight = $(document).height();
+var GlobalSettings = {
+	docWidth: $(document).width(),
+	docHeight: $(document).height()
 }
 
 
 var AjaxController = {
 	s: {
-		docWidth: docWidth
+		docWidth: GlobalSettings.docWidth
 	},
 	init: function (){
 		var self = this;
@@ -96,7 +95,7 @@ var OrientationCheck = {
 	resize: function() {
 		window.addEventListener("resize", function() {
 			OrientationCheck.check();
-			updateGlobals();
+			ScrollingFixes.init();
 		}, false);
 	}
 };
@@ -201,7 +200,7 @@ var Geolocation = {
 
 var Navigation = {
 	s: {
-		navWidth: docWidth,
+		navWidth: GlobalSettings.docWidth,
 		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
@@ -285,7 +284,7 @@ var ScrollingFixes = {
 		this.disableElastic();
 	},
 	setScrolling: function() {
-		var docHeight = document.documentElement.clientHeight;
+		var docHeight = GlobalSettings.docHeight;
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 
 		$('.js-content-wrap')
