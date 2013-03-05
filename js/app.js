@@ -319,16 +319,13 @@ var ScrollingFixes = {
 	}	
 };
 
+$(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
-
-
-
-
-
-
-
-
-
+$(".reveal-modal").reveal({
+	open: function() {
+		$(".js-primary-content").css("overflow", "hidden");
+	}
+});
 
 
 

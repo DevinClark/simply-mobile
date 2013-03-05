@@ -2329,22 +2329,26 @@ textarea {
   background: #fff;
   visibility: hidden;
   display: none;
-  top: 100px;
+  top: 20px;
   left: 50%;
   margin-left: -45%;
   width: 90%;
+  max-height: 90%;
+  overflow: scroll;
   position: absolute;
   z-index: 101;
   padding: 30px;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); }
+  .reveal-modal .modal-inner {
+    height: 100%; }
   .reveal-modal .close-reveal-modal:not(.button) {
-    font-size: 22px;
+    font-size: 30px;
     line-height: .5;
     position: absolute;
-    top: 8px;
-    right: 11px;
+    top: 12px;
+    right: 12px;
     color: #aaa;
     text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
     font-weight: bold;
