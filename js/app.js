@@ -5,26 +5,17 @@ var Modernizr = Modernizr;
 // Override jQuery.error for display in Console.
 jQuery.error = console.error;
 
-var SM = {
-	s: {
+// Global Variables
+var docWidth, docHeight;
+function updateGlobals() {
+	docWidth = $(document).width();
+	docHeight = $(document).height();
+}
 
-	},
-	init: function() {
-		OrientationCheck.init();
-		ScrollingFixes.init();
-		Navigation.init();
-		this.refresh();
-	},
-	refresh: function() {
-		// add new settings here
-		this.s.docWidth = $(document).width();
-		this.s.docHeight = $(document).height();
-	}
-};
 
 var AjaxController = {
 	s: {
-		docWidth: SM.s.docWidth
+		docWidth: docWidth
 	},
 	init: function (){
 		var self = this;
@@ -105,7 +96,7 @@ var OrientationCheck = {
 	resize: function() {
 		window.addEventListener("resize", function() {
 			OrientationCheck.check();
-			SM.refresh();
+			updateGlobals();
 		}, false);
 	}
 };
@@ -210,7 +201,7 @@ var Geolocation = {
 
 var Navigation = {
 	s: {
-		navWidth: SM.s.docWidth,
+		navWidth: docWidth,
 		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
@@ -342,7 +333,9 @@ var ScrollingFixes = {
 
 
 jQuery(function($){
-	SM.init();
+	OrientationCheck.init();
+	ScrollingFixes.init();
+	Navigation.init();
 
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
