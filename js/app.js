@@ -11,6 +11,32 @@ var GlobalSettings = {
 	docHeight: $(document).height()
 }
 
+var Start = {
+	battle: function (s){
+		this.inits();
+		this.styling();		
+	},
+	firstLoad: function (){
+		Navigation.init();
+		this.battle();
+	},
+	inits: function (){
+		OrientationCheck.init();
+		ScrollingFixes.init();
+	},
+	styling: function (){
+		$('input[type="button"]').addClass('btn');
+		$('input[type="checkbox"]').addClass('checkbox');
+		$('input[type="file"]').addClass('file');
+		$('input[type="image"]').addClass('image');
+		$('input[type="password"]').addClass('password');
+		$('input[type="radio"]').addClass('radio');
+		$('input[type="submit"]').addClass('submit btn');
+		$('input[type="reset"]').addClass('reset');
+		$('input[type="text"]').addClass('text');
+		$('input[type="email"]').addClass('email');
+	}
+}
 
 var AjaxController = {
 	s: {
@@ -47,15 +73,17 @@ var AjaxController = {
 		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
 
-
 		self.loadingShow();
 		
 		$.ajax({
 			url: htmlPage,
-			cache: false
+			cache: false,
+			dataType: "html"
 		}).done(function (html){
+
 			setTimeout(function (){ // Just here to simulate server load
-				$('.page section.js-load-content').html(html);
+				$('.page section.js-load-content div').html(html);
+				
 							
 				$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
 				$(".page section.js-load-content").animate(
@@ -67,8 +95,11 @@ var AjaxController = {
 						duration: 500, 
 						complete: function (){
 							$(".page section.js-primary-content").css('left',0);
-							$(".page section.js-primary-content").html(html);
-							$(".page section.js-load-content").html('').css({'left': -self.s.docWidth});
+							$(".page section.js-primary-content div").html(html);
+							$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
+							
+							Start.battle();
+		
 							self.loadingHide();
 						}
 					}
@@ -267,6 +298,8 @@ var Navigation = {
 			
 			$(this).addClass('active');
 			
+			$('.menuopen').removeClass('menuopen');
+			
 			setTimeout(function (){
 				self.hideMenu();
 			
@@ -286,6 +319,8 @@ var ScrollingFixes = {
 	setScrolling: function() {
 		var docHeight = GlobalSettings.docHeight;
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
+		
+		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
 
 		$('.js-content-wrap')
 			.css({
@@ -323,9 +358,7 @@ $(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
 
 jQuery(function($){
-	OrientationCheck.init();
-	ScrollingFixes.init();
-	Navigation.init();
+	Start.firstLoad();
 
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
@@ -342,18 +375,6 @@ jQuery(function($){
 		$("#myModal").reveal();
 		return false;
 	});
-
-	// Make form styling easier
-	$('input[type="button"]').addClass('btn');
-	$('input[type="checkbox"]').addClass('checkbox');
-	$('input[type="file"]').addClass('file');
-	$('input[type="image"]').addClass('image');
-	$('input[type="password"]').addClass('password');
-	$('input[type="radio"]').addClass('radio');
-	$('input[type="submit"]').addClass('submit btn');
-	$('input[type="reset"]').addClass('reset');
-	$('input[type="text"]').addClass('text');
-	$('input[type="email"]').addClass('email');
 
 	// Lists what the device supports.
 	var supportsOutput = "";
