@@ -8,18 +8,22 @@ jQuery.error = console.error;
 // Global Variables
 var GlobalSettings = {
 	docWidth: $(document).width(),
-	docHeight: $(document).height()
+	docHeight: $(document).height(),
+	initialPage: 'index_content.html'
 }
 
 var Start = {
 	battle: function (s){
 		this.inits();
-		this.styling();		
+		this.styling();
+		
+		if( LocalStorage.get('last-page') === null )
+			LocalStorage.set('last-page', GlobalSettings.initialPage);
 	},
 	firstLoad: function (){
 		Navigation.init();
 		this.battle();
-		AjaxController.load('index_content.html');
+		AjaxController.load( LocalStorage.get('last-page') );
 	},
 	inits: function (){
 		OrientationCheck.init();
@@ -72,7 +76,7 @@ var AjaxController = {
 		var self = this;
 
 		$(".page section").css({'width': self.s.docWidth});
-		// test
+		
 		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
 		
@@ -119,6 +123,7 @@ var AjaxController = {
 							Start.battle();
 		
 							self.loadingHide(500);
+							LocalStorage.set("last-page", htmlPage);
 						}
 					}
 				);
@@ -159,7 +164,7 @@ var LocalStorage = {
 			return false;
 		}
 		try {
-			return JSON.parse(localStorage.getItem(this.settings.prefix + key));
+			return localStorage.getItem(this.settings.prefix + key);
 		} catch(e) {
 			return false;
 		}
