@@ -17,13 +17,14 @@ var Start = {
 		this.inits();
 		this.styling();
 		
-		if( LocalStorage.get('last-page') === null )
+		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined )
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
 	},
 	firstLoad: function (){
 		Navigation.init();
 		this.battle();
 		AjaxController.load( LocalStorage.get('last-page') );
+		
 	},
 	inits: function (){
 		OrientationCheck.init();
@@ -315,6 +316,7 @@ var Navigation = {
 		$(self.s.menuItems).on('click',function (e){
 			e.preventDefault();
 			
+			if( ! $(this).hasClass('active') ) {
 			var href = $(this).data('href');
 			
 			$(self.s.menuItems).removeClass('active');
@@ -330,6 +332,7 @@ var Navigation = {
 					AjaxController.load(href);
 				}, 500);
 			}, 200);
+			}
 		});
 	}
 };
