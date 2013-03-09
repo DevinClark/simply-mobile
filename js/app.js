@@ -72,7 +72,7 @@ var AjaxController = {
 		var self = this;
 
 		$(".page section").css({'width': self.s.docWidth});
-		
+		// test
 		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
 		
