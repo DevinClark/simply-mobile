@@ -19,6 +19,7 @@ var Start = {
 	firstLoad: function (){
 		Navigation.init();
 		this.battle();
+		AjaxController.load('index_content.html');
 	},
 	inits: function (){
 		OrientationCheck.init();
@@ -40,30 +41,32 @@ var Start = {
 
 var AjaxController = {
 	s: {
-		docWidth: GlobalSettings.docWidth
+		docWidth: GlobalSettings.docWidth,
+		lImg: '#loaderImg',
+		lTxt: '#loaderTxt',
+		l: '#loader',
 	},
 	init: function (){
 		var self = this;
 	},
-	loadingShow: function (){
-		$("body").prepend("<div id='ajaxLoading'><div id='busy'></div></div>");
-		
-		$('#busy').activity({
-			segments: 10, 
-			align: 'center', 
-			valign: 'center', 
-			steps: 7, 
-			width: 14, 
-			space: 10, 
-			length: 20, 
-			opacity: 0,
-			color: '#fff', 
-			speed: 2
-		});
+	loadImage: function (show){
+		self = this;
+		if( show === true ) {
+			$(this.s.lImg).fadeIn(200)
+		} else {
+			$(this.s.lImg).fadeOut(200);
+		}
 	},
-	loadingHide: function (){
-		$('#ajaxLoading').remove();
-		$('#busy').activity('false');
+	loadingShow: function (str){
+		$(this.s.lTxt).html(str);
+		$(this.s.l).animate({'height': 60}, 500);
+	},
+	loadingHide: function (delay){
+		setTimeout(function (){
+			$('#loader ').animate({'height':0}, 500, function() {
+				$(this).removeClass();
+			})
+		}, delay);
 	},
 	load: function (htmlPage){
 		var self = this;
@@ -72,18 +75,33 @@ var AjaxController = {
 		
 		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
-
-		self.loadingShow();
 		
 		$.ajax({
 			url: htmlPage,
 			cache: false,
-			dataType: "html"
+			dataType: "html",
+			statusCode: {
+				// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+				200: function (){
+					self.loadImage(true);
+				},
+				404: function (){
+					$(self.s.l).addClass('error');
+					self.loadingShow('ERROR: Not found');
+					self.loadingHide(2000);					
+				},
+				
+			}
 		}).done(function (html){
+			self.loadingShow('Loading');
 
 			setTimeout(function (){ // Just here to simulate server load
+				
 				$('.page section.js-load-content div').html(html);
 				
+				$(self.s.lTxt).html("Completed");
+				
+				self.loadImage(false);
 							
 				$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
 				$(".page section.js-load-content").animate(
@@ -100,12 +118,12 @@ var AjaxController = {
 							
 							Start.battle();
 		
-							self.loadingHide();
+							self.loadingHide(500);
 						}
 					}
 				);
 				$(".page section").css({'width': "100%"});
-			}, 500);
+			}, 1500);
 		});
 	}
 };
@@ -359,7 +377,7 @@ $(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
 jQuery(function($){
 	Start.firstLoad();
-
+	
 	// Local Storage
 	/*LocalStorage.settings.prefix = "taco-";
 	LocalStorage.set("foo", "taco");
