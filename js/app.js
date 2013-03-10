@@ -394,9 +394,10 @@ var ScrollingFixes = {
 		
 		var docHeight = GlobalSettings.docHeight;
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
-		var totalHeight = docHeight - headerHeight;
-
-		$('.page section').css('min-height', totalHeight + 1);
+		//var totalHeight = docHeight - headerHeight;
+		var totalHeight = $('.page section.js-primary-content').outerHeight(false) - headerHeight + 0;
+		
+		$('.page section.js-primary-content > div').css('min-height', totalHeight);
 		
 
 		$(window).bind('touchstart',function(e){
