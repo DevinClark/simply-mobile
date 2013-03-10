@@ -2,4 +2,7 @@
 	body .tablet-only {
 		display: inline-block;
 	}
+	body .mobile-only {
+		display: none;
+	}
 }
