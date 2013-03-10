@@ -669,6 +669,9 @@ header .btn {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+header .btn:before {
+	padding-right: 0;
+}
 header .btn-group-left,
 header .btn-group-right {
 	position: absolute;

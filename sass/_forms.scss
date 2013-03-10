@@ -28,6 +28,9 @@
 	background: #c60f13;
 	border: 1px solid #7f0a0c;
 }
+.btn:before {
+	padding-right: .5em;	
+}
 
 form .text,
 form .email,
