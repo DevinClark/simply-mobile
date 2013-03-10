@@ -42,6 +42,8 @@ var Start = {
 		$('input[type="reset"]').addClass('reset');
 		$('input[type="text"]').addClass('text');
 		$('input[type="email"]').addClass('email');
+
+		$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
 	}
 }
 
@@ -371,6 +373,8 @@ var ScrollingFixes = {
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var totalHeight = docHeight - headerHeight;
 
+		var bottomBarHeight = $('.bottom-bar').outerHeight(false);
+
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
 
 		$('.js-content-wrap')
@@ -381,7 +385,8 @@ var ScrollingFixes = {
 			.css({
 				'height': totalHeight,
 				'overflow': 'scroll',
-				'-webkit-overflow-scrolling': 'touch'
+				'-webkit-overflow-scrolling': 'touch',
+				'padding-bottom': bottomBarHeight + 15
 			});
 	},
 	disableElastic: function (){

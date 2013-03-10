@@ -117,6 +117,40 @@ section {
 	padding: 10px 10px;
 }
 
+.bottom-bar {
+	background: #111;
+	color: white;
+	padding: 0.5em 0;
+}
+.fixed-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+.fixed-bottom li {
+	float: left;
+	text-align: center;
+}
+.fixed-bottom a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	font-size: 22px;
+}
+.fixed-bottom span {
+	display: none;
+}
+.fixed-bottom.with-labels a {
+	display: block;
+	font-size: 28px;
+}
+.fixed-bottom.with-labels a span {
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+}
+
 .block {
 	margin:0;
 	margin-bottom:12px;

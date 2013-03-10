@@ -68,6 +68,17 @@
 			<div></div>
 		</section>
 
+		<div class="bottom-bar fixed-bottom">
+			<ul>
+				<li><a href="#" data-href="test2.html" class="icon-home"><span>Home</span></a></li>
+				<li><a href="#" class="icon-export"><span>Export</span></a></li>
+				<li><a href="#" class="icon-grid-view"><span>Grid</span></a></li>
+				<li><a href="#" class="icon-settings"><span>Settings</span></a></li>
+				<li><a href="#" class="icon-settings"><span>Settings</span></a></li>
+				<li><a href="#" class="icon-settings" onclick="$(this).parents('.bottom-bar').toggleClass('with-labels'); return false;"><span>Toggle</span></a></li>
+			</ul>
+		</div>
+
 		<div id="myModal" class="reveal-modal full medium-half large-two-fifths">
 			<h2>Awesome. I have it.</h2>
 			<p class="lead">Your couch.  It is mine.</p>
