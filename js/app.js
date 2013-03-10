@@ -21,10 +21,11 @@ var Start = {
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
 	},
 	firstLoad: function (){
+		var lastPage = LocalStorage.get('last-page');
+		
 		Navigation.init();
 		this.battle();
-		AjaxController.load( LocalStorage.get('last-page') );
-		
+		AjaxController.load( lastPage );
 	},
 	inits: function (){
 		OrientationCheck.init();
@@ -73,7 +74,28 @@ var AjaxController = {
 			})
 		}, delay);
 	},
+	
 	load: function (htmlPage){
+		var self = this;
+		
+		// Error checking
+		$.ajax({
+			url: htmlPage,
+			cache: false,
+			dataType: "html",
+			statusCode: {
+				404: function() {
+					self.loadPage('content/error.html', 'error');
+					console.log('404');
+					return;
+				},
+				200: function() {
+					self.loadPage(htmlPage, null);
+				}
+			}
+		});
+	},
+	loadPage: function (htmlPage, t){
 		var self = this;
 
 		$(".page section").css({'width': self.s.docWidth});
@@ -94,8 +116,7 @@ var AjaxController = {
 					$(self.s.l).addClass('error');
 					self.loadingShow('ERROR: Not found');
 					self.loadingHide(2000);					
-				},
-				
+				}
 			}
 		}).done(function (html){
 			self.loadingShow('Loading');
@@ -124,7 +145,12 @@ var AjaxController = {
 							Start.battle();
 		
 							self.loadingHide(500);
-							LocalStorage.set("last-page", htmlPage);
+	
+							// Setting the active nav
+							$('#main-nav').find('a[data-href="' + htmlPage + '"]').addClass('active');
+							
+							// If the page error'd out, don't set localstorage
+							if( !t ) LocalStorage.set("last-page", htmlPage);
 						}
 					}
 				);
