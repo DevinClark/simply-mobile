@@ -27,6 +27,7 @@ var Start = {
 		BottomNavigation.init();
 		this.battle();
 		AjaxController.load( lastPage );
+		new FastClick(document.body);
 	},
 	inits: function (){
 		OrientationCheck.init();

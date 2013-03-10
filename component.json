@@ -6,6 +6,6 @@
     "hammer.js": "https://github.com/EightMedia/hammer.js.git"
   },
   "devDependencies": {
-    "activity-indicator": "https://raw.github.com/neteye/jquery-plugins/master/activity-indicator/activity-indicator.js"
+    "fastclick": "~0.6.0"
   }
 }

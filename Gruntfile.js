@@ -28,7 +28,8 @@ module.exports = function(grunt) {
 			packages: {
 				"jquery": '',
 				"jquery.hammer": '',
-				"jquery.easing.1.3": ""
+				"jquery.easing.1.3": "",
+				'fastclick' : ""
 			},
 		},
 		jshint: {
