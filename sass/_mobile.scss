@@ -132,25 +132,25 @@ section {
 	float: left;
 	text-align: center;
 }
-.fixed-bottom a {
+.bottom-bar a {
 	color: white;
 	text-decoration: none;
 	display: block;
 	font-size: 22px;
 }
-.fixed-bottom span {
+.bottom-bar span {
 	display: none;
 }
-.fixed-bottom.with-labels a {
+.bottom-bar.with-labels a {
 	display: block;
 	font-size: 28px;
 }
-.fixed-bottom.with-labels a span {
+.bottom-bar.with-labels a span {
 	font-size: 14px;
 	font-weight: bold;
 	display: block;
 }
-.fixed-bottom a.active {
+.bottom-bar a.active {
 	color: #bada55;
 }
 

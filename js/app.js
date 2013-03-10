@@ -24,6 +24,7 @@ var Start = {
 		var lastPage = LocalStorage.get('last-page');
 		
 		Navigation.init();
+		BottomNavigation.init();
 		this.battle();
 		AjaxController.load( lastPage );
 	},
@@ -358,6 +359,41 @@ var Navigation = {
 					AjaxController.load(href);
 				}, 500);
 			}, 200);
+			}
+		});
+	}
+};
+var BottomNavigation = {
+	s: {
+		navWidth: GlobalSettings.docWidth,
+		delay: 500,
+		fadeDelay: 400,
+		menuItems: '.bottom-bar a',
+		easingIn: 'easeOutQuart',
+		easingOut: 'easeInOutQuart'
+	},
+	init: function() {
+		this.clickNavItem();
+	},
+	clickNavItem: function (){
+		var self = this;
+
+		$(self.s.menuItems).on('click',function (e){
+			e.preventDefault();
+			
+			if( ! $(this).hasClass('active') ) {
+				var href = $(this).data('href');
+				
+				$(self.s.menuItems).removeClass('active');
+				
+				$(this).addClass('active');
+				
+				setTimeout(function (){
+				
+					setTimeout(function (){
+						AjaxController.load(href);
+					}, 500);
+				}, 200);
 			}
 		});
 	}
