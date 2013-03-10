@@ -86,8 +86,6 @@ var AjaxController = {
 			statusCode: {
 				404: function() {
 					self.loadPage('content/error.html', 'error');
-					console.log('404');
-					return;
 				},
 				200: function() {
 					self.loadPage(htmlPage, null);
@@ -106,7 +104,7 @@ var AjaxController = {
 		$.ajax({
 			url: htmlPage,
 			cache: false,
-			dataType: "html",
+			type: 'get',
 			statusCode: {
 				// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 				200: function (){
@@ -371,7 +369,8 @@ var ScrollingFixes = {
 	setScrolling: function() {
 		var docHeight = GlobalSettings.docHeight;
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
-		
+		var totalHeight = docHeight - headerHeight;
+
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
 
 		$('.js-content-wrap')
@@ -380,14 +379,21 @@ var ScrollingFixes = {
 			})
 			.find('section')
 			.css({
-				'height': docHeight - headerHeight,
+				'height': totalHeight,
 				'overflow': 'scroll',
 				'-webkit-overflow-scrolling': 'touch'
 			});
 	},
 	disableElastic: function (){
 		var link = $('.page section');
-			
+		
+		var docHeight = GlobalSettings.docHeight;
+		var headerHeight = $('.js-content-wrap header').outerHeight(false);
+		var totalHeight = docHeight - headerHeight;
+
+		$('.page section').css('min-height', totalHeight + 1);
+		
+
 		$(window).bind('touchstart',function(e){
 			var scrolled = link.scrollTop();
 			var winHeight = link.height();
@@ -397,10 +403,9 @@ var ScrollingFixes = {
 			if( scrolled < 1 ) {
 				link.animate({scrollTop: scrolled + 1}, 0);
 			}
-			
 			if( fromBottom < 1 ) {
 				link.animate({scrollTop: scrolled - 1},0);
-			}	
+			}
 		});
 	}	
 };
