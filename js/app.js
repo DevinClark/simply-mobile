@@ -381,19 +381,21 @@ var BottomNavigation = {
 		$(self.s.menuItems).on('click',function (e){
 			e.preventDefault();
 			
-			if( ! $(this).hasClass('active') ) {
-				var href = $(this).data('href');
-				
-				$(self.s.menuItems).removeClass('active');
-				
-				$(this).addClass('active');
-				
-				setTimeout(function (){
-				
+			if( $(this).data('href') ) {
+				if( ! $(this).hasClass('active') ) {
+					var href = $(this).data('href');
+					
+					$(self.s.menuItems).removeClass('active');
+					
+					$(this).addClass('active');
+					
 					setTimeout(function (){
-						AjaxController.load(href);
-					}, 500);
-				}, 200);
+					
+						setTimeout(function (){
+							AjaxController.load(href);
+						}, 500);
+					}, 200);
+				}
 			}
 		});
 	}
