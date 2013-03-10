@@ -80,7 +80,7 @@ section {
 }
 
 #main-nav ul li a.active {
-	background: #bada55 !important;
+	background: #bada55;
 	text-shadow: 0 1px 0 rgba(255,255,255,.5);
 	color: black; }
 
@@ -149,6 +149,9 @@ section {
 	font-size: 14px;
 	font-weight: bold;
 	display: block;
+}
+.fixed-bottom a.active {
+	color: #bada55;
 }
 
 .block {
