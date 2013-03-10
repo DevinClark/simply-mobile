@@ -386,8 +386,7 @@ var ScrollingFixes = {
 			.css({
 				'height': totalHeight,
 				'overflow': 'scroll',
-				'-webkit-overflow-scrolling': 'touch',
-				'padding-bottom': bottomBarHeight + 15
+				'-webkit-overflow-scrolling': 'touch'
 			});
 	},
 	disableElastic: function (){
