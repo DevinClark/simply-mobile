@@ -76,6 +76,7 @@ $class-type: unquote(".");
 	#{$class-type}#{$namespace}nine-twelfths     { @extend #{$class-type}#{$namespace}three-quarters; }
 	#{$class-type}#{$namespace}ten-twelfths      { @extend #{$class-type}#{$namespace}five-sixths; }
 	#{$class-type}#{$namespace}eleven-twelfths   { width:91.666%; }
+	#{$class-type}#{$namespace}auto              { width: auto; }
 
 
 }

@@ -2,7 +2,6 @@
 .btn {
 	-webkit-appearance: none;
 	display: block;
-	width: 100%;
 	color: white;
 	text-decoration: none;
 	background: #2ba6cb;
@@ -39,7 +38,6 @@
 .btn-group .btn {
 	float: left;
 	display: block;
-	width: auto;
 	border-left-width: 0;
 }
 .btn-group .btn:nth-of-type(odd) {

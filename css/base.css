@@ -141,6 +141,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .eleven-twelfths {
   width: 91.666%; }
 
+.auto {
+  width: auto; }
+
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .medium-one-whole {
     width: 100%; }
@@ -212,7 +215,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 58.333%; }
 
   .medium-eleven-twelfths {
-    width: 91.666%; } }
+    width: 91.666%; }
+
+  .medium-auto {
+    width: auto; } }
 @media only screen and (min-width: 769px) {
   .large-one-whole {
     width: 100%; }
@@ -284,7 +290,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     width: 58.333%; }
 
   .large-eleven-twelfths {
-    width: 91.666%; } }
+    width: 91.666%; }
+
+  .large-auto {
+    width: auto; } }
 .clearfix:before, .btn-group:before, .media:before, .clearfix:after, .btn-group:after, .media:after {
   content: " ";
   display: table; }
@@ -2268,7 +2277,6 @@ h6 {
 .btn {
   -webkit-appearance: none;
   display: block;
-  width: 100%;
   color: white;
   text-decoration: none;
   background: #2ba6cb;
@@ -2303,7 +2311,6 @@ h6 {
 .btn-group .btn {
   float: left;
   display: block;
-  width: auto;
   border-left-width: 0; }
 
 .btn-group .btn:nth-of-type(odd) {
