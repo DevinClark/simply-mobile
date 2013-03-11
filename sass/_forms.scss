@@ -32,6 +32,23 @@
 	padding-right: .5em;
 }
 
+.btn-group {
+	white-space: nowrap;
+	@extend .clearfix;
+}
+.btn-group .btn {
+	float: left;
+	display: block;
+	width: auto;
+	border-left-width: 0;
+}
+.btn-group .btn:nth-of-type(odd) {
+	border-right-width: 1px;
+}
+.btn-group .btn:first-child {
+	border-left-width: 1px;
+}
+
 form .text,
 form .email,
 textarea {
