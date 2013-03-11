@@ -2455,7 +2455,8 @@ section {
 .page aside {
   display: none; }
 
-#main-nav ul li a span {
+/** Main Navigation */
+#main-nav li a span {
   margin: 0 6px 0 5px;
   width: 20px;
   display: inline-block;
@@ -2472,10 +2473,10 @@ section {
   right: 0;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.5);
   color: white; }
 
-#main-nav ul li a {
+#main-nav li a {
   opacity: 1;
   display: block;
   margin-bottom: 0px;
@@ -2489,15 +2490,15 @@ section {
   text-shadow: 0 1px 0 black;
   padding: 10px 10px; }
 
-#main-nav ul li a.odd {
+#main-nav li a.odd {
   background: #404040;
   left: 0; }
 
-#main-nav ul li a.even {
+#main-nav li a.even {
   background: #4a4a4a;
   right: 0; }
 
-#main-nav ul li a.active {
+#main-nav li a.active {
   background: #bada55;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   color: black; }
@@ -2511,29 +2512,7 @@ section {
   display: block;
   position: relative; }
 
-#left-nav {
-  position: absolute;
-  z-index: 0;
-  width: 84%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background: #3d3d3d;
-  color: white;
-  overflow-y: scroll; }
-
-#left-nav ul li a {
-  display: block;
-  border-width: 1px 0 1px 0;
-  border-style: solid;
-  border-color: #4c4c4c transparent #2d2d2d transparent;
-  color: #cecece;
-  font-size: 18px;
-  font-weight: 700;
-  text-decoration: none;
-  text-shadow: 0 1px 0 black;
-  padding: 10px 10px; }
-
+/* Bottom Navigation */
 .bottom-bar {
   background: #111;
   color: white;
@@ -2570,12 +2549,50 @@ section {
 .bottom-bar a.active {
   color: #bada55; }
 
-.block {
-  margin: 0;
-  margin-bottom: 12px;
-  padding: 12px;
-  background-color: #BADA55;
-  color: #fff; }
+/** Ajax Loader */
+#loader {
+  position: absolute;
+  top: 47px;
+  width: 100%;
+  height: 0px;
+  z-index: 2;
+  overflow: hidden; }
+
+#loader > div {
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: #ccc;
+  border-bottom: 1px solid #aaaaaa; }
+
+#loader.error > div {
+  background: #ffa4a4; }
+
+#loader > div #loaderImg {
+  position: absolute;
+  display: none;
+  height: 40px;
+  width: 40px;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px; }
+
+#loader > div #loaderImg img {
+  height: 100%;
+  width: auto; }
+
+#loader > div #loaderTxt {
+  position: absolute;
+  color: black;
+  font-weight: 700;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  height: 60px;
+  width: 100%;
+  line-height: 60px;
+  text-align: center; }
 
 @media only screen and (max-width: 1025px) and (min-width: 768px) {
   body .tablet-only {
