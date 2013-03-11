@@ -1,0 +1,50 @@
+<style>
+body {
+	background: #242424
+}
+.cube {
+	width: 200px;
+	height: 306px;
+	position: absolute;
+
+	left: 50%;
+	margin-left: -100px;
+	top: 50%;
+	margin-top: -153px;
+}
+.cube.second {
+	top: 60%;
+	left: 50%;
+}
+.cube div {
+	width: inherit;
+	height: inherit;
+	position: absolute;
+	overflow: hidden;
+}
+.cube div img {
+	border-radius: 10px;
+	height: auto;
+	width: 100%;
+}
+</style>
+
+<script>
+$(function(){
+    if(window.DeviceOrientationEvent){
+        window.addEventListener('deviceorientation', function(e){
+			var styleSpin ='rotateZ('+e.alpha+'deg) rotateY('+-e.gamma/2.5+'deg) rotateX('+-e.beta/2.5+'deg)';
+			var styleRotate ='rotateZ('+e.alpha+'deg)';
+
+			$('.cube div').css({
+				'-webkit-transform': styleRotate,
+				'-webkit-perspective-origin': 'center'
+			});
+        }, false);
+    }
+});
+</script>
+
+<div class="cube">
+	<div><img src="content/test/card.jpg" /></div>
+</div>
