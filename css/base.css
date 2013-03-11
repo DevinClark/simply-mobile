@@ -285,10 +285,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
   .large-eleven-twelfths {
     width: 91.666%; } }
-.clearfix:before, .btn-group:before, .clearfix:after, .btn-group:after {
+.clearfix:before, .btn-group:before, .media:before, .clearfix:after, .btn-group:after, .media:after {
   content: " ";
   display: table; }
-.clearfix:after, .btn-group:after {
+.clearfix:after, .btn-group:after, .media:after {
   clear: both; }
 
 @font-face {
@@ -2569,6 +2569,32 @@ section {
 
 .bottom-bar a.active {
   color: #bada55; }
+
+/** Media Object */
+.media {
+  list-style: none;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: .8em; }
+  .media a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 4px 0; }
+  .media a a {
+    padding-left: 4px; }
+  .media img, .media .img {
+    float: left;
+    margin: 0 10px 0 0;
+    padding: 0; }
+  .media .img img {
+    float: none;
+    display: block;
+    margin-right: 0; }
+  .media .bottom {
+    margin-top: 3px;
+    font-size: .9em; }
+  .media:last-child {
+    margin-bottom: 0; }
 
 /** Ajax Loader */
 #loader {
