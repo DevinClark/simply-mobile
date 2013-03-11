@@ -424,7 +424,7 @@ var ScrollingFixes = {
 	setScrolling: function() {
 		var docHeight = GlobalSettings.docHeight;
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
-		var footerHeight = $('.bottom-bar').outerHeight(false);
+		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
 
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
@@ -445,7 +445,7 @@ var ScrollingFixes = {
 		
 		var docHeight = $('.page section.js-primary-content').outerHeight(false);
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
-		var footerHeight = $('.bottom-bar').outerHeight(false);
+		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
 
 		$('.page section.js-primary-content > div').css('min-height', totalHeight);
