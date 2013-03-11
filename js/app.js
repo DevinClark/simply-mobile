@@ -143,7 +143,16 @@ var AjaxController = {
 						complete: function (){
 							$(".page section.js-primary-content").css('left',0);
 							$(".page section.js-primary-content div").html(html);
-							$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
+							
+							// This fixes the issue where if you scroll a content area and 
+							// ajax to something new, it would load the new stuff at that
+							// scroll position
+							$('.page section.js-primary-content').animate({
+								scrollTop: 0
+							}, 0, function (){
+								$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
+							});
+     
 							
 							Start.battle();
 		
