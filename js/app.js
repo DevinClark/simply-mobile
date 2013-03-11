@@ -10,15 +10,16 @@ var GlobalSettings = {
 	docWidth: $(document).width(),
 	docHeight: $(document).height(),
 	initialPage: 'index_content.html'
-}
+};
 
 var Start = {
 	battle: function (s){
 		this.inits();
 		this.styling();
 		
-		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined )
+		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined ) {
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
+		}
 	},
 	firstLoad: function (){
 		var lastPage = LocalStorage.get('last-page');
@@ -47,7 +48,7 @@ var Start = {
 
 		$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
 	}
-}
+};
 
 var AjaxController = {
 	s: {
@@ -55,7 +56,7 @@ var AjaxController = {
 		navIDs: '#main-nav, #footer-nav',
 		lImg: '#loaderImg',
 		lTxt: '#loaderTxt',
-		l: '#loader',
+		l: '#loader'
 	},
 	init: function (){
 		var self = this;
@@ -63,7 +64,7 @@ var AjaxController = {
 	loadImage: function (show){
 		self = this;
 		if( show === true ) {
-			$(this.s.lImg).fadeIn(200)
+			$(this.s.lImg).fadeIn(200);
 		} else {
 			$(this.s.lImg).fadeOut(200);
 		}
@@ -76,7 +77,7 @@ var AjaxController = {
 		setTimeout(function (){
 			$('#loader ').animate({'height':0}, 500, function() {
 				$(this).removeClass();
-			})
+			});
 		}, delay);
 	},
 	
@@ -163,7 +164,9 @@ var AjaxController = {
 							$(self.s.navIDs).find('a[data-href="' + htmlPage + '"]').addClass('active');
 							
 							// If the page error'd out, don't set localstorage
-							if( !t ) LocalStorage.set("last-page", htmlPage);
+							if( !t ) {
+								LocalStorage.set("last-page", htmlPage);
+							}
 						}
 					}
 				);
@@ -356,21 +359,21 @@ var Navigation = {
 			e.preventDefault();
 			
 			if( ! $(this).hasClass('active') ) {
-			var href = $(this).data('href');
-			
-			$(self.s.menuItems).removeClass('active');
-			
-			$(this).addClass('active');
-			
-			$('.menuopen').removeClass('menuopen');
-			
-			setTimeout(function (){
-				self.hideMenu();
-			
+				var href = $(this).data('href');
+				
+				$(self.s.menuItems).removeClass('active');
+				
+				$(this).addClass('active');
+				
+				$('.menuopen').removeClass('menuopen');
+				
 				setTimeout(function (){
-					AjaxController.load(href);
-				}, 500);
-			}, 200);
+					self.hideMenu();
+				
+					setTimeout(function (){
+						AjaxController.load(href);
+					}, 500);
+				}, 200);
 			}
 		});
 	}
@@ -423,8 +426,6 @@ var ScrollingFixes = {
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var footerHeight = $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
-
-		var bottomBarHeight = $('.bottom-bar').outerHeight(false);
 
 		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
 
