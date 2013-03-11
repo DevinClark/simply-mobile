@@ -52,6 +52,7 @@ var Start = {
 var AjaxController = {
 	s: {
 		docWidth: GlobalSettings.docWidth,
+		navIDs: '#main-nav, #footer-nav',
 		lImg: '#loaderImg',
 		lTxt: '#loaderTxt',
 		l: '#loader',
@@ -149,7 +150,8 @@ var AjaxController = {
 							self.loadingHide(500);
 	
 							// Setting the active nav
-							$('#main-nav').find('a[data-href="' + htmlPage + '"]').addClass('active');
+							$(self.s.navIDs).find('a').removeClass('active');
+							$(self.s.navIDs).find('a[data-href="' + htmlPage + '"]').addClass('active');
 							
 							// If the page error'd out, don't set localstorage
 							if( !t ) LocalStorage.set("last-page", htmlPage);
