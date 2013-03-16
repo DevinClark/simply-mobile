@@ -2230,7 +2230,8 @@ header .btn {
   border: 0;
   margin: 0 3px;
   -webkit-box-shadow: none;
-  box-shadow: none; }
+  box-shadow: none;
+  color: inherit; }
 
 header .btn:before {
   padding-right: 0; }
@@ -2655,3 +2656,15 @@ section {
 
   body .mobile-only {
     display: none; } }
+.theme-light header,
+.theme-light .bottom-bar {
+  background: #D8D8D8;
+  color: #242424; }
+  .theme-light header a,
+  .theme-light header .btn,
+  .theme-light .bottom-bar a,
+  .theme-light .bottom-bar .btn {
+    color: inherit; }
+  .theme-light header .active,
+  .theme-light .bottom-bar .active {
+    color: #D82710; }

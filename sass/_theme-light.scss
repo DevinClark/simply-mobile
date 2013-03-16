@@ -1,3 +1,16 @@
-.light {
-	
+.theme-light {
+	header,
+	.bottom-bar {
+		background: #D8D8D8;
+		color: #242424;
+
+		a,
+		.btn {
+			color: inherit;
+		}
+
+		.active {
+			color: #D82710;
+		}
+	}
 }
