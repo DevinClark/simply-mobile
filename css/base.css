@@ -2586,7 +2586,8 @@ section {
   .media a {
     text-decoration: none;
     font-weight: bold;
-    padding: 4px 0; }
+    padding: 4px 0;
+    color: #2ba6cb; }
   .media a a {
     padding-left: 4px; }
   .media img, .media .img {
