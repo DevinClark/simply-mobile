@@ -57,6 +57,8 @@ var Start = {
 		$('input[type="text"]').addClass('text');
 		$('input[type="email"]').addClass('email');
 
+		$('.checkbox.switch').after("<div/>").parents("label").addClass("switch-label");
+
 		$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
 	}
 };
