@@ -16,7 +16,6 @@ var Start = {
 	battle: function (s){
 		this.inits();
 		this.styling();
-		buildProgressBar();
 		
 		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined ) {
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
@@ -33,6 +32,7 @@ var Start = {
 		Navigation.init();
 		BottomNavigation.init();
 		this.battle();
+		ProgressBar.load();
 
 		if( !AjaxController.loadCache() ) {
 			AjaxController.load( lastPage );
@@ -57,6 +57,7 @@ var Start = {
 		$('input[type="reset"]').addClass('reset');
 		$('input[type="text"]').addClass('text');
 		$('input[type="email"]').addClass('email');
+		ProgressBar.init();
 
 		// Switch checkbox classes.
 		$('.checkbox.switch').after("<div/>").parents("label").addClass("switch-label");
@@ -490,12 +491,21 @@ var ScrollingFixes = {
 	}	
 };
 
-function buildProgressBar() {
-	$(".meter").each(function() {
-		$(this).append("<span />");
-		$("span", this).width($(this).data("progress") + "%");
-	});
-}
+var ProgressBar = {
+	init: function() {
+		$(".meter").each(function() {
+			$(this).append("<span />");
+			$("span", this).width($(this).data("progress") + "%");
+		});
+	},
+	load: function() {
+		$(".meter").each(function() {
+			$("span", this).width(0).animate({
+				width: $(this).data("progress") + "%"
+			}, 1200);
+		});
+	}
+};
 
 $(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
