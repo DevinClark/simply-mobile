@@ -97,41 +97,45 @@ section {
 }
 
 /* Bottom Navigation */
-.bottom-bar {
-	background: #111;
-	color: white;
-	padding: 0.5em 0;
-}
 .fixed-bottom {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 100%;
+	
+	li {
+		float: left;
+		text-align: center;
+	}
 }
-.fixed-bottom li {
-	float: left;
-	text-align: center;
-}
-.bottom-bar a {
+.bottom-bar {
+	background: #111;
 	color: white;
-	text-decoration: none;
-	display: block;
-	font-size: 22px;
-}
-.bottom-bar span {
-	display: none;
-}
-.bottom-bar.with-labels a {
-	display: block;
-	font-size: 28px;
-}
-.bottom-bar.with-labels a span {
-	font-size: 14px;
-	font-weight: bold;
-	display: block;
-}
-.bottom-bar a.active {
-	color: #bada55;
+	padding: 0.5em 0;
+
+	a {
+		color: white;
+		text-decoration: none;
+		display: block;
+		font-size: 22px;
+
+		&.active {
+			color: #bada55;
+		}
+	}
+	span {
+		display: none;
+	}
+	&.with-labels a {
+		display: block;
+		font-size: 28px;
+
+		span {
+			font-size: 14px;
+			font-weight: bold;
+			display: block;
+		}
+	}
 }
 
 /** Media Object */
