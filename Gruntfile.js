@@ -40,8 +40,7 @@ module.exports = function(grunt) {
 				files: {
 					'js/assets.js': [
 						'js/assets.js',
-						'js/reveal-forked.js',
-						'components/prefix-free/prefixfree.min.js'
+						'js/reveal-forked.js'
 					]
 				}
 			},
