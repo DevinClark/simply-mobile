@@ -2625,7 +2625,7 @@ section {
     font-weight: bold;
     padding: 4px 0;
     color: #2ba6cb; }
-  .media a a {
+  .media a + a {
     padding-left: 4px; }
   .media img, .media .img {
     float: left;
