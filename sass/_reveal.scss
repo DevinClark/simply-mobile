@@ -7,7 +7,7 @@
 /* Reveal Modals ---------------------- */
 .reveal-modal-bg { position: fixed; height: 100%; width: 100%; background: #000; background: rgba(#000, .85); z-index: 100; display: none; top: 0; float: left; }
 
-.reveal-modal { background: #fff; visibility: hidden; display: none; top: 20px; left: 50%; margin-left: -45%; width: 90%; max-height: 90%; overflow: scroll; position: absolute; z-index: 101; padding: 30px; @include box-shadow(0 0 10px rgba(#000,.4));
+.reveal-modal { background: #fff; visibility: hidden; display: none; top: 20px; left: 50%; margin-left: -45%; width: 90%; max-height: 90%; overflow: scroll; position: absolute; z-index: 101; padding: 30px; box-shadow: 0 0 10px rgba(#000,.4);
 	.modal-inner {
 		height: 100%;
 	}

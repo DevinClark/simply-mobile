@@ -19,9 +19,7 @@ $class-type: unquote(".");
 	vertical-align:top;
 	letter-spacing:normal;
 	word-spacing:normal;
-	-webkit-box-sizing:border-box;
-	   -moz-box-sizing:border-box;
-	        box-sizing:border-box;
+	box-sizing:border-box;
 }
 
 @mixin device-type($namespace:""){
