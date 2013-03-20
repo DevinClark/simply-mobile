@@ -227,3 +227,36 @@ section {
 		background: #ffa4a4;
 	}
 }
+
+/** Progress Bars */
+.meter {
+	position: relative;
+	height: 1.5em;
+	margin: 3px 0;
+
+	span {
+		display: block;
+		height: 100%;
+		background: #2ba6cb;
+		-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+		-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+	}
+	&.success span {
+		background: #BADA55;
+	}
+	&.alert span {
+		background: #c60f13;
+	}
+	&.striped span {
+		background-size: 30px 30px;
+		background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100% );
+	}
+	&.animate span {
+		-webkit-animation: animateStripes 1s linear infinite;
+	}
+}
+@-webkit-keyframes animateStripes {
+	0% { background-position: 0 0; }
+	100% { background-position: 30px 30px; }
+}

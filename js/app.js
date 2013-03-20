@@ -16,6 +16,7 @@ var Start = {
 	battle: function (s){
 		this.inits();
 		this.styling();
+		buildProgressBar();
 		
 		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined ) {
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
@@ -488,6 +489,13 @@ var ScrollingFixes = {
 		});
 	}	
 };
+
+function buildProgressBar() {
+	$(".meter").each(function() {
+		$(this).append("<span />");
+		$("span", this).width($(this).data("progress") + "%");
+	});
+}
 
 $(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
