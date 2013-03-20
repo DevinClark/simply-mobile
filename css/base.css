@@ -2552,9 +2552,6 @@ body .tablet-only {
 section {
   padding: 10px; }
 
-.page aside {
-  display: none; }
-
 /** Main Navigation */
 #main-nav {
   display: none;
