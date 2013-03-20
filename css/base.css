@@ -2684,42 +2684,37 @@ section {
   height: 0px;
   z-index: 2;
   overflow: hidden; }
-
-#loader > div {
-  height: 60px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  background: #ccc;
-  border-bottom: 1px solid #aaaaaa; }
-
-#loader.error > div {
-  background: #ffa4a4; }
-
-#loader > div #loaderImg {
-  position: absolute;
-  display: none;
-  height: 40px;
-  width: 40px;
-  top: 50%;
-  left: 50%;
-  margin-top: -20px;
-  margin-left: -20px; }
-
-#loader > div #loaderImg img {
-  height: 100%;
-  width: auto; }
-
-#loader > div #loaderTxt {
-  position: absolute;
-  color: black;
-  font-weight: 700;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-  font-size: 16px;
-  height: 60px;
-  width: 100%;
-  line-height: 60px;
-  text-align: center; }
+  #loader > div {
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background: #ccc;
+    border-bottom: 1px solid #aaaaaa; }
+    #loader > div #loaderImg {
+      position: absolute;
+      display: none;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      margin-top: -20px;
+      margin-left: -20px; }
+      #loader > div #loaderImg img {
+        height: 100%;
+        width: auto; }
+  #loader #loaderTxt {
+    position: absolute;
+    color: black;
+    font-weight: 700;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    height: 60px;
+    width: 100%;
+    line-height: 60px;
+    text-align: center; }
+  #loader.error > div {
+    background: #ffa4a4; }
 
 @media only screen and (max-width: 1025px) and (min-width: 768px) {
   body .tablet-only {
