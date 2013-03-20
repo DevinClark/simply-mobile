@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "*",
-    "hammer.js": "https://github.com/EightMedia/hammer.js.git"
-  },
-  "devDependencies": {
-    "fastclick": "~0.6.0"
+    "hammer.js": "https://github.com/EightMedia/hammer.js.git",
+    "fastclick": "~0.6.0",
+    "prefix-free": ""
   }
 }

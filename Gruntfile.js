@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 				"jquery": '',
 				"jquery.hammer": '',
 				"jquery.easing.1.3": "",
-				'fastclick' : ""
+				"fastclick": ""
 			},
 		},
 		jshint: {
@@ -40,7 +40,8 @@ module.exports = function(grunt) {
 				files: {
 					'js/assets.js': [
 						'js/assets.js',
-						'js/reveal-forked.js'
+						'js/reveal-forked.js',
+						'components/prefix-free/prefixfree.min.js'
 					]
 				}
 			},
