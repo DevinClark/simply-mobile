@@ -21,10 +21,6 @@ var Start = {
 			LocalStorage.set('last-page', GlobalSettings.initialPage);
 		}
 
-		if( LocalStorage.get("last-page-content") == null || LocalStorage.get("last-page-content") == undefined ) {
-			LocalStorage.set("last-page-content", $(".page section.js-primary-content").html());
-		}
-
 	},
 	firstLoad: function (){
 		var lastPage = LocalStorage.get('last-page');
@@ -33,12 +29,8 @@ var Start = {
 		BottomNavigation.init();
 		this.battle();
 		ProgressBar.load();
-
-		if( !AjaxController.loadCache() ) {
-			AjaxController.load( lastPage );
-		} else {
-			AjaxController.loadCache();
-		}
+		
+		AjaxController.load( lastPage );
 
 		new FastClick(document.body);
 	},
@@ -190,13 +182,6 @@ var AjaxController = {
 				$(".page section").css({'width': "100%"});
 			}, 1500);
 		});
-	},
-	loadCache: function() {
-		if( $(".page section.js-primary-content").html() == LocalStorage.get('last-content-page') || LocalStorage.get('last-content-page') === "" ) {
-			return false;
-		}
-		$(".page section.js-primary-content").html(LocalStorage.get("last-page-content"));
-		return true;
 	}
 };
 
