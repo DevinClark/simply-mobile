@@ -95,12 +95,6 @@ textarea {
 	border-radius: 999px;
 	margin: 0 .5em;
 	background: white;
-	-webkit-background-size: 200% 100%;
-	background-size: 200% 100%;
-	background-position: 100% 0;
-	background-origin: border-box;
-	-webkit-background-clip: border-box;
-	background-clip: border-box;
 	overflow: hidden;
 	-webkit-transition-duration: .3s;
 	-o-transition-duration: .3s;
@@ -114,7 +108,6 @@ textarea {
 .checkbox.switch:checked + div {
 	padding-left: 2em;
 	width: 3em;
-	background-position: 0 0;
 }
 .checkbox.switch + div:before {
 	content: 'On';
