@@ -231,7 +231,7 @@ section {
 /** Progress Bars */
 .meter {
 	position: relative;
-	height: 1.5em;
+	height: 28px;
 	margin: 3px 0;
 
 	span {
@@ -252,6 +252,22 @@ section {
 	}
 	&.animate span {
 		animation: animateStripes 1s linear infinite;
+	}
+	&.show-progress span {
+		position: relative;
+		text-align: right;
+
+		b {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			margin-top: -10px;
+			vertical-align: middle;
+			color: white;
+			font-weight: bold;
+			font-size: 16px;
+		}
 	}
 }
 @keyframes animateStripes {

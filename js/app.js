@@ -481,6 +481,9 @@ var ProgressBar = {
 		$(".meter").each(function() {
 			$(this).append("<span />");
 			$("span", this).width($(this).data("progress") + "%");
+			if($(this).hasClass("show-progress")) {
+				$("span", this).html("<b>" + $(this).data("progress") + "%</b>");
+			}
 		});
 	},
 	load: function() {
