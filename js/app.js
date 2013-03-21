@@ -132,55 +132,52 @@ var AjaxController = {
 			}
 		}).done(function (html){
 			self.loadingShow('Loading');
-
-			setTimeout(function (){ // Just here to simulate server load
 				
-				$('.page section.js-load-content div').html(html);
-				
-				$(self.s.lTxt).html("Completed");
-				
-				self.loadImage(false);
-							
-				$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
-				$(".page section.js-load-content").animate(
-					{
-						'position': 'absolute', 
-						'left': 0
-					},{ 
-						queue: false, 
-						duration: 500, 
-						complete: function (){
-							$(".page section.js-primary-content").css('left',0);
-							$(".page section.js-primary-content div").html(html);
-							
-							// This fixes the issue where if you scroll a content area and 
-							// ajax to something new, it would load the new stuff at that
-							// scroll position
-							$('.page section.js-primary-content').animate({
-								scrollTop: 0
-							}, 0, function (){
-								$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
-							});
-     
-							
-							Start.battle();
-		
-							self.loadingHide(500);
+			$('.page section.js-load-content div').html(html);
+			
+			$(self.s.lTxt).html("Completed");
+			
+			self.loadImage(false);
+						
+			$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
+			$(".page section.js-load-content").animate(
+				{
+					'position': 'absolute', 
+					'left': 0
+				},{ 
+					queue: false, 
+					duration: 500, 
+					complete: function (){
+						$(".page section.js-primary-content").css('left',0);
+						$(".page section.js-primary-content div").html(html);
+						
+						// This fixes the issue where if you scroll a content area and 
+						// ajax to something new, it would load the new stuff at that
+						// scroll position
+						$('.page section.js-primary-content').animate({
+							scrollTop: 0
+						}, 0, function (){
+							$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
+						});
+  
+						
+						Start.battle();
 	
-							// Setting the active nav
-							$(self.s.navIDs).find('a').removeClass('active');
-							$(self.s.navIDs).find('a[data-href="' + htmlPage + '"]').addClass('active');
-							
-							// If the page error'd out, don't set localstorage
-							if( !t ) {
-								LocalStorage.set("last-page", htmlPage);
-								LocalStorage.set("last-page-content", $(".page section.js-primary-content").html());
-							}
+						self.loadingHide(500);
+
+						// Setting the active nav
+						$(self.s.navIDs).find('a').removeClass('active');
+						$(self.s.navIDs).find('a[data-href="' + htmlPage + '"]').addClass('active');
+						
+						// If the page error'd out, don't set localstorage
+						if( !t ) {
+							LocalStorage.set("last-page", htmlPage);
+							LocalStorage.set("last-page-content", $(".page section.js-primary-content").html());
 						}
 					}
-				);
-				$(".page section").css({'width': "100%"});
-			}, 1500);
+				}
+			);
+			$(".page section").css({'width': "100%"});
 		});
 	}
 };
