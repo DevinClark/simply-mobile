@@ -94,7 +94,7 @@ textarea {
 	transition-duration: .3s;
 	transition-property: padding, width, background-position, text-indent;
 }
-.checkbox.switch:checked + div {
+.checkbox.switch.on + div {
 	padding-left: 2em;
 	width: 3em;
 }
