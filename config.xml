@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.overdid.simplymobile" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+	<name>SimplyMobile</name>
+	<description>
+		
+	</description>
+	<author email="dclarkdesign@gmail.com" href="http://devin-clark.com">
+		Devin Clark
+	</author>
+	<icon height="512" src="img/icon/Icon-512.png" width="512" />
+	<icon gap:platform="ios" height="144" src="img/icon/Icon-72@2x.png" width="144" />
+	<gap:splash gap:platform="ios" height="748" src="img/splash/Default-Landscape~ipad.png" width="1024" />
+	<gap:splash gap:platform="ios" height="1004" src="img/splash/Default-Portrait~ipad.png" width="768" />
+	<gap:splash gap:platform="ios" height="1496" src="img/splash/Default-Landscape@2x~ipad.png" width="2048" />
+	<gap:splash gap:platform="ios" height="2008" src="img/splash/Default-Portrait@2x~ipad.png" width="1536" />
+	<gap:splash gap:platform="ios" height="320" src="img/splash/Default-Landscape.png" width="480" />
+	<gap:splash gap:platform="ios" height="480" src="img/splash/Default.png" width="320" />
+	<gap:splash gap:platform="ios" height="640" src="img/splash/Default-Landscape@2x.png" width="960" />
+	<gap:splash gap:platform="ios" height="960" src="img/splash/Default@2x.png" width="640" />
+	<feature name="http://api.phonegap.com/1.0/device" />
+	<preference name="phonegap-version" value="1.9.0" />
+	<preference name="orientation" value="default" />
+	<preference name="target-device" value="universal" />
+	<preference name="fullscreen" value="false" />
+	<access origin="*" />
+</widget>

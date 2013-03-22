@@ -79,6 +79,23 @@ var Start = {
 	}
 };
 
+var CordovaApp = {
+	initialize: function() {
+		this.bind();
+	},
+	bind: function() {
+		document.addEventListener('deviceready', this.deviceready, false);
+	},
+	deviceready: function() {
+		CordovaApp.report('deviceready');
+	},
+	report: function(id) { 
+		console.log("report:" + id);
+
+	}
+};
+
+
 var AjaxController = {
 	s: {
 		docWidth: GlobalSettings.docWidth,
