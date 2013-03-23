@@ -2,13 +2,18 @@
 <widget id="com.overdid.simplymobile" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
 	<name>SimplyMobile</name>
 	<description>
-		
+		TODO
 	</description>
 	<author email="dclarkdesign@gmail.com" href="http://devin-clark.com">
 		Devin Clark
 	</author>
+	
 	<icon height="512" src="img/icon/Icon-512.png" width="512" />
-	<icon gap:platform="ios" height="144" src="img/icon/Icon-72@2x.png" width="144" />
+	<icon gap:platform="ios" width="57"  height="57"   src="img/icon/Icon.png" />
+	<icon gap:platform="ios" width="72"  height="72"   src="img/icon/Icon-72.png" />
+	<icon gap:platform="ios" width="114" height="114"  src="img/icon/Icon@2x.png" />
+	<icon gap:platform="ios" width="144" height="144"  src="img/icon/Icon-72@2x.png" />
+	
 	<gap:splash gap:platform="ios" height="748" src="img/splash/Default-Landscape~ipad.png" width="1024" />
 	<gap:splash gap:platform="ios" height="1004" src="img/splash/Default-Portrait~ipad.png" width="768" />
 	<gap:splash gap:platform="ios" height="1496" src="img/splash/Default-Landscape@2x~ipad.png" width="2048" />
@@ -17,10 +22,15 @@
 	<gap:splash gap:platform="ios" height="480" src="img/splash/Default.png" width="320" />
 	<gap:splash gap:platform="ios" height="640" src="img/splash/Default-Landscape@2x.png" width="960" />
 	<gap:splash gap:platform="ios" height="960" src="img/splash/Default@2x.png" width="640" />
+	
 	<feature name="http://api.phonegap.com/1.0/device" />
-	<preference name="phonegap-version" value="1.9.0" />
+
+	<preference name="phonegap-version" value="2.5.5" />
 	<preference name="orientation" value="default" />
 	<preference name="target-device" value="universal" />
 	<preference name="fullscreen" value="false" />
+	<preference name="UIWebViewBounce" value="false" />
+	<preference name="prerendered-icon" value="true" />
+	
 	<access origin="*" />
 </widget>
