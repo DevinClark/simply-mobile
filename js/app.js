@@ -9,7 +9,8 @@ jQuery.error = console.error;
 var GlobalSettings = {
 	docWidth: $(document).width(),
 	docHeight: $(document).height(),
-	initialPage: 'index_content.html'
+	initialPage: 'index_content.html',
+	env: "web"
 };
 
 var Start = {
@@ -25,6 +26,17 @@ var Start = {
 	firstLoad: function (){
 		var lastPage = LocalStorage.get('last-page');
 		
+		GlobalSettings.env = "cordova";
+
+		switch(GlobalSettings.env) {
+			case "web":
+				break;
+			case "cordova":
+				$.getScript("components/cordova.ios/index.js");
+				CordovaApp.initialize();
+				break;
+		}
+
 		Navigation.init();
 		BottomNavigation.init();
 		this.battle();
@@ -87,10 +99,11 @@ var CordovaApp = {
 		document.addEventListener('deviceready', this.deviceready, false);
 	},
 	deviceready: function() {
-		CordovaApp.report('deviceready');
+		//CordovaApp.report('deviceready');
+		navigator.notification.alert("Hi", null, "Simply Mobile", 'OK');
 	},
 	report: function(id) { 
-		console.log("report:" + id);
+		//console.log("report:" + id);
 
 	}
 };
@@ -197,7 +210,7 @@ var AjaxController = {
 						}, 0, function (){
 							$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
 						});
-  
+	
 						
 						Start.battle();
 	
