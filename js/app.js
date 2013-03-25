@@ -223,7 +223,6 @@ var AjaxController = {
 						// If the page error'd out, don't set localstorage
 						if( !t ) {
 							LocalStorage.set("last-page", htmlPage);
-							LocalStorage.set("last-page-content", $(".page section.js-primary-content").html());
 						}
 					}
 				}
