@@ -25,17 +25,6 @@ var Start = {
 	},
 	firstLoad: function (){
 		var lastPage = LocalStorage.get('last-page');
-		
-		GlobalSettings.env = "cordova";
-
-		switch(GlobalSettings.env) {
-			case "web":
-				break;
-			case "cordova":
-				$.getScript("components/cordova.ios/index.js");
-				CordovaApp.initialize();
-				break;
-		}
 
 		Navigation.init();
 		BottomNavigation.init();
@@ -45,6 +34,15 @@ var Start = {
 		AjaxController.load( lastPage );
 
 		new FastClick(document.body);
+
+		switch(GlobalSettings.env) {
+			case "web":
+				break;
+			case "cordova":
+				$.getScript("../components/cordova.ios/index.js");
+				CordovaApp.initialize();
+				break;
+		}
 	},
 	inits: function (){
 		OrientationCheck.init();
@@ -99,12 +97,11 @@ var CordovaApp = {
 		document.addEventListener('deviceready', this.deviceready, false);
 	},
 	deviceready: function() {
-		//CordovaApp.report('deviceready');
-		navigator.notification.alert("Hi", null, "Simply Mobile", 'OK');
+		CordovaApp.report('deviceready');
 	},
 	report: function(id) { 
-		//console.log("report:" + id);
-
+		console.log("report:" + id);
+		navigator.notification.alert("Hi", null, "Simply Mobile", 'OK');
 	}
 };
 
