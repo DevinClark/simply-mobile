@@ -10,7 +10,7 @@ var GlobalSettings = {
 	docWidth: $(document).width(),
 	docHeight: $(document).height(),
 	initialPage: 'index_content.html',
-	env: "web"
+	env: "cordova" 
 };
 
 var Start = {
