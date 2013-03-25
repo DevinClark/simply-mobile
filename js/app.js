@@ -114,10 +114,10 @@ var Hook = {
 		Hook.hooks[name].push( callback )
 	},
 	
-	call: function ( name, arguments ) {
+	call: function ( name, args ) {
 		if( 'undefined' != typeof( Hook.hooks[name] ) )
 			for( i = 0; i < Hook.hooks[name].length; ++i )
-				if( true != Hook.hooks[name][i]( arguments ) ) { break; }
+				if( true != Hook.hooks[name][i]( args ) ) { break; }
 		}
 }
 
