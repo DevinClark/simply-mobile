@@ -36,12 +36,12 @@ var Start = {
 		new FastClick(document.body);
 
 		switch(GlobalSettings.env) {
-			case "web":
-				break;
-			case "cordova":
-				$.getScript("../components/cordova.ios/index.js");
-				CordovaApp.initialize();
-				break;
+		case "web":
+			break;
+		case "cordova":
+			$.getScript("../components/cordova.ios/index.js");
+			CordovaApp.initialize();
+			break;
 		}
 	},
 	inits: function (){
@@ -109,17 +109,22 @@ var Hook = {
 	hooks: [],
 	
 	register: function ( name, callback ) {
-		if( 'undefined' == typeof( Hook.hooks[name] ) )
-			Hook.hooks[name] = []
-		Hook.hooks[name].push( callback )
+		if( 'undefined' === typeof( Hook.hooks[name] ) ) {
+			Hook.hooks[name] = [];
+		}
+		Hook.hooks[name].push( callback );
 	},
 	
 	call: function ( name, args ) {
-		if( 'undefined' != typeof( Hook.hooks[name] ) )
-			for( i = 0; i < Hook.hooks[name].length; ++i )
-				if( true != Hook.hooks[name][i]( args ) ) { break; }
+		if( 'undefined' !== typeof( Hook.hooks[name] ) ) {
+			for( var i = 0; i < Hook.hooks[name].length; ++i ) {
+				if( true !== Hook.hooks[name][i]( args ) ) { 
+					break;
+				}
+			}
 		}
-}
+	}
+};
 
 var AjaxController = {
 	s: {
