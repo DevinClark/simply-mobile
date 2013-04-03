@@ -1,7 +1,7 @@
 /**
  * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
  *
- * @version 0.6.0
+ * @version 0.6.2
  * @codingstandard ftlabs-jsv2
  * @copyright The Financial Times Limited [All Rights Reserved]
  * @license MIT License (see LICENSE.txt)
@@ -240,7 +240,7 @@ FastClick.prototype.needsFocus = function(target) {
 		}
 
 		// No point in attempting to focus disabled inputs
-		return !target.disabled;
+		return !target.disabled && !target.readOnly;
 	default:
 		return (/\bneedsfocus\b/).test(target.className);
 	}
@@ -527,10 +527,7 @@ FastClick.prototype.onTouchEnd = function(event) {
 	// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
 	if (!this.needsClick(targetElement)) {
 		event.preventDefault();
-		var self = this;
-		setTimeout(function(){
-			self.sendClick(targetElement, event);
-		}, 0);
+		this.sendClick(targetElement, event);
 	}
 
 	return false;

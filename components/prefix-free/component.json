@@ -1,7 +1,7 @@
 {
   "name": "prefix-free",
   "version": "0.0.0",
-  "commit": "9316021d2d1b545d2fff9c01b593f1ae4b7e289b",
+  "commit": "b44a065d048a3c218970f23118010446206ca4d9",
   "repository": {
     "type": "git",
     "url": "git://github.com/LeaVerou/prefixfree.git"
