@@ -142,6 +142,7 @@ var AjaxController = {
 		}
 	},
 	loadingShow: function (str){
+		$("body").prepend('<div id="loader"><div><span id="loaderImg"><img src="img/loading.gif" /></span><span id="loaderTxt">Loading the page</span></div></div>');
 		$(this.s.lTxt).html(str);
 		$(this.s.l).animate({'height': 60}, 500);
 	},
@@ -151,6 +152,7 @@ var AjaxController = {
 				$(this).removeClass();
 			});
 		}, delay);
+		$("#loader").remove();
 	},
 	load: function (htmlPage){
 		var self = this;
