@@ -14,7 +14,7 @@ var GlobalSettings = {
 };
 
 var Start = {
-	battle: function (s){
+	battle: function (){
 		this.inits();
 		this.styling();
 		
@@ -134,11 +134,7 @@ var AjaxController = {
 		lTxt: '#loaderTxt',
 		l: '#loader'
 	},
-	init: function (){
-		var self = this;
-	},
 	loadImage: function (show){
-		self = this;
 		if( show === true ) {
 			$(this.s.lImg).fadeIn(200);
 		} else {
@@ -156,7 +152,6 @@ var AjaxController = {
 			});
 		}, delay);
 	},
-	
 	load: function (htmlPage){
 		var self = this;
 		
@@ -524,7 +519,7 @@ var ScrollingFixes = {
 		$('.page section.js-primary-content > div').css('min-height', totalHeight);
 		
 
-		$(window).bind('touchstart',function(e){
+		$(window).bind('touchstart',function(){
 			var scrolled = link.scrollTop();
 			var winHeight = link.height();
 			var contentHeight = $('.page section > div').innerHeight();
