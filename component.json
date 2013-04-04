@@ -6,6 +6,6 @@
     "hammer.js": "https://github.com/EightMedia/hammer.js.git",
     "fastclick": "~0.6.0",
     "prefix-free": "",
-    "mustache": "~0.7.2"
+    "handlebars.js": ""
   }
 }
