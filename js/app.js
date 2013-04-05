@@ -177,8 +177,8 @@ var AjaxController = {
 
 		$(".page section").css({'width': self.s.docWidth});
 		
-		$(".page section.js-primary-content").css({'position': 'absolute', 'left': 0});
-		$(".page section.js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
+		$(".page #js-primary-content").css({'position': 'absolute', 'left': 0});
+		$(".page #js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
 		
 		$.ajax({
 			url: htmlPage,
@@ -198,14 +198,14 @@ var AjaxController = {
 		}).done(function (html){
 			self.loadingShow('Loading');
 				
-			$('.page section.js-load-content div').html(html);
+			$('.page #js-load-content div').html(html);
 			
 			$(self.s.lTxt).html("Completed");
 			
 			self.loadImage(false);
 						
-			$(".page section.js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
-			$(".page section.js-load-content").animate(
+			$(".page #js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
+			$(".page #js-load-content").animate(
 				{
 					'position': 'absolute', 
 					'left': 0
@@ -213,16 +213,16 @@ var AjaxController = {
 					queue: false, 
 					duration: 500, 
 					complete: function (){
-						$(".page section.js-primary-content").css('left',0);
-						$(".page section.js-primary-content div").html(html);
+						$(".page #js-primary-content").css('left',0);
+						$(".page #js-primary-content div").html(html);
 						
 						// This fixes the issue where if you scroll a content area and 
 						// ajax to something new, it would load the new stuff at that
 						// scroll position
-						$('.page section.js-primary-content').animate({
+						$('.page #js-primary-content').animate({
 							scrollTop: 0
 						}, 0, function (){
-							$(".page section.js-load-content div").html('').css({'left': -self.s.docWidth});
+							$(".page #js-load-content div").html('').css({'left': -self.s.docWidth});
 						});
 	
 						
@@ -497,7 +497,7 @@ var ScrollingFixes = {
 		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
 
-		$(".page section.js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
+		$(".page #js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
 
 		$('.js-content-wrap')
 			.css({
@@ -513,12 +513,12 @@ var ScrollingFixes = {
 	disableElastic: function (){
 		var link = $('.page section');
 		
-		var docHeight = $('.page section.js-primary-content').outerHeight(false);
+		var docHeight = $('.page #js-primary-content').outerHeight(false);
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
 
-		$('.page section.js-primary-content > div').css('min-height', totalHeight);
+		$('.page #js-primary-content > div').css('min-height', totalHeight);
 		
 
 		$(window).bind('touchstart',function(){
