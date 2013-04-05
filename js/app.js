@@ -418,12 +418,7 @@ var Navigation = {
 };
 var BottomNavigation = {
 	s: {
-		navWidth: GlobalSettings.docWidth,
-		delay: 500,
-		fadeDelay: 400,
-		menuItems: '.bottom-bar a',
-		easingIn: 'easeOutQuart',
-		easingOut: 'easeInOutQuart'
+		menuItems: '.bottom-bar a'
 	},
 	init: function() {
 		this.clickNavItem();
@@ -434,20 +429,10 @@ var BottomNavigation = {
 		$(self.s.menuItems).on('click',function (e){
 			e.preventDefault();
 			
-			if( $(this).data('href') ) {
+			if( $(this).data('view') ) {
 				if( ! $(this).hasClass('active') ) {
-					var href = $(this).data('href');
-					
 					$(self.s.menuItems).removeClass('active');
-					
 					$(this).addClass('active');
-					
-					setTimeout(function (){
-					
-						setTimeout(function (){
-							AjaxController.load(href);
-						}, 500);
-					}, 200);
 				}
 			}
 		});
