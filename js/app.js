@@ -1,4 +1,5 @@
 /*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
+/*global Handlebars, jQuery, FastClick */
 "use strict";
 var Modernizr = Modernizr;
 
@@ -10,7 +11,7 @@ var GlobalSettings = {
 	docWidth: $(document).width(),
 	docHeight: $(document).height(),
 	initialPage: 'index_content.html',
-	env: "cordova" 
+	env: "web"
 };
 
 var Start = {
@@ -30,8 +31,7 @@ var Start = {
 		BottomNavigation.init();
 		this.battle();
 		ProgressBar.load();
-		
-		AjaxController.load( lastPage );
+		ViewAssembler.init();
 
 		new FastClick(document.body);
 
@@ -126,10 +126,101 @@ var Hook = {
 	}
 };
 
-var AjaxController = {
+var ViewAssembler = {
+	currentTemplate: "",
+	init: function() {
+		if (Handlebars.templates === undefined) {
+			Handlebars.templates = {};
+		}
+		if(Handlebars.templates["error"] !== "") {
+			Handlebars.templates["error"] = this.getTemplateFile("error");
+		}
+	},
+	getJSON: function(jsonData, remoteData) {
+		var obj;
+		try {
+			obj = $.jsonParse(jsonData);
+		} catch(e) {}
+
+		if(typeof obj === "object") {
+			return obj;
+		}
+		else {
+			var json;
+			$.getJSON(jsonData, remoteData, function(data) {
+				json = data;
+			});
+			return json;
+		}
+	},
+	getTemplateFile: function(name, callback) {
+		var self = this;
+		if (Handlebars.templates[name] === undefined) {
+			$.ajax({
+				url: 'views/' + name + '.html',
+				async: false,
+				success: function(data, textStatus, jqXHR) {
+					if(name.substring(0, 1) === "_") {
+						Handlebars.templates[name] = Handlebars.compile(data);
+						Handlebars.registerPartial(name, Handlebars.templates[name]);
+					}
+					else {
+						Handlebars.templates[name] = Handlebars.compile(data);
+					}
+					if(callback) {
+						callback(Handlebars.templates[name]);
+					}
+				},
+				error: function(jqXHR, textStatus, error) {
+					if(callback) {
+						callback(Handlebars.templates["error"]);
+					}
+				}
+			});
+		}
+		else {
+			if(callback) {
+				callback(Handlebars.templates[name]);
+			}
+		}
+		self.currentTemplate = name;
+		return Handlebars.templates[name];
+	},
+	renderTemplate: function(name, data, remoteData, callback) {
+		var html;
+		var self = this;
+		var template = ViewAssembler.getTemplateFile(name, function(template) {
+			
+			data = self.getJSON(data, remoteData) || "";
+			html = template(data);
+			if(callback) {
+				callback(html);
+			}
+		});
+	},
+	updateTitle: function(title) {
+		$("header h1").html(title);
+	}
+};
+
+var Views = {
+	loadView: function(name) {
+		ViewAssembler.renderTemplate(name, "", "", function(html) {
+			LoadController.loadPage(html, "");
+		});
+	},
+	defaultView: function() {
+		var html = ViewAssembler.renderTemplate("styleguide", "", "", function(html) {
+			LoadController.loadPage(html, "");
+		});
+		ViewAssembler.updateTitle("Simply Mobile");
+	}
+};
+
+var LoadController = {
 	s: {
 		docWidth: GlobalSettings.docWidth,
-		navIDs: '#main-nav, #footer-nav',
+		navIDs: '#main-nav, .bottom-bar',
 		lImg: '#loaderImg',
 		lTxt: '#loaderTxt',
 		l: '#loader'
@@ -154,94 +245,27 @@ var AjaxController = {
 		}, delay);
 		$("#loader").remove();
 	},
-	load: function (htmlPage){
-		var self = this;
-		
-		// Error checking
-		$.ajax({
-			url: htmlPage,
-			cache: false,
-			dataType: "html",
-			statusCode: {
-				404: function() {
-					self.loadPage('content/error.html', 'error');
-				},
-				200: function() {
-					self.loadPage(htmlPage, null);
-				}
-			}
-		});
+	setActiveNav: function() {
+		$(this.s.navIDs).find('a').removeClass('active');
+		$(this.s.navIDs).find('a[data-view="' + ViewAssembler.currentTemplate + '"]').addClass('active');
 	},
-	loadPage: function (htmlPage, t){
+	loadPage: function (content, t){
 		var self = this;
-
-		$("#js-primary-content").after('<section id="js-load-content" style="position: absolute; top: 47px;"><div></div></section>');
-
-		$(".page section").css({'width': self.s.docWidth});
-		
-		$(".page #js-primary-content").css({'position': 'absolute', 'left': 0});
-		$(".page #js-load-content").css({'position': 'absolute', 'left': self.s.docWidth});
-		
-		$.ajax({
-			url: htmlPage,
-			cache: false,
-			type: 'get',
-			statusCode: {
-				// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-				200: function (){
-					self.loadImage(true);
-				},
-				404: function (){
-					$(self.s.l).addClass('error');
-					self.loadingShow('ERROR: Not found');
-					self.loadingHide(2000);					
-				}
-			}
-		}).done(function (html){
-			self.loadingShow('Loading');
+		var timing = 400;
+		var easing = "linear";
+		$(".page #js-primary-content").fadeOut(timing, easing, function() {
+			self.setActiveNav();
+			$('.page #js-primary-content div').html(content);
+			
+			$(".page #js-primary-content").fadeIn(timing, easing, function (){
+				// This fixes the issue where if you scroll a content area and 
+				// ajax to something new, it would load the new stuff at that scroll position
+				$('.page #js-primary-content').animate({
+					scrollTop: 0
+				}, 0);
 				
-			$('.page #js-load-content div').html(html);
-			
-			$(self.s.lTxt).html("Completed");
-			
-			self.loadImage(false);
-						
-			$(".page #js-primary-content").animate({'position': 'absolute', 'left': -self.s.docWidth}, { queue: false, duration: 500 });
-			$(".page #js-load-content").animate(
-				{
-					'position': 'absolute', 
-					'left': 0
-				},{ 
-					queue: false, 
-					duration: 500, 
-					complete: function (){
-						$(".page #js-primary-content").css('left',0);
-						$(".page #js-primary-content div").html(html);
-						
-						// This fixes the issue where if you scroll a content area and 
-						// ajax to something new, it would load the new stuff at that scroll position
-						$('.page #js-primary-content').animate({
-							scrollTop: 0
-						}, 0, function (){
-							$(".page #js-load-content div").html('').css({'left': -self.s.docWidth});
-						});
-	
-						
-						Start.battle();
-	
-						self.loadingHide(500);
-
-						// Setting the active nav
-						$(self.s.navIDs).find('a').removeClass('active');
-						$(self.s.navIDs).find('a[data-href="' + htmlPage + '"]').addClass('active');
-						
-						// If the page error'd out, don't set localstorage
-						if( !t ) {
-							LocalStorage.set("last-page", htmlPage);
-						}
-					}
-				}
-			);
+				Start.battle();
+			});
 			$(".page section").css({'width': "100%"});
 		});
 	}
@@ -407,10 +431,9 @@ var Navigation = {
 				
 				setTimeout(function (){
 					self.hideMenu();
-				
-					setTimeout(function (){
-						AjaxController.load(href);
-					}, 500);
+
+					Hook.register("nav-click");
+
 				}, 200);
 			}
 		});
@@ -526,6 +549,20 @@ jQuery(function($){
 
 	//Geolocation
 	//Geolocation.getLocation("#js-map");
+	
+	Views.defaultView();
+	
+	$("a[data-view]").on("click", function(e) {
+		e.preventDefault();
+		switch($(this).data("view")) {
+		case "styleguide":
+			Views.defaultView();
+			break;
+		default:
+			Views.loadView($(this).data("view"));
+		}
+		return false;
+	});
 
 	$("input[type='submit']").on("click", function() {
 		$("#myModal").reveal();
