@@ -10,7 +10,6 @@ jQuery.error = console.error;
 var GlobalSettings = {
 	docWidth: $(document).width(),
 	docHeight: $(document).height(),
-	initialPage: 'index_content.html',
 	env: "web"
 };
 
@@ -25,7 +24,6 @@ var Start = {
 
 	},
 	firstLoad: function (){
-		var lastPage = LocalStorage.get('last-page');
 
 		Navigation.init();
 		BottomNavigation.init();
@@ -132,8 +130,8 @@ var ViewAssembler = {
 		if (Handlebars.templates === undefined) {
 			Handlebars.templates = {};
 		}
-		if(Handlebars.templates["error"] !== "") {
-			Handlebars.templates["error"] = this.getTemplateFile("error");
+		if(Handlebars.templates.error !== "") {
+			Handlebars.templates.error = this.getTemplateFile("error");
 		}
 	},
 	getJSON: function(jsonData, remoteData) {
@@ -159,7 +157,7 @@ var ViewAssembler = {
 			$.ajax({
 				url: 'views/' + name + '.html',
 				async: false,
-				success: function(data, textStatus, jqXHR) {
+				success: function(data) {
 					if(name.substring(0, 1) === "_") {
 						Handlebars.templates[name] = Handlebars.compile(data);
 						Handlebars.registerPartial(name, Handlebars.templates[name]);
@@ -171,9 +169,9 @@ var ViewAssembler = {
 						callback(Handlebars.templates[name]);
 					}
 				},
-				error: function(jqXHR, textStatus, error) {
+				error: function() {
 					if(callback) {
-						callback(Handlebars.templates["error"]);
+						callback(Handlebars.templates.error);
 					}
 				}
 			});
@@ -189,7 +187,7 @@ var ViewAssembler = {
 	renderTemplate: function(name, data, remoteData, callback) {
 		var html;
 		var self = this;
-		var template = ViewAssembler.getTemplateFile(name, function(template) {
+		ViewAssembler.getTemplateFile(name, function(template) {
 			
 			data = self.getJSON(data, remoteData) || "";
 			html = template(data);
@@ -206,12 +204,12 @@ var ViewAssembler = {
 var Views = {
 	loadView: function(name) {
 		ViewAssembler.renderTemplate(name, "", "", function(html) {
-			LoadController.loadPage(html, "");
+			LoadController.loadPage(html);
 		});
 	},
 	defaultView: function() {
-		var html = ViewAssembler.renderTemplate("styleguide", "", "", function(html) {
-			LoadController.loadPage(html, "");
+		ViewAssembler.renderTemplate("styleguide", "", "", function(html) {
+			LoadController.loadPage(html);
 		});
 		ViewAssembler.updateTitle("Simply Mobile");
 	}
@@ -249,7 +247,7 @@ var LoadController = {
 		$(this.s.navIDs).find('a').removeClass('active');
 		$(this.s.navIDs).find('a[data-view="' + ViewAssembler.currentTemplate + '"]').addClass('active');
 	},
-	loadPage: function (content, t){
+	loadPage: function (content){
 		var self = this;
 		var timing = 400;
 		var easing = "linear";
@@ -421,7 +419,6 @@ var Navigation = {
 			e.preventDefault();
 			
 			if( ! $(this).hasClass('active') ) {
-				var href = $(this).data('href');
 				
 				$(self.s.menuItems).removeClass('active');
 				
@@ -431,8 +428,6 @@ var Navigation = {
 				
 				setTimeout(function (){
 					self.hideMenu();
-
-					Hook.register("nav-click");
 
 				}, 200);
 			}
