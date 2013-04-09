@@ -150,18 +150,23 @@ var ViewAssembler = {
 	getJSON: function(jsonData, remoteData) {
 		var obj;
 		try {
-			obj = $.jsonParse(jsonData);
+			obj = $.parseJSON(jsonData);
 		} catch(e) {}
 
 		if(typeof obj === "object") {
 			return obj;
 		}
 		else {
-			var json;
-			$.getJSON(jsonData, remoteData, function(data) {
-				json = data;
+			$.ajax({
+				url: jsonData,
+				dataType: 'json',
+				async: false,
+				data: remoteData,
+				success: function(data) {
+					obj = data;
+				}
 			});
-			return json;
+			return obj;
 		}
 	},
 	getTemplateFile: function(name, callback) {
@@ -201,12 +206,13 @@ var ViewAssembler = {
 		var html;
 		var self = this;
 		ViewAssembler.getTemplateFile(name, function(template) {
-			
 			data = self.getJSON(data, remoteData) || "";
 			html = template(data);
+			
 			if(callback) {
 				callback(html);
 			}
+
 			ViewAssembler.currentTemplate = name;
 			LoadController.setActiveNav();
 			LocalStorage.set("last-page-name", name);
@@ -225,6 +231,12 @@ var Views = {
 	},
 	styleguide: function() {
 		ViewAssembler.renderTemplate("styleguide", "", "", function(html) {
+			LoadController.loadPage(html);
+		});
+		ViewAssembler.updateTitle("Simply Mobile");
+	},
+	fruit: function() {
+		ViewAssembler.renderTemplate("fruit", "data/fruit.json", "", function(html) {
 			LoadController.loadPage(html);
 		});
 		ViewAssembler.updateTitle("Simply Mobile");
