@@ -251,16 +251,16 @@ var LoadController = {
 		var self = this;
 		var timing = 400;
 		var easing = "linear";
-		$(".page #js-primary-content").fadeOut(timing, easing, function() {
+		$("#js-primary-content").fadeOut(timing, easing, function() {
 			self.setActiveNav();
-			$('.page #js-primary-content div').html(content);
+			$('#js-primary-content div').html(content);
 			
-			$(".page #js-primary-content").fadeIn(timing, easing, function (){
+			$("#js-primary-content").fadeIn(timing, easing, function (){
 				// This fixes the issue where if you scroll a content area and 
 				// ajax to something new, it would load the new stuff at that scroll position
-				$('.page #js-primary-content').animate({
+				$('#js-primary-content').animate({
 					scrollTop: 0
-				}, 0);
+				}, 50);
 				
 				Start.battle();
 			});
