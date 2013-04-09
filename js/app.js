@@ -18,8 +18,8 @@ var Start = {
 		this.inits();
 		this.styling();
 		
-		if( LocalStorage.get('last-page') === null || LocalStorage.get('last-page') === undefined ) {
-			LocalStorage.set('last-page', GlobalSettings.initialPage);
+		if( LocalStorage.get('last-page-name') === null || LocalStorage.get('last-page') === undefined ) {
+			LocalStorage.set('last-page-name', GlobalSettings.initialPage);
 		}
 
 	},
@@ -30,6 +30,19 @@ var Start = {
 		this.battle();
 		ProgressBar.load();
 		ViewAssembler.init();
+
+		var lastPage = LocalStorage.get('last-page-name');
+		if(lastPage) {
+			if(Views[lastPage]) {
+				Views[lastPage]();
+			}
+			else {
+				Views.loadView(lastPage);
+			}
+		}
+		else {
+
+		}
 
 		new FastClick(document.body);
 
@@ -181,7 +194,7 @@ var ViewAssembler = {
 				callback(Handlebars.templates[name]);
 			}
 		}
-		self.currentTemplate = name;
+		ViewAssembler.currentTemplate = name;
 		return Handlebars.templates[name];
 	},
 	renderTemplate: function(name, data, remoteData, callback) {
@@ -194,6 +207,9 @@ var ViewAssembler = {
 			if(callback) {
 				callback(html);
 			}
+			ViewAssembler.currentTemplate = name;
+			LoadController.setActiveNav();
+			LocalStorage.set("last-page-name", name);
 		});
 	},
 	updateTitle: function(title) {
@@ -207,7 +223,7 @@ var Views = {
 			LoadController.loadPage(html);
 		});
 	},
-	defaultView: function() {
+	styleguide: function() {
 		ViewAssembler.renderTemplate("styleguide", "", "", function(html) {
 			LoadController.loadPage(html);
 		});
@@ -252,7 +268,6 @@ var LoadController = {
 		var timing = 400;
 		var easing = "linear";
 		$("#js-primary-content").fadeOut(timing, easing, function() {
-			self.setActiveNav();
 			$('#js-primary-content div').html(content);
 			
 			$("#js-primary-content").fadeIn(timing, easing, function (){
@@ -260,7 +275,7 @@ var LoadController = {
 				// ajax to something new, it would load the new stuff at that scroll position
 				$('#js-primary-content').animate({
 					scrollTop: 0
-				}, 50);
+				}, 400);
 				
 				Start.battle();
 			});
@@ -545,16 +560,14 @@ jQuery(function($){
 	//Geolocation
 	//Geolocation.getLocation("#js-map");
 	
-	Views.defaultView();
-	
 	$("a[data-view]").on("click", function(e) {
 		e.preventDefault();
-		switch($(this).data("view")) {
-		case "styleguide":
-			Views.defaultView();
-			break;
-		default:
-			Views.loadView($(this).data("view"));
+		var view = $(this).data("view");
+		if(Views[view]) {
+			Views[view]();
+		}
+		else {
+			Views.loadView(view);
 		}
 		return false;
 	});
