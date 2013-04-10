@@ -8,6 +8,7 @@ jQuery.error = console.error;
 
 // Global Variables
 var GlobalSettings = {
+	initialPage: "styleguide",
 	env: "web"
 };
 
