@@ -1,0 +1,14 @@
+<h2>{{query}}</h2>
+<ul>
+{{#each results}}
+	<li class="media">
+		<img src='{{profile_image_url}}' alt='{{from_user_name}}' width='64' height='64'>
+		<div class="media-content">
+			<a href="http://www.twitter.com/{{from_user}}">{{from_user_name}}</a> {{{text}}}
+		</div>
+		<div class="bottom">
+			{{created_at}}
+		</div>
+	</li>
+{{/each}}
+</ul>
