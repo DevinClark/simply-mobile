@@ -8,8 +8,6 @@ jQuery.error = console.error;
 
 // Global Variables
 var GlobalSettings = {
-	docWidth: $(document).width(),
-	docHeight: $(document).height(),
 	env: "web"
 };
 
@@ -245,7 +243,7 @@ var Views = {
 
 var LoadController = {
 	s: {
-		docWidth: GlobalSettings.docWidth,
+		docWidth: $(document).width(),
 		navIDs: '#main-nav, .bottom-bar',
 		lImg: '#loaderImg',
 		lTxt: '#loaderTxt',
@@ -384,7 +382,7 @@ var LocalStorage = {
 
 var Navigation = {
 	s: {
-		navWidth: GlobalSettings.docWidth,
+		navWidth: $(document).width(),
 		delay: 500,
 		fadeDelay: 400,
 		navTrigger: '.js-open-nav',
@@ -490,13 +488,10 @@ var ScrollingFixes = {
 		this.disableElastic();
 	},
 	setScrolling: function() {
-		var docHeight = GlobalSettings.docHeight;
+		var docHeight = $(document).height();
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
-
-		$(".page #js-load-content").css({'position': 'absolute', 'left': GlobalSettings.docWidth});
-
 		$('.js-content-wrap')
 			.css({
 				'height':docHeight
@@ -508,7 +503,7 @@ var ScrollingFixes = {
 				'-webkit-overflow-scrolling': 'touch'
 			});
 	},
-	disableElastic: function (){
+	disableElastic: function () {
 		var link = $('.page section');
 		
 		var docHeight = $('.page #js-primary-content').outerHeight(false);
