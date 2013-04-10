@@ -489,13 +489,15 @@ var ScrollingFixes = {
 		this.disableElastic();
 	},
 	setScrolling: function() {
+		console.group('setScrolling()');
 		var docHeight = $(document).height();
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
+		console.log(totalHeight);
 		$('.js-content-wrap')
 			.css({
-				'height':docHeight
+				'height': docHeight
 			})
 			.find('section')
 			.css({
@@ -503,15 +505,17 @@ var ScrollingFixes = {
 				'overflow': 'scroll',
 				'-webkit-overflow-scrolling': 'touch'
 			});
+			console.groupEnd();
 	},
 	disableElastic: function () {
+		console.group('disableElastic()');
 		var link = $('.page section');
 		
 		var docHeight = $('.page #js-primary-content').outerHeight(false);
 		var headerHeight = $('.js-content-wrap header').outerHeight(false);
 		var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 		var totalHeight = docHeight - headerHeight - footerHeight;
-
+		console.log(totalHeight);
 		$('.page #js-primary-content > div').css('min-height', totalHeight);
 		
 
@@ -528,7 +532,8 @@ var ScrollingFixes = {
 				link.animate({scrollTop: scrolled - 1},0);
 			}
 		});
-	}	
+		console.groupEnd();
+	}
 };
 
 var ProgressBar = {
