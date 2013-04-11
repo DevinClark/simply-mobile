@@ -307,10 +307,12 @@
 				$("body").addClass("portrait").removeClass("landscape");
 			}
 		},
-		resize: function() {
+		resize: function(callback) {
 			window.addEventListener("resize", function() {
 				OrientationCheck.check();
-				ScrollingFixes.init();
+				if(callback) {
+					callback(window.innerWidth, window.innerHeight);
+				}
 			}, false);
 		}
 	};
