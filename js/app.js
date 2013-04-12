@@ -25,8 +25,8 @@
 			ProgressBar.load();
 			ViewAssembler.init();
 
-			var lastPage = LocalStorage.get('last-page-name');
-			if(lastPage) {
+			if(LocalStorage.keyExists('last-page-name')) {
+				var lastPage = LocalStorage.get('last-page-name');
 				if(Views[lastPage]) {
 					Views[lastPage]();
 				}
@@ -36,6 +36,7 @@
 			}
 			else {
 				LocalStorage.set('last-page-name', GlobalSettings.initialPage);
+				Views[GlobalSettings.initialPage]();
 			}
 
 			new FastClick(document.body);
