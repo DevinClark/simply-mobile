@@ -347,6 +347,16 @@
 				return false;
 			}
 		},
+		keyExists: function(key) {
+			key = this.settings.prefix + key;
+			var keys = this.getAll();
+			if ( keys.indexOf(key) > -1 ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		},
 		set: function(key, value) {
 			if(!this.settings.supports || key === "" || value === "") {
 				return false;
