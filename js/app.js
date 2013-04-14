@@ -571,7 +571,7 @@
 
 
 
-	$(function($){
+	$(function(){
 		Start.firstLoad();
 		
 		// Local Storage
