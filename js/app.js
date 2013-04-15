@@ -66,31 +66,7 @@
 			$('input[type="text"]').addClass('text');
 			$('input[type="email"]').addClass('email');
 			ProgressBar.init();
-
-			// Switch checkbox classes.
-			$('.checkbox.switch').after("<div/>").parents("label").addClass("switch-label");
-			$(".checkbox.switch").each(function() {
-				$(this).removeClass("on off").addClass(
-					($(this).is(":checked") ? "on" : "off")
-				);
-			});
-			$(".switch-label").on("click touch", function(e) {
-				e.preventDefault();
-				var $input = $(this).children("input");
-
-				$input.removeClass("on off").addClass(
-					(!$input.is(":checked") ? "on" : "off")
-				);
-
-				if($input.hasClass("on")) {
-					$input.attr("checked", "true");
-				} else {
-					$input.removeAttr("checked");
-				}
-
-				return false;
-			});
-
+			
 			$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
 		}
 	};
