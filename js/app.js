@@ -157,6 +157,8 @@
 					dataType: 'json',
 					async: false,
 					data: remoteData,
+					ifModified: true,
+					cache: true,
 					success: function(data) {
 						obj = data;
 					}
