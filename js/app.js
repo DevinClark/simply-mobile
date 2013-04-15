@@ -515,7 +515,6 @@
 		},
 		setScrolling: function(winHeight) {
 			winHeight = (typeof winHeight === "undefined") ? $(window).height() : winHeight;
-			console.group('setScrolling(' + winHeight + ')');
 			var headerHeight = $('.js-content-wrap header').outerHeight(false);
 			var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 			var totalHeight = winHeight - headerHeight - footerHeight;
@@ -529,7 +528,6 @@
 				'overflow': 'scroll',
 				'-webkit-overflow-scrolling': 'touch'
 			});
-			console.groupEnd();
 		},
 		disableElastic: function () {
 			var link = $('.page section');
