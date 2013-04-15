@@ -303,6 +303,16 @@
 			OrientationCheck.check();
 			OrientationCheck.resize();
 		},
+		debounce: function(fn, delay) {
+		  var timer = null;
+		  return function () {
+		    var context = this, args = arguments;
+		    clearTimeout(timer);
+		    timer = setTimeout(function () {
+		      fn.apply(context, args);
+		    }, delay);
+		  };
+		},
 		check: function() {
 			if(window.innerWidth > window.innerHeight) {
 				$("body").addClass("landscape").removeClass("portrait");
@@ -311,12 +321,13 @@
 			}
 		},
 		resize: function(callback) {
-			window.addEventListener("resize", function() {
+			window.addEventListener("resize", OrientationCheck.debounce(function() {
 				OrientationCheck.check();
+				ScrollingFixes.setScrolling(window.innerHeight);
 				if(callback) {
 					callback(window.innerWidth, window.innerHeight);
 				}
-			}, false);
+			}, 200), false);
 		}
 	};
 
@@ -502,16 +513,15 @@
 			this.setScrolling();
 			this.disableElastic();
 		},
-		setScrolling: function() {
-			console.group('setScrolling()');
-			var docHeight = $(document).height();
+		setScrolling: function(winHeight) {
+			winHeight = (typeof winHeight === "undefined") ? $(window).height() : winHeight;
+			console.group('setScrolling(' + winHeight + ')');
 			var headerHeight = $('.js-content-wrap header').outerHeight(false);
 			var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
-			var totalHeight = docHeight - headerHeight - footerHeight;
-			console.log(totalHeight);
+			var totalHeight = winHeight - headerHeight - footerHeight;
 			$('.js-content-wrap')
 			.css({
-				'height': docHeight
+				'height': winHeight
 			})
 			.find('section')
 			.css({
@@ -522,14 +532,12 @@
 			console.groupEnd();
 		},
 		disableElastic: function () {
-			console.group('disableElastic()');
 			var link = $('.page section');
 			
 			var docHeight = $('.page #js-primary-content').outerHeight(false);
 			var headerHeight = $('.js-content-wrap header').outerHeight(false);
 			var footerHeight = ( $('.bottom-bar').css("display") === "none" ) ? 0 : $('.bottom-bar').outerHeight(false);
 			var totalHeight = docHeight - headerHeight - footerHeight;
-			console.log(totalHeight);
 			$('.page #js-primary-content > div').css('min-height', totalHeight);
 			
 
@@ -546,7 +554,6 @@
 					link.animate({scrollTop: scrolled - 1},0);
 				}
 			});
-			console.groupEnd();
 		}
 	};
 
