@@ -2273,6 +2273,18 @@ h5 {
 h6 {
   font-size: 14px; }
 
+ul {
+  list-style-type: square;
+  list-style-position: inside;
+  padding-left: 10px; }
+
+ul ul {
+  padding-left: 15px; }
+
+form ul {
+  padding-left: 0;
+  list-style-type: none; }
+
 .btn {
   -webkit-appearance: none;
   display: block;
@@ -2489,7 +2501,9 @@ section {
   #main-nav ul {
     position: relative;
     height: 100%;
-    width: 100%; }
+    width: 100%;
+    padding-left: 0;
+    list-style-type: none; }
   #main-nav li {
     display: block;
     position: relative; }
@@ -2536,6 +2550,9 @@ section {
   background: #111;
   color: white;
   padding: 0.5em 0; }
+  .bottom-bar ul {
+    padding-left: 0;
+    list-style-type: none; }
   .bottom-bar a {
     color: white;
     text-decoration: none;

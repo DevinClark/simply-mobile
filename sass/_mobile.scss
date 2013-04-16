@@ -52,6 +52,8 @@ section {
 		position: relative;
 		height: 100%;
 		width: 100%;
+		padding-left: 0;
+		list-style-type: none;
 	}
 
 	li {
@@ -113,6 +115,11 @@ section {
 	background: #111;
 	color: white;
 	padding: 0.5em 0;
+
+	ul {
+		padding-left: 0;
+		list-style-type: none;
+	}
 
 	a {
 		color: white;
