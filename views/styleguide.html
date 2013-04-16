@@ -153,3 +153,23 @@
 <h4><small>Small header text.</small></h4>
 <h5><small>Small header text.</small></h5>
 <h6><small>Small header text.</small></h6>
+<script>
+	// Lists what the device supports.
+	var supportsOutput = "<ul>";
+	for (var item in Modernizr) {
+		if(Modernizr[item] === true) {
+			supportsOutput += "<li>" + item + "</li>";
+		}
+		else if(typeof Modernizr[item] === "object") {
+			supportsOutput += "<li>" + item + "<ul>";
+
+			for (var subItem in Modernizr[item]) {
+				if(Modernizr[item][subItem] === true) {
+					supportsOutput += "<li>" + subItem + "</li>";
+				}
+			}
+			supportsOutput += "</ul>";
+		}
+	}
+	$("#supports").html(supportsOutput + "</ul>");
+</script>

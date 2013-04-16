@@ -584,14 +584,5 @@
 			$("#myModal").reveal();
 			return false;
 		});
-
-		// Lists what the device supports.
-		var supportsOutput = "";
-		for (var item in Modernizr) {
-			if(Modernizr[item] === true) {
-				supportsOutput += "<li>" + item + "</li>";
-			}
-		}
-		//$("#supports").append("ul").html(supportsOutput);
 	});
 })(jQuery, this, this.document);
