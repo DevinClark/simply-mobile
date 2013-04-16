@@ -55,16 +55,27 @@
 			ScrollingFixes.init();
 		},
 		styling: function (){
-			$('input[type="button"]').addClass('btn');
-			$('input[type="checkbox"]').addClass('checkbox');
-			$('input[type="file"]').addClass('file');
-			$('input[type="image"]').addClass('image');
-			$('input[type="password"]').addClass('password');
-			$('input[type="radio"]').addClass('radio');
-			$('input[type="submit"]').addClass('submit btn');
-			$('input[type="reset"]').addClass('reset');
-			$('input[type="text"]').addClass('text');
-			$('input[type="email"]').addClass('email');
+			var formElements = {
+				'input[type="button"]': 'btn',
+				'input[type="checkbox"]': 'checkbox',
+				'input[type="file"]': 'file',
+				'input[type="image"]': 'image',
+				'input[type="password"]': 'password',
+				'input[type="radio"]': 'radio',
+				'input[type="submit"]': 'submit btn',
+				'input[type="reset"]': 'reset',
+				'input[type="text"]': 'text',
+				'input[type="email"]': 'email',
+				'input[type="url"]': 'url',
+				'input[type="search"]': 'search',
+				'input[type="tel"]': 'tel',
+				'input[type="date"]': 'date',
+				'input[type="datetime"]': 'datetime',
+				'input[type="range"]': 'range'
+			};
+			for(var element in formElements) {
+				$(element).addClass(formElements[element]);
+			}
 			ProgressBar.init();
 			
 			$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
