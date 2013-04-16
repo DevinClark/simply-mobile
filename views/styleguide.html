@@ -1,52 +1,72 @@
-<h2>Grid</h2>
-<ul class='grid'>
-	<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
-		<div class='grid'>
-			<div class='grid__item  one-half'>
-				<p class='block'>Grid</p>
+<style>
+	/* Styles to make the styleguide prettier. */
+	article {
+		margin-bottom: 20px;
+	}
+	.block {
+		margin:0;
+		margin-bottom:12px;
+		padding:12px;
+		background-color:#BADA55;
+		color:#fff;
+	}
+</style>
+
+<article>
+	<h2>Grid</h2>
+	<ul class='grid'>
+		<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
+			<div class='grid'>
+				<div class='grid__item  one-half'>
+					<p class='block'>Grid</p>
+				</div>
+				<div class='grid__item  one-half'>
+					<p class='block'>Grid</p>
+				</div>
 			</div>
-			<div class='grid__item  one-half'>
-				<p class='block'>Grid</p>
-			</div>
-		</div>
-	</li>
-	<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-quarter  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-quarter  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-	<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
-		<p class='block'>Grid</p>
-	</li>
-</ul>
+		</li>
+		<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-quarter  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-quarter  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-third  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+		<li class='grid__item  one-whole  medium-one-half  large-one-fifth'>
+			<p class='block'>Grid</p>
+		</li>
+	</ul>
+</article>
+<article>
 <h2>Device Supports</h2>
 <div id='supports'></div>
+</article>
+<article>
 <h2 id='progress-bars'>Progress Bars</h2>
 <div class='meter show-progress' data-progress='20'></div>
 <div class='meter striped' data-progress='30'></div>
 <div class='meter striped' data-progress='50'></div>
 <div class='meter striped alert' data-progress='60'></div>
 <div class='meter striped success' data-progress='42'></div>
-
+</article>
+<article>
 <h2 id='forms'>Forms</h2>
 <form class='one-whole medium-two-thirds'>
 	<ul>
@@ -77,7 +97,8 @@
 		</li>
 	</ul>
 </form>
-
+</article>
+<article>
 <h2>Buttons</h2>
 <a href='#' data-reveal-id='myModal' class='btn'>Button</a>
 <br>
@@ -99,7 +120,8 @@
 	<a href='#' class='btn success'>Middle</a>
 	<a href='#' class='btn success'>Right</a>
 </div>
-
+</article>
+<article>
 <h2>Media Object</h2>
 <ul>
 	<li class='media'>
@@ -139,7 +161,8 @@
 		</div>
 	</li>
 </ul>
-
+</article>
+<article>
 <h2>Typography</h2>
 <h1>h1 header</h1>
 <h2>h2 header</h2>
@@ -153,6 +176,7 @@
 <h4><small>Small header text.</small></h4>
 <h5><small>Small header text.</small></h5>
 <h6><small>Small header text.</small></h6>
+</article>
 <script>
 	// Lists what the device supports.
 	var supportsOutput = "<ul>";
