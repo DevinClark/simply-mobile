@@ -2379,6 +2379,7 @@ textarea {
   height: 32px;
   border-radius: 100px;
   background-color: #bada55;
+  border: 0;
   box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.2), -2px 0px 2px 0px rgba(0, 0, 0, 0.2), inset 0 -2px 1px 0 rgba(234, 253, 155, 0.6), inset 0 2px 1px 0px rgba(99, 118, 41, 0.6); }
 
 /* CSS for jQuery Reveal Plugin
