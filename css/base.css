@@ -2353,6 +2353,34 @@ textarea {
 textarea {
   height: auto; }
 
+.range {
+  -webkit-appearance: none;
+  position: relative;
+  display: block;
+  margin: 15px 0 35px 0;
+  width: 100%;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 2px 0 white, inset 0 1px 1px rgba(0, 0, 0, 0.4);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#cccccc));
+  background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);
+  background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+  background-image: linear-gradient(top, #f8f8f8, #cccccc);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 50% 100%;
+  border-radius: 20px; }
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  position: relative;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  background-color: #bada55;
+  box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.2), -2px 0px 2px 0px rgba(0, 0, 0, 0.2), inset 0 -2px 1px 0 rgba(234, 253, 155, 0.6), inset 0 2px 1px 0px rgba(99, 118, 41, 0.6); }
+
 /* CSS for jQuery Reveal Plugin
  * Maintained for Foundation. foundation.zurb.com
  * Free to use under the MIT license.

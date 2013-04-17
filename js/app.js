@@ -79,6 +79,17 @@
 			ProgressBar.init();
 			
 			$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
+
+			$('.range').each(function() {
+				$(this).change(function() {
+					var percent = $(this).val();
+					if( $(this).attr("min") || $(this).attr("max") ) {
+						percent = $(this).val() / $(this).attr("max") * 100;
+					}
+					$(this).css("background-size", percent + "% 100%");
+				})
+				.trigger("change");
+			});
 		}
 	};
 
