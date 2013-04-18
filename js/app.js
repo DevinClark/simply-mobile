@@ -319,13 +319,13 @@
 			}
 		},
 		resize: function(callback) {
-			window.addEventListener("resize", OrientationCheck.debounce(function() {
+			window.addEventListener("resize", function() {
 				OrientationCheck.check();
 				ScrollingFixes.setScrolling(window.innerHeight);
 				if(callback) {
 					callback(window.innerWidth, window.innerHeight);
 				}
-			}, 200), false);
+			}, false);
 		}
 	};
 
