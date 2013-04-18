@@ -51,6 +51,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-css');
 
-	grunt.registerTask('default', ['jshint', 'casperjs', 'bower', 'uglify', 'cssmin']);
-	grunt.registerTask('test', ['jshint', 'casperjs']);
+	grunt.registerTask('default', ['jshint', 'bower', 'uglify', 'cssmin']);
+	grunt.registerTask('test', ['jshint']);
 };
