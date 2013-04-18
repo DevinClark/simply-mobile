@@ -10,6 +10,12 @@ FastClick is developed by [FT Labs](http://labs.ft.com/), part of the Financial 
 
 [Краткое пояснение на русском языке](http://job-blog.bullgare.ru/2013/02/библиотека-для-более-отзывчивой-рабо/).
 
+## Why does the delay exist? ##
+
+According to [Google](https://developers.google.com/mobile/articles/fast_buttons):
+
+> ...mobile browsers will wait approximately 300ms from the time that you tap the button to fire the click event. The reason for this is that the browser is waiting to see if you are actually performing a double tap.
+
 ## Compatibility ##
 
 The library has been deployed as part of the [FT Web App](http://app.ft.com/) and is tried and tested on the following mobile browsers:
@@ -94,6 +100,10 @@ FastClick is designed to cope with many different browser oddities. Here are som
 * [basic use](http://ftlabs.github.com/fastclick/examples/layer.html) showing the increase in perceived responsiveness
 * [triggering focus](http://ftlabs.github.com/fastclick/examples/focus.html) on an input element from a `click` handler
 * [input element](http://ftlabs.github.com/fastclick/examples/input.html) which never receives clicks but gets fast focus
+
+## Tests ##
+
+There are no automated tests. The files in `tests/` are manual reduced test cases. We've had a think about how best to test these cases, but they tend to be very browser/device specific and sometimes subjective which means it's not so trivial to test.
 
 ## Credits and collaboration ##
 
