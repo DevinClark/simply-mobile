@@ -42,6 +42,14 @@ module.exports = function(grunt) {
 				src: 'css/base.css',
 				dest: 'css/base.min.css'
 			}
+		},
+		shell: {
+			dirListing: {
+				command: 'docco js/app.js',
+				options: {
+					stdout: true
+				}
+			}
 		}
 	});
 
@@ -50,7 +58,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-casperjs');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-css');
+	grunt.loadNpmTasks('grunt-shell');
 
-	grunt.registerTask('default', ['jshint', 'bower', 'uglify', 'cssmin']);
-	grunt.registerTask('test', ['jshint']);
+	grunt.registerTask('default', ['shell', 'jshint', 'bower', 'uglify', 'cssmin']);
+	grunt.registerTask('test', ['shell', 'jshint']);
 };

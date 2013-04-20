@@ -8,6 +8,7 @@
     "grunt-contrib-uglify": "~0.1.2",
     "grunt-css": "~0.5.4",
     "grunt-bower-concat": "git://github.com/sapegin/grunt-bower-concat.git",
-    "grunt-casperjs": "~1.0.6"
+    "grunt-casperjs": "~1.0.6",
+    "grunt-shell": "~0.2.2"
   }
 }

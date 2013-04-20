@@ -1,17 +1,22 @@
+// # Simply Mobile App.js
+// _An [OverDid.It](http://overdid.it) Project._
+
 /*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
 /*global Handlebars, jQuery, FastClick */
+
 (function($, window, document, undefined) {
 	"use strict";
 	var Modernizr = window.Modernizr;
+
 	// Override jQuery.error for display in Console.
 	$.error = console.error;
 
-	// Global Variables
 	var GlobalSettings = {
 		initialPage: "styleguide",
 		env: "web"
 	};
 
+	// ## Start
 	var Start = {
 		battle: function (){
 			this.inits();
@@ -93,6 +98,7 @@
 		}
 	};
 
+	// ## CordovaApp
 	var CordovaApp = {
 		initialize: function() {
 			this.bind();
@@ -109,16 +115,20 @@
 		}
 	};
 
+	// ## Hook
 	var Hook = {
+		// The container that holds all the hooks.
 		hooks: [],
-		
+		// ### register
+		// Registers a function that will be executed in the place call is called for the name.
 		register: function ( name, callback ) {
 			if( 'undefined' === typeof( Hook.hooks[name] ) ) {
 				Hook.hooks[name] = [];
 			}
 			Hook.hooks[name].push( callback );
 		},
-		
+		// ### call
+		// Calls all the registered hooks for name.
 		call: function ( name, args ) {
 			if( 'undefined' !== typeof( Hook.hooks[name] ) ) {
 				for( var i = 0; i < Hook.hooks[name].length; ++i ) {
@@ -130,8 +140,11 @@
 		}
 	};
 
+	// ## View Assembler
 	var ViewAssembler = {
 		currentTemplate: "",
+		// ### init
+		// Initializes the templating engine.
 		init: function() {
 			if (Handlebars.templates === undefined) {
 				Handlebars.templates = {};
@@ -140,6 +153,12 @@
 				Handlebars.templates.error = this.getTemplateFile("error");
 			}
 		},
+		// ### getJSON
+		// Retrieves the JSON data that is put into the Handlebars template.
+		// 
+		// * `jsonData` is either a string url or a JSON object.  
+		// * `remoteData` is an optional remote data that is passed to the server in the Ajax request. If jsonData is an object, this should be empty.  
+		// * Returns a JSON object containing the data that is to be put into the Handlebars template.
 		getJSON: function(jsonData, remoteData) {
 			var obj;
 			try {
@@ -164,6 +183,12 @@
 				return obj;
 			}
 		},
+		// ### getTemplateFile
+		// Loads the template files that are located in the views directory. Caches the template so they won't have to be loaded twice.
+		// 
+		// * `name` is the name of the template file to load, without extension.
+		// * `callback` is a callback function to execute once the template has been retrieved. Passes the compiled template file.
+		// * returns a Handlebars template file.
 		getTemplateFile: function(name, callback) {
 			if (Handlebars.templates[name] === undefined) {
 				$.ajax({
@@ -196,6 +221,13 @@
 			ViewAssembler.currentTemplate = name;
 			return Handlebars.templates[name];
 		},
+		// ### renderTemplate
+		// Renders the template with the data. 
+		// 
+		// * `name` is the name of the template to load.
+		// * `data` is the JSON data to be put into the template.
+		// * `remoteData` is a JSON object of the data to be passed to the server when getting the template data.
+		// `callback` is a callback function passing the final rendered html.
 		renderTemplate: function(name, data, remoteData, callback) {
 			var html;
 			var self = this;
@@ -212,11 +244,14 @@
 				LocalStorage.set("last-page-name", name);
 			});
 		},
+		// ### updateTitle
+		// Updates the title (`header h1`) with the passed title.
 		updateTitle: function(title) {
 			$("header h1").html(title);
 		}
 	};
 
+	// ## Views
 	var Views = {
 		loadView: function(name) {
 			ViewAssembler.renderTemplate(name, "", "", function(html) {
@@ -243,6 +278,7 @@
 		}
 	};
 
+	// ## LoadController
 	var LoadController = {
 		s: {
 			docWidth: $(document).width(),
@@ -295,12 +331,20 @@
 		}
 	};
 
+	// ## OrientationCheck
 	var OrientationCheck = {
+		// ### init
+		// Initialize OrientationCheck and add body classes. 
 		init: function() {
 			$("body").addClass("landscape");
 			OrientationCheck.check();
 			OrientationCheck.resize();
 		},
+		/**
+		 * Postpone execution of fn until after delay milliseconds have passed since the fn's last execution.
+		 * @param  {Function} fn A function to debounce
+		 * @param  {integer} delay amount of time to wait in milliseconds.
+		 */
 		debounce: function(fn, delay) {
 			var timer = null;
 			return function () {
@@ -311,6 +355,7 @@
 				}, delay);
 			};
 		},
+		/** Checks to see if the window is in portrait or landscape orientation. */
 		check: function() {
 			if(window.innerWidth > window.innerHeight) {
 				$("body").addClass("landscape").removeClass("portrait");
@@ -318,6 +363,10 @@
 				$("body").addClass("portrait").removeClass("landscape");
 			}
 		},
+		/**
+		 * Recheckes the orientation and fixes window scrolling. Also accepts a callback function to add functionality.
+		 * @param  {Function} callback a callback function that executes at the end of the resize event listener.
+		 */
 		resize: function(callback) {
 			window.addEventListener("resize", function() {
 				OrientationCheck.check();
@@ -329,11 +378,26 @@
 		}
 	};
 
+	// ## LocalStorage
+	// Examples:
+	// 
+	//		LocalStorage.set("foo", "bar");
+	//		var baz = LocalStorage.get("foo");
+	//		LocalStorage.removeAll();
 	var LocalStorage = {
+		/**
+		 * LocalStorage settings.
+		 * @type {Object}
+		 */
 		settings: {
 			supports: (Modernizr.localstorage) ? true : false,
 			prefix: "sm-" // include separator
 		},
+		/**
+		 * Retrieves the value of key.
+		 * @param  {string} key the key to search for.
+		 * @return {string}     the value of key
+		 */
 		get: function(key) {
 			if(!this.settings.supports || key === "") {
 				return false;
@@ -344,6 +408,10 @@
 				return false;
 			}
 		},
+		/**
+		 * Returns an array of all the keys in LocalStorage.
+		 * @return {Array} A single-dimensional array containing all the keys in LocalStorage.
+		 */
 		getAll: function() {
 			if(!this.settings.supports) {
 				return false;
@@ -359,6 +427,11 @@
 				return false;
 			}
 		},
+		/**
+		 * Returns a boolean value if the passed key exists
+		 * @param  {string} key The key you wish to test
+		 * @return {boolean}     True if the key exists, false if it doesn't.
+		 */
 		keyExists: function(key) {
 			key = this.settings.prefix + key;
 			var keys = this.getAll();
@@ -369,6 +442,12 @@
 				return false;
 			}
 		},
+		/**
+		 * Sets the value of key to value in localstorage. Returns true on success and false on failure.
+		 * @param {string} key   The key for the item in LocalStorage
+		 * @param {string} value The value for the item key in LocalStorage.
+		 * @return {boolean} True if the key is successfully set, false if no.
+		 */
 		set: function(key, value) {
 			if(!this.settings.supports || key === "" || value === "") {
 				return false;
@@ -380,6 +459,11 @@
 				return false;
 			}
 		},
+		/**
+		 * Attempts to remove key from LocalStorage.
+		 * @param  {string} key The key to be removed
+		 * @return {boolean}     True if the key is removed, false if no.
+		 */
 		remove: function(key) {
 			if(!this.settings.supports || key === "") {
 				return false;
@@ -391,6 +475,10 @@
 				return false;
 			}
 		},
+		/**
+		 * Removes all items from LocalStorage for the current domain.
+		 * @return {boolean} True if the items are successfully removed, false if not.
+		 */
 		removeAll: function() {
 			if(!this.settings.supports) {
 				return false;
@@ -404,6 +492,7 @@
 		}
 	};
 
+	// ## Navigation
 	var Navigation = {
 		s: {
 			navWidth: $(document).width(),
@@ -483,6 +572,8 @@
 			});
 		}
 	};
+
+	// ## BottomNavigation
 	var BottomNavigation = {
 		s: {
 			menuItems: '.bottom-bar a'
@@ -506,6 +597,7 @@
 		}
 	};
 
+	// ## ScrollingFixes
 	var ScrollingFixes = {
 		init: function (){
 			this.setScrolling();
@@ -553,6 +645,7 @@
 		}
 	};
 
+	// ## ProgressBar
 	var ProgressBar = {
 		init: function() {
 			$(".meter").each(function() {
@@ -578,17 +671,6 @@
 
 	$(function(){
 		Start.firstLoad();
-		
-		// Local Storage
-		/*LocalStorage.settings.prefix = "taco-";
-		LocalStorage.set("foo", "taco");
-		LocalStorage.set("bar", "bell");
-		LocalStorage.removeAll();
-		console.log(LocalStorage.getAll());
-		console.log(window.localStorage);*/
-
-		//Geolocation
-		//Geolocation.getLocation("#js-map");
 		
 		$("a[data-view]").on("click", function(e) {
 			e.preventDefault();

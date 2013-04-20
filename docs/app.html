@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Simply Mobile App.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h1">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1>Simply Mobile App.js</h1>
+<p><em>An <a href="http://overdid.it">OverDid.It</a> Project.</em></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */</span>
+<span class="comment">/*global Handlebars, jQuery, FastClick */</span>
+
+(<span class="keyword">function</span>($, window, document, <span class="literal">undefined</span>) {
+	<span class="string">"use strict"</span>;
+	<span class="keyword">var</span> Modernizr = window.Modernizr;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Override jQuery.error for display in Console.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$.error = console.error;
+
+	<span class="keyword">var</span> GlobalSettings = {
+		initialPage: <span class="string">"styleguide"</span>,
+		env: <span class="string">"web"</span>
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2>Start</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> Start = {
+		battle: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">this</span>.inits();
+			<span class="keyword">this</span>.styling();
+		},
+		firstLoad: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+
+			Navigation.init();
+			BottomNavigation.init();
+			<span class="keyword">this</span>.battle();
+			ProgressBar.load();
+			ViewAssembler.init();
+
+			<span class="keyword">if</span>(LocalStorage.keyExists(<span class="string">'last-page-name'</span>)) {
+				<span class="keyword">var</span> lastPage = LocalStorage.get(<span class="string">'last-page-name'</span>);
+				<span class="keyword">if</span>(Views[lastPage]) {
+					Views[lastPage]();
+				}
+				<span class="keyword">else</span> {
+					Views.loadView(lastPage);
+				}
+			}
+			<span class="keyword">else</span> {
+				LocalStorage.set(<span class="string">'last-page-name'</span>, GlobalSettings.initialPage);
+				Views[GlobalSettings.initialPage]();
+			}
+
+			<span class="keyword">new</span> FastClick(document.body);
+
+			<span class="keyword">switch</span>(GlobalSettings.env) {
+			<span class="keyword">case</span> <span class="string">"web"</span>:
+				<span class="keyword">break</span>;
+			<span class="keyword">case</span> <span class="string">"cordova"</span>:
+				$.getScript(<span class="string">"../components/cordova.ios/index.js"</span>);
+				CordovaApp.initialize();
+				<span class="keyword">break</span>;
+			}
+		},
+		inits: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			OrientationCheck.init();
+			ScrollingFixes.init();
+		},
+		styling: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> formElements = {
+				<span class="string">'input[type="button"]'</span>: <span class="string">'btn'</span>,
+				<span class="string">'input[type="checkbox"]'</span>: <span class="string">'checkbox'</span>,
+				<span class="string">'input[type="file"]'</span>: <span class="string">'file'</span>,
+				<span class="string">'input[type="image"]'</span>: <span class="string">'image'</span>,
+				<span class="string">'input[type="password"]'</span>: <span class="string">'password'</span>,
+				<span class="string">'input[type="radio"]'</span>: <span class="string">'radio'</span>,
+				<span class="string">'input[type="submit"]'</span>: <span class="string">'submit btn'</span>,
+				<span class="string">'input[type="reset"]'</span>: <span class="string">'reset'</span>,
+				<span class="string">'input[type="text"]'</span>: <span class="string">'text'</span>,
+				<span class="string">'input[type="email"]'</span>: <span class="string">'email'</span>,
+				<span class="string">'input[type="url"]'</span>: <span class="string">'url'</span>,
+				<span class="string">'input[type="search"]'</span>: <span class="string">'search'</span>,
+				<span class="string">'input[type="tel"]'</span>: <span class="string">'tel'</span>,
+				<span class="string">'input[type="date"]'</span>: <span class="string">'date'</span>,
+				<span class="string">'input[type="datetime"]'</span>: <span class="string">'datetime'</span>,
+				<span class="string">'input[type="range"]'</span>: <span class="string">'range'</span>
+			};
+			<span class="keyword">for</span>(<span class="keyword">var</span> element <span class="keyword">in</span> formElements) {
+				$(element).addClass(formElements[element]);
+			}
+			ProgressBar.init();
+			
+			$(<span class="string">'.bottom-bar li'</span>).css(<span class="string">"width"</span>, <span class="number">100</span> / $(<span class="string">'.bottom-bar li'</span>).length + <span class="string">"%"</span>);
+
+			$(<span class="string">'.range'</span>).each(<span class="keyword">function</span>() {
+				$(<span class="keyword">this</span>).change(<span class="keyword">function</span>() {
+					<span class="keyword">var</span> percent = $(<span class="keyword">this</span>).val();
+					<span class="keyword">if</span>( $(<span class="keyword">this</span>).attr(<span class="string">"min"</span>) || $(<span class="keyword">this</span>).attr(<span class="string">"max"</span>) ) {
+						percent = $(<span class="keyword">this</span>).val() / $(<span class="keyword">this</span>).attr(<span class="string">"max"</span>) * <span class="number">100</span>;
+					}
+					$(<span class="keyword">this</span>).css(<span class="string">"background-size"</span>, percent + <span class="string">"% 100%"</span>);
+				})
+				.trigger(<span class="string">"change"</span>);
+			});
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2>CordovaApp</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> CordovaApp = {
+		initialize: <span class="keyword">function</span>() {
+			<span class="keyword">this</span>.bind();
+		},
+		bind: <span class="keyword">function</span>() {
+			document.addEventListener(<span class="string">'deviceready'</span>, <span class="keyword">this</span>.deviceready, <span class="literal">false</span>);
+		},
+		deviceready: <span class="keyword">function</span>() {
+			CordovaApp.report(<span class="string">'deviceready'</span>);
+		},
+		report: <span class="keyword">function</span>(id) { 
+			console.log(<span class="string">"report:"</span> + id);
+			navigator.notification.alert(<span class="string">"Hi"</span>, <span class="literal">null</span>, <span class="string">"Simply Mobile"</span>, <span class="string">'OK'</span>);
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2>Hook</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> Hook = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>The container that holds all the hooks.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		hooks: [],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <h3>register</h3>
+<p>Registers a function that will be executed in the place call is called for the name.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		register: <span class="function"><span class="keyword">function</span> <span class="params">( name, callback )</span> {</span>
+			<span class="keyword">if</span>( <span class="string">'undefined'</span> === <span class="keyword">typeof</span>( Hook.hooks[name] ) ) {
+				Hook.hooks[name] = [];
+			}
+			Hook.hooks[name].push( callback );
+		},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <h3>call</h3>
+<p>Calls all the registered hooks for name.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		call: <span class="function"><span class="keyword">function</span> <span class="params">( name, args )</span> {</span>
+			<span class="keyword">if</span>( <span class="string">'undefined'</span> !== <span class="keyword">typeof</span>( Hook.hooks[name] ) ) {
+				<span class="keyword">for</span>( <span class="keyword">var</span> i = <span class="number">0</span>; i &lt; Hook.hooks[name].length; ++i ) {
+					<span class="keyword">if</span>( <span class="literal">true</span> !== Hook.hooks[name][i]( args ) ) { 
+						<span class="keyword">break</span>;
+					}
+				}
+			}
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h2>View Assembler</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> ViewAssembler = {
+		currentTemplate: <span class="string">""</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3>init</h3>
+<p>Initializes the templating engine.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		init: <span class="keyword">function</span>() {
+			<span class="keyword">if</span> (Handlebars.templates === <span class="literal">undefined</span>) {
+				Handlebars.templates = {};
+			}
+			<span class="keyword">if</span>(Handlebars.templates.error !== <span class="string">""</span>) {
+				Handlebars.templates.error = <span class="keyword">this</span>.getTemplateFile(<span class="string">"error"</span>);
+			}
+		},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h3>getJSON</h3>
+<p>Retrieves the JSON data that is put into the Handlebars template.</p>
+<ul>
+<li><code>jsonData</code> is either a string url or a JSON object.  </li>
+<li><code>remoteData</code> is an optional remote data that is passed to the server in the Ajax request. If jsonData is an object, this should be empty.  </li>
+<li>Returns a JSON object containing the data that is to be put into the Handlebars template.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		getJSON: <span class="keyword">function</span>(jsonData, remoteData) {
+			<span class="keyword">var</span> obj;
+			<span class="keyword">try</span> {
+				obj = $.parseJSON(jsonData);
+			} <span class="keyword">catch</span>(e) {}
+
+			<span class="keyword">if</span>(<span class="keyword">typeof</span> obj === <span class="string">"object"</span>) {
+				<span class="keyword">return</span> obj;
+			}
+			<span class="keyword">else</span> {
+				$.ajax({
+					url: jsonData,
+					dataType: <span class="string">'json'</span>,
+					async: <span class="literal">false</span>,
+					data: remoteData,
+					ifModified: <span class="literal">true</span>,
+					cache: <span class="literal">true</span>,
+					success: <span class="keyword">function</span>(data) {
+						obj = data;
+					}
+				});
+				<span class="keyword">return</span> obj;
+			}
+		},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h3>getTemplateFile</h3>
+<p>Loads the template files that are located in the views directory. Caches the template so they won&#39;t have to be loaded twice.</p>
+<ul>
+<li><code>name</code> is the name of the template file to load, without extension.</li>
+<li><code>callback</code> is a callback function to execute once the template has been retrieved. Passes the compiled template file.</li>
+<li>returns a Handlebars template file.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		getTemplateFile: <span class="keyword">function</span>(name, callback) {
+			<span class="keyword">if</span> (Handlebars.templates[name] === <span class="literal">undefined</span>) {
+				$.ajax({
+					url: <span class="string">'views/'</span> + name + <span class="string">'.html'</span>,
+					async: <span class="literal">false</span>,
+					success: <span class="keyword">function</span>(data) {
+						<span class="keyword">if</span>(name.substring(<span class="number">0</span>, <span class="number">1</span>) === <span class="string">"_"</span>) {
+							Handlebars.templates[name] = Handlebars.compile(data);
+							Handlebars.registerPartial(name, Handlebars.templates[name]);
+						}
+						<span class="keyword">else</span> {
+							Handlebars.templates[name] = Handlebars.compile(data);
+						}
+						<span class="keyword">if</span>(callback) {
+							callback(Handlebars.templates[name]);
+						}
+					},
+					error: <span class="keyword">function</span>() {
+						<span class="keyword">if</span>(callback) {
+							callback(Handlebars.templates.error);
+						}
+					}
+				});
+			}
+			<span class="keyword">else</span> {
+				<span class="keyword">if</span>(callback) {
+					callback(Handlebars.templates[name]);
+				}
+			}
+			ViewAssembler.currentTemplate = name;
+			<span class="keyword">return</span> Handlebars.templates[name];
+		},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h3>renderTemplate</h3>
+<p>Renders the template with the data. </p>
+<ul>
+<li><code>name</code> is the name of the template to load.</li>
+<li><code>data</code> is the JSON data to be put into the template.</li>
+<li><code>remoteData</code> is a JSON object of the data to be passed to the server when getting the template data.
+<code>callback</code> is a callback function passing the final rendered html.</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		renderTemplate: <span class="keyword">function</span>(name, data, remoteData, callback) {
+			<span class="keyword">var</span> html;
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			ViewAssembler.getTemplateFile(name, <span class="keyword">function</span>(template) {
+				data = self.getJSON(data, remoteData) || <span class="string">""</span>;
+				html = template(data);
+				
+				<span class="keyword">if</span>(callback) {
+					callback(html);
+				}
+
+				ViewAssembler.currentTemplate = name;
+				LoadController.setActiveNav();
+				LocalStorage.set(<span class="string">"last-page-name"</span>, name);
+			});
+		},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <h3>updateTitle</h3>
+<p>Updates the title (<code>header h1</code>) with the passed title.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		updateTitle: <span class="keyword">function</span>(title) {
+			$(<span class="string">"header h1"</span>).html(title);
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h2>Views</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> Views = {
+		loadView: <span class="keyword">function</span>(name) {
+			ViewAssembler.renderTemplate(name, <span class="string">""</span>, <span class="string">""</span>, <span class="keyword">function</span>(html) {
+				LoadController.loadPage(html);
+			});
+		},
+		styleguide: <span class="keyword">function</span>() {
+			ViewAssembler.renderTemplate(<span class="string">"styleguide"</span>, <span class="string">""</span>, <span class="string">""</span>, <span class="keyword">function</span>(html) {
+				LoadController.loadPage(html);
+			});
+			ViewAssembler.updateTitle(<span class="string">"Simply Mobile"</span>);
+		},
+		fruit: <span class="keyword">function</span>() {
+			ViewAssembler.renderTemplate(<span class="string">"fruit"</span>, <span class="string">"data/fruit.json"</span>, <span class="string">""</span>, <span class="keyword">function</span>(html) {
+				LoadController.loadPage(html);
+			});
+			ViewAssembler.updateTitle(<span class="string">"Simply Mobile"</span>);
+		},
+		tweets: <span class="keyword">function</span>() {
+			ViewAssembler.renderTemplate(<span class="string">"tweets"</span>, <span class="string">"https://raw.github.com/cfjedimaster/ServiceDataFormatLibrary/master/twitter/search_for_starwars.json"</span>, <span class="string">""</span>, <span class="keyword">function</span>(html) {
+				LoadController.loadPage(html);
+			});
+			ViewAssembler.updateTitle(<span class="string">"Star Wars"</span>);
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <h2>LoadController</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> LoadController = {
+		s: {
+			docWidth: $(document).width(),
+			navIDs: <span class="string">'#main-nav, .bottom-bar'</span>,
+			lImg: <span class="string">'#loaderImg'</span>,
+			lTxt: <span class="string">'#loaderTxt'</span>,
+			l: <span class="string">'#loader'</span>
+		},
+		loadImage: <span class="function"><span class="keyword">function</span> <span class="params">(show)</span>{</span>
+			<span class="keyword">if</span>( show === <span class="literal">true</span> ) {
+				$(<span class="keyword">this</span>.s.lImg).fadeIn(<span class="number">200</span>);
+			} <span class="keyword">else</span> {
+				$(<span class="keyword">this</span>.s.lImg).fadeOut(<span class="number">200</span>);
+			}
+		},
+		loadingShow: <span class="function"><span class="keyword">function</span> <span class="params">(str)</span>{</span>
+			$(<span class="string">"body"</span>).prepend(<span class="string">'&lt;div id="loader"&gt;&lt;div&gt;&lt;span id="loaderImg"&gt;&lt;img src="img/loading.gif" /&gt;&lt;/span&gt;&lt;span id="loaderTxt"&gt;Loading the page&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;'</span>);
+			$(<span class="keyword">this</span>.s.lTxt).html(str);
+			$(<span class="keyword">this</span>.s.l).animate({<span class="string">'height'</span>: <span class="number">60</span>}, <span class="number">500</span>);
+		},
+		loadingHide: <span class="function"><span class="keyword">function</span> <span class="params">(delay)</span>{</span>
+			setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+				$(<span class="string">'#loader '</span>).animate({<span class="string">'height'</span>:<span class="number">0</span>}, <span class="number">500</span>, <span class="keyword">function</span>() {
+					$(<span class="keyword">this</span>).removeClass();
+				});
+			}, delay);
+			$(<span class="string">"#loader"</span>).remove();
+		},
+		setActiveNav: <span class="keyword">function</span>() {
+			$(<span class="keyword">this</span>.s.navIDs).find(<span class="string">'a'</span>).removeClass(<span class="string">'active'</span>);
+			$(<span class="keyword">this</span>.s.navIDs).find(<span class="string">'a[data-view="'</span> + ViewAssembler.currentTemplate + <span class="string">'"]'</span>).addClass(<span class="string">'active'</span>);
+		},
+		loadPage: <span class="function"><span class="keyword">function</span> <span class="params">(content)</span>{</span>
+			<span class="keyword">var</span> timing = <span class="number">400</span>;
+			<span class="keyword">var</span> easing = <span class="string">"linear"</span>;
+			$(<span class="string">"#js-primary-content"</span>).fadeOut(timing, easing, <span class="keyword">function</span>() {
+				$(<span class="string">'#js-primary-content div'</span>).html(content);
+				
+				$(<span class="string">"#js-primary-content"</span>).fadeIn(timing, easing, <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>This fixes the issue where if you scroll a content area and 
+ajax to something new, it would load the new stuff at that scroll position</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>					$(<span class="string">'#js-primary-content'</span>).animate({
+						scrollTop: <span class="number">0</span>
+					}, <span class="number">400</span>);
+					
+					Start.battle();
+				});
+				$(<span class="string">".page section"</span>).css({<span class="string">'width'</span>: <span class="string">"100%"</span>});
+			});
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h2>OrientationCheck</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> OrientationCheck = {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <h3>init</h3>
+<p>Initialize OrientationCheck and add body classes. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		init: <span class="keyword">function</span>() {
+			$(<span class="string">"body"</span>).addClass(<span class="string">"landscape"</span>);
+			OrientationCheck.check();
+			OrientationCheck.resize();
+		},
+		<span class="comment">/**
+		 * Postpone execution of fn until after delay milliseconds have passed since the fn's last execution.
+		 * @param  {Function} fn A function to debounce
+		 * @param  {integer} delay amount of time to wait in milliseconds.
+		 */</span>
+		debounce: <span class="keyword">function</span>(fn, delay) {
+			<span class="keyword">var</span> timer = <span class="literal">null</span>;
+			<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+				<span class="keyword">var</span> context = <span class="keyword">this</span>, args = arguments;
+				clearTimeout(timer);
+				timer = setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+					fn.apply(context, args);
+				}, delay);
+			};
+		},
+		<span class="comment">/** Checks to see if the window is in portrait or landscape orientation. */</span>
+		check: <span class="keyword">function</span>() {
+			<span class="keyword">if</span>(window.innerWidth &gt; window.innerHeight) {
+				$(<span class="string">"body"</span>).addClass(<span class="string">"landscape"</span>).removeClass(<span class="string">"portrait"</span>);
+			} <span class="keyword">else</span> {
+				$(<span class="string">"body"</span>).addClass(<span class="string">"portrait"</span>).removeClass(<span class="string">"landscape"</span>);
+			}
+		},
+		<span class="comment">/**
+		 * Recheckes the orientation and fixes window scrolling. Also accepts a callback function to add functionality.
+		 * @param  {Function} callback a callback function that executes at the end of the resize event listener.
+		 */</span>
+		resize: <span class="keyword">function</span>(callback) {
+			window.addEventListener(<span class="string">"resize"</span>, <span class="keyword">function</span>() {
+				OrientationCheck.check();
+				ScrollingFixes.setScrolling(window.innerHeight);
+				<span class="keyword">if</span>(callback) {
+					callback(window.innerWidth, window.innerHeight);
+				}
+			}, <span class="literal">false</span>);
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h2>LocalStorage</h2>
+<p>Examples:</p>
+<pre><code>LocalStorage.set(&quot;foo&quot;, &quot;bar&quot;);
+var baz = LocalStorage.get(&quot;foo&quot;);
+LocalStorage.removeAll();</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> LocalStorage = {
+		<span class="comment">/**
+		 * LocalStorage settings.
+		 * @type {Object}
+		 */</span>
+		settings: {
+			supports: (Modernizr.localstorage) ? <span class="literal">true</span> : <span class="literal">false</span>,
+			prefix: <span class="string">"sm-"</span> <span class="comment">// include separator</span>
+		},
+		<span class="comment">/**
+		 * Retrieves the value of key.
+		 * @param  {string} key the key to search for.
+		 * @return {string}     the value of key
+		 */</span>
+		get: <span class="keyword">function</span>(key) {
+			<span class="keyword">if</span>(!<span class="keyword">this</span>.settings.supports || key === <span class="string">""</span>) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+			<span class="keyword">try</span> {
+				<span class="keyword">return</span> localStorage.getItem(<span class="keyword">this</span>.settings.prefix + key);
+			} <span class="keyword">catch</span>(e) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		},
+		<span class="comment">/**
+		 * Returns an array of all the keys in LocalStorage.
+		 * @return {Array} A single-dimensional array containing all the keys in LocalStorage.
+		 */</span>
+		getAll: <span class="keyword">function</span>() {
+			<span class="keyword">if</span>(!<span class="keyword">this</span>.settings.supports) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+			<span class="keyword">try</span> {
+				<span class="keyword">var</span> output = [];
+				<span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> localStorage){
+					output.push(key);
+				}
+				<span class="keyword">return</span> output;
+			} <span class="keyword">catch</span>(e) {
+				console.log(e);
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		},
+		<span class="comment">/**
+		 * Returns a boolean value if the passed key exists
+		 * @param  {string} key The key you wish to test
+		 * @return {boolean}     True if the key exists, false if it doesn't.
+		 */</span>
+		keyExists: <span class="keyword">function</span>(key) {
+			key = <span class="keyword">this</span>.settings.prefix + key;
+			<span class="keyword">var</span> keys = <span class="keyword">this</span>.getAll();
+			<span class="keyword">if</span> ( keys.indexOf(key) &gt; -<span class="number">1</span> ) {
+				<span class="keyword">return</span> <span class="literal">true</span>;
+			}
+			<span class="keyword">else</span> {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		},
+		<span class="comment">/**
+		 * Sets the value of key to value in localstorage. Returns true on success and false on failure.
+		 * @param {string} key   The key for the item in LocalStorage
+		 * @param {string} value The value for the item key in LocalStorage.
+		 * @return {boolean} True if the key is successfully set, false if no.
+		 */</span>
+		set: <span class="keyword">function</span>(key, value) {
+			<span class="keyword">if</span>(!<span class="keyword">this</span>.settings.supports || key === <span class="string">""</span> || value === <span class="string">""</span>) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+			<span class="keyword">try</span> {
+				localStorage.setItem(<span class="keyword">this</span>.settings.prefix + key, value);
+				<span class="keyword">return</span> <span class="literal">true</span>;
+			} <span class="keyword">catch</span>(e) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		},
+		<span class="comment">/**
+		 * Attempts to remove key from LocalStorage.
+		 * @param  {string} key The key to be removed
+		 * @return {boolean}     True if the key is removed, false if no.
+		 */</span>
+		remove: <span class="keyword">function</span>(key) {
+			<span class="keyword">if</span>(!<span class="keyword">this</span>.settings.supports || key === <span class="string">""</span>) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+			<span class="keyword">try</span> {
+				localStorage.removeItem(key);
+				<span class="keyword">return</span> <span class="literal">true</span>;
+			} <span class="keyword">catch</span>(e) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		},
+		<span class="comment">/**
+		 * Removes all items from LocalStorage for the current domain.
+		 * @return {boolean} True if the items are successfully removed, false if not.
+		 */</span>
+		removeAll: <span class="keyword">function</span>() {
+			<span class="keyword">if</span>(!<span class="keyword">this</span>.settings.supports) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+			<span class="keyword">try</span> {
+				localStorage.clear();
+				<span class="keyword">return</span> <span class="literal">true</span>;
+			} <span class="keyword">catch</span>(e) {
+				<span class="keyword">return</span> <span class="literal">false</span>;
+			}
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <h2>Navigation</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> Navigation = {
+		s: {
+			navWidth: $(document).width(),
+			delay: <span class="number">500</span>,
+			fadeDelay: <span class="number">400</span>,
+			navTrigger: <span class="string">'.js-open-nav'</span>,
+			menuContainer: <span class="string">'#main-nav'</span>,
+			menuItems: <span class="string">'#main-nav ul li a'</span>,
+			easingIn: <span class="string">'easeOutQuart'</span>,
+			easingOut: <span class="string">'easeInOutQuart'</span>
+		},
+		init: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">this</span>.addClasses();
+			<span class="keyword">this</span>.openEvent();
+			<span class="keyword">this</span>.clickNavItem();
+		},
+		addClasses: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			
+			$(self.s.menuItems).each(<span class="function"><span class="keyword">function</span> <span class="params">(index)</span>{</span>			
+				<span class="keyword">if</span> (index%<span class="number">2</span> !== <span class="number">0</span>) {
+					$(<span class="keyword">this</span>).css({<span class="string">'left'</span>: -self.s.navWidth}).addClass(<span class="string">'odd'</span>);
+				} <span class="keyword">else</span> {
+					$(<span class="keyword">this</span>).css({<span class="string">'right'</span>: -self.s.navWidth}).addClass(<span class="string">'even'</span>);
+				}
+			});	
+		},
+		showMenu: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			
+			$(<span class="keyword">this</span>.s.menuContainer).show();
+			$(<span class="string">'.odd'</span>).animate({<span class="string">'left'</span>: <span class="number">0</span>}, self.s.delay, self.s.easingIn);
+			$(<span class="string">'.even'</span>).animate({<span class="string">'right'</span>: <span class="number">0</span>}, self.s.delay, self.s.easingIn);
+		},
+		hideMenu: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			
+			$(<span class="string">'.odd'</span>).animate({<span class="string">'left'</span>: -self.s.navWidth}, self.s.delay, self.s.easingOut);	
+			$(<span class="string">'.even'</span>).animate({<span class="string">'right'</span>: -self.s.navWidth}, self.s.delay, self.s.easingOut);
+
+			setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+				$(self.s.menuContainer).hide();
+			}, self.s.delay);
+		},
+		openEvent: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			
+			$(self.s.navTrigger).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>	
+				<span class="keyword">if</span>( ! $(<span class="keyword">this</span>).hasClass(<span class="string">'menuopen'</span>) ) {
+					self.showMenu();			
+					$(<span class="keyword">this</span>).addClass(<span class="string">'menuopen'</span>);
+				} <span class="keyword">else</span> {
+					self.hideMenu();
+					$(<span class="keyword">this</span>).removeClass(<span class="string">'menuopen'</span>);
+				}
+			});
+		},
+		clickNavItem: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+
+			$(self.s.menuItems).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> <span class="params">(e)</span>{</span>
+				e.preventDefault();
+				
+				<span class="keyword">if</span>( ! $(<span class="keyword">this</span>).hasClass(<span class="string">'active'</span>) ) {
+					
+					$(self.s.menuItems).removeClass(<span class="string">'active'</span>);
+					
+					$(<span class="keyword">this</span>).addClass(<span class="string">'active'</span>);
+					
+					$(<span class="string">'.menuopen'</span>).removeClass(<span class="string">'menuopen'</span>);
+					
+					setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+						self.hideMenu();
+
+					}, <span class="number">200</span>);
+				}
+			});
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <h2>BottomNavigation</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> BottomNavigation = {
+		s: {
+			menuItems: <span class="string">'.bottom-bar a'</span>
+		},
+		init: <span class="keyword">function</span>() {
+			<span class="keyword">this</span>.clickNavItem();
+		},
+		clickNavItem: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+
+			$(self.s.menuItems).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> <span class="params">(e)</span>{</span>
+				e.preventDefault();
+				
+				<span class="keyword">if</span>( $(<span class="keyword">this</span>).data(<span class="string">'view'</span>) ) {
+					<span class="keyword">if</span>( ! $(<span class="keyword">this</span>).hasClass(<span class="string">'active'</span>) ) {
+						$(self.s.menuItems).removeClass(<span class="string">'active'</span>);
+						$(<span class="keyword">this</span>).addClass(<span class="string">'active'</span>);
+					}
+				}
+			});
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <h2>ScrollingFixes</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> ScrollingFixes = {
+		init: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
+			<span class="keyword">this</span>.setScrolling();
+			<span class="keyword">this</span>.disableElastic();
+		},
+		setScrolling: <span class="keyword">function</span>(winHeight) {
+			winHeight = (<span class="keyword">typeof</span> winHeight === <span class="string">"undefined"</span>) ? $(window).height() : winHeight;
+			<span class="keyword">var</span> headerHeight = $(<span class="string">'.js-content-wrap header'</span>).outerHeight(<span class="literal">false</span>);
+			<span class="keyword">var</span> footerHeight = ( $(<span class="string">'.bottom-bar'</span>).css(<span class="string">"display"</span>) === <span class="string">"none"</span> ) ? <span class="number">0</span> : $(<span class="string">'.bottom-bar'</span>).outerHeight(<span class="literal">false</span>);
+			<span class="keyword">var</span> totalHeight = winHeight - headerHeight - footerHeight;
+			$(<span class="string">'.js-content-wrap'</span>)
+			.css({
+				<span class="string">'height'</span>: winHeight
+			})
+			.find(<span class="string">'section'</span>)
+			.css({
+				<span class="string">'height'</span>: totalHeight,
+				<span class="string">'overflow'</span>: <span class="string">'scroll'</span>,
+				<span class="string">'-webkit-overflow-scrolling'</span>: <span class="string">'touch'</span>
+			});
+		},
+		disableElastic: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+			<span class="keyword">var</span> link = $(<span class="string">'.page section'</span>);
+			
+			<span class="keyword">var</span> docHeight = $(<span class="string">'.page #js-primary-content'</span>).outerHeight(<span class="literal">false</span>);
+			<span class="keyword">var</span> headerHeight = $(<span class="string">'.js-content-wrap header'</span>).outerHeight(<span class="literal">false</span>);
+			<span class="keyword">var</span> footerHeight = ( $(<span class="string">'.bottom-bar'</span>).css(<span class="string">"display"</span>) === <span class="string">"none"</span> ) ? <span class="number">0</span> : $(<span class="string">'.bottom-bar'</span>).outerHeight(<span class="literal">false</span>);
+			<span class="keyword">var</span> totalHeight = docHeight - headerHeight - footerHeight;
+			$(<span class="string">'.page #js-primary-content &gt; div'</span>).css(<span class="string">'min-height'</span>, totalHeight);
+			
+
+			$(window).bind(<span class="string">'touchstart'</span>,<span class="keyword">function</span>(){
+				<span class="keyword">var</span> scrolled = link.scrollTop();
+				<span class="keyword">var</span> winHeight = link.height();
+				<span class="keyword">var</span> contentHeight = $(<span class="string">'.page section &gt; div'</span>).innerHeight();
+				<span class="keyword">var</span> fromBottom = contentHeight - winHeight - scrolled;
+				
+				<span class="keyword">if</span>( scrolled &lt; <span class="number">1</span> ) {
+					link.animate({scrollTop: scrolled + <span class="number">1</span>}, <span class="number">0</span>);
+				}
+				<span class="keyword">if</span>( fromBottom &lt; <span class="number">1</span> ) {
+					link.animate({scrollTop: scrolled - <span class="number">1</span>},<span class="number">0</span>);
+				}
+			});
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h2>ProgressBar</h2>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> ProgressBar = {
+		init: <span class="keyword">function</span>() {
+			$(<span class="string">".meter"</span>).each(<span class="keyword">function</span>() {
+				$(<span class="keyword">this</span>).append(<span class="string">"&lt;span /&gt;"</span>);
+				$(<span class="string">"span"</span>, <span class="keyword">this</span>).width($(<span class="keyword">this</span>).data(<span class="string">"progress"</span>) + <span class="string">"%"</span>);
+				<span class="keyword">if</span>($(<span class="keyword">this</span>).hasClass(<span class="string">"show-progress"</span>)) {
+					$(<span class="string">"span"</span>, <span class="keyword">this</span>).html(<span class="string">"&lt;b&gt;"</span> + $(<span class="keyword">this</span>).data(<span class="string">"progress"</span>) + <span class="string">"%&lt;/b&gt;"</span>);
+				}
+			});
+		},
+		load: <span class="keyword">function</span>() {
+			$(<span class="string">".meter"</span>).each(<span class="keyword">function</span>() {
+				$(<span class="string">"span"</span>, <span class="keyword">this</span>).width(<span class="number">0</span>).animate({
+					width: $(<span class="keyword">this</span>).data(<span class="string">"progress"</span>) + <span class="string">"%"</span>
+				}, <span class="number">1200</span>);
+			});
+		}
+	};
+
+	$(<span class="string">".reveal-modal"</span>).wrapInner(<span class="string">"&lt;div class='modal-inner' /&gt;"</span>);
+
+
+
+	$(<span class="keyword">function</span>(){
+		Start.firstLoad();
+		
+		$(<span class="string">"a[data-view]"</span>).on(<span class="string">"click"</span>, <span class="keyword">function</span>(e) {
+			e.preventDefault();
+			<span class="keyword">var</span> view = $(<span class="keyword">this</span>).data(<span class="string">"view"</span>);
+			<span class="keyword">if</span>(Views[view]) {
+				Views[view]();
+			}
+			<span class="keyword">else</span> {
+				Views.loadView(view);
+			}
+			<span class="keyword">return</span> <span class="literal">false</span>;
+		});
+
+		$(<span class="string">"input[type='submit']"</span>).on(<span class="string">"click"</span>, <span class="keyword">function</span>() {
+			$(<span class="string">"#myModal"</span>).reveal();
+			<span class="keyword">return</span> <span class="literal">false</span>;
+		});
+	});
+})(jQuery, <span class="keyword">this</span>, <span class="keyword">this</span>.document);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
