@@ -22,17 +22,9 @@ module.exports = function(grunt) {
 			assets: {
 				files: {
 					'js/assets.js': [
-						'js/assets.js',
-						'js/reveal-forked.js'
-					]
-				}
-			},
-			build: {
-				files: {
-					'js/app.min.js': [
 						'js/modernizr.js',
 						'js/assets.js',
-						'js/app.js'
+						'js/reveal-forked.js'
 					]
 				}
 			}
