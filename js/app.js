@@ -318,8 +318,6 @@
 				$('#js-primary-content div').html(content);
 				
 				$("#js-primary-content").fadeIn(timing, easing, function (){
-					// This fixes the issue where if you scroll a content area and 
-					// ajax to something new, it would load the new stuff at that scroll position
 					$('#js-primary-content').animate({
 						scrollTop: 0
 					}, 400);
@@ -340,11 +338,11 @@
 			OrientationCheck.check();
 			OrientationCheck.resize();
 		},
-		/**
-		 * Postpone execution of fn until after delay milliseconds have passed since the fn's last execution.
-		 * @param  {Function} fn A function to debounce
-		 * @param  {integer} delay amount of time to wait in milliseconds.
-		 */
+		// ### debounce
+		// Postpone execution of fn until after delay milliseconds have passed since the fn's last execution.
+		// 
+		// * `fn` is the function to debounce
+		// * `delay` is the amount of time to wait in milliseconds.
 		debounce: function(fn, delay) {
 			var timer = null;
 			return function () {
@@ -355,7 +353,8 @@
 				}, delay);
 			};
 		},
-		/** Checks to see if the window is in portrait or landscape orientation. */
+		// ### check
+		// Checks to see if the window is in portrait or landscape orientation.
 		check: function() {
 			if(window.innerWidth > window.innerHeight) {
 				$("body").addClass("landscape").removeClass("portrait");
@@ -363,10 +362,10 @@
 				$("body").addClass("portrait").removeClass("landscape");
 			}
 		},
-		/**
-		 * Recheckes the orientation and fixes window scrolling. Also accepts a callback function to add functionality.
-		 * @param  {Function} callback a callback function that executes at the end of the resize event listener.
-		 */
+		// ### resize
+		// Recheckes the orientation and fixes window scrolling.
+		// 
+		//  * callback a callback function to hook into `resize()` and functionality.
 		resize: function(callback) {
 			window.addEventListener("resize", function() {
 				OrientationCheck.check();
@@ -385,19 +384,13 @@
 	//		var baz = LocalStorage.get("foo");
 	//		LocalStorage.removeAll();
 	var LocalStorage = {
-		/**
-		 * LocalStorage settings.
-		 * @type {Object}
-		 */
+		// ### settings
 		settings: {
 			supports: (Modernizr.localstorage) ? true : false,
 			prefix: "sm-" // include separator
 		},
-		/**
-		 * Retrieves the value of key.
-		 * @param  {string} key the key to search for.
-		 * @return {string}     the value of key
-		 */
+		// ### get
+		// Retrieves the value of key.
 		get: function(key) {
 			if(!this.settings.supports || key === "") {
 				return false;
@@ -408,10 +401,8 @@
 				return false;
 			}
 		},
-		/**
-		 * Returns an array of all the keys in LocalStorage.
-		 * @return {Array} A single-dimensional array containing all the keys in LocalStorage.
-		 */
+		// ### getAll
+		// Returns an array of all the keys in LocalStorage.
 		getAll: function() {
 			if(!this.settings.supports) {
 				return false;
@@ -427,11 +418,8 @@
 				return false;
 			}
 		},
-		/**
-		 * Returns a boolean value if the passed key exists
-		 * @param  {string} key The key you wish to test
-		 * @return {boolean}     True if the key exists, false if it doesn't.
-		 */
+		// ### keyExists
+		// Returns a boolean value if the passed key exists
 		keyExists: function(key) {
 			key = this.settings.prefix + key;
 			var keys = this.getAll();
@@ -442,12 +430,9 @@
 				return false;
 			}
 		},
-		/**
-		 * Sets the value of key to value in localstorage. Returns true on success and false on failure.
-		 * @param {string} key   The key for the item in LocalStorage
-		 * @param {string} value The value for the item key in LocalStorage.
-		 * @return {boolean} True if the key is successfully set, false if no.
-		 */
+		// ### set
+		// Accepts `key` as the item in LocalStorage and `value` as the value of `key` in LocalStorage.  
+		// Returns true if the key is successfully set, false if no.
 		set: function(key, value) {
 			if(!this.settings.supports || key === "" || value === "") {
 				return false;
@@ -459,11 +444,10 @@
 				return false;
 			}
 		},
-		/**
-		 * Attempts to remove key from LocalStorage.
-		 * @param  {string} key The key to be removed
-		 * @return {boolean}     True if the key is removed, false if no.
-		 */
+		// ### remove
+		// Accepts a key to remove.  
+		// Returns true if the key is removed, false if not.
+		
 		remove: function(key) {
 			if(!this.settings.supports || key === "") {
 				return false;
@@ -475,10 +459,9 @@
 				return false;
 			}
 		},
-		/**
-		 * Removes all items from LocalStorage for the current domain.
-		 * @return {boolean} True if the items are successfully removed, false if not.
-		 */
+		// ### removeAll
+		// Removes all items from LocalStorage for the current domain.  
+		// Returns true if the items are successfully removed, false if not.
 		removeAll: function() {
 			if(!this.settings.supports) {
 				return false;
@@ -509,11 +492,13 @@
 			this.openEvent();
 			this.clickNavItem();
 		},
+		// ### addClasses
+		// Adds the classes for the striped backgrounds.
 		addClasses: function (){
 			var self = this;
 			
 			$(self.s.menuItems).each(function (index){			
-				if (index%2 !== 0) {
+				if (index % 2 !== 0) {
 					$(this).css({'left': -self.s.navWidth}).addClass('odd');
 				} else {
 					$(this).css({'right': -self.s.navWidth}).addClass('even');
@@ -599,10 +584,13 @@
 
 	// ## ScrollingFixes
 	var ScrollingFixes = {
+		// ### init
 		init: function (){
 			this.setScrolling();
 			this.disableElastic();
 		},
+		// ### setScrolling
+		// Makes the main content area main scrolling area. Accepts a parameter that is used in `OrientationCheck` to reflow height on orientation change.
 		setScrolling: function(winHeight) {
 			winHeight = (typeof winHeight === "undefined") ? $(window).height() : winHeight;
 			var headerHeight = $('.js-content-wrap header').outerHeight(false);
@@ -619,6 +607,8 @@
 				'-webkit-overflow-scrolling': 'touch'
 			});
 		},
+		// ### disableElastic
+		// Disables the annoying and evil rubber band scrolling.
 		disableElastic: function () {
 			var link = $('.page section');
 			
@@ -646,16 +636,21 @@
 	};
 
 	// ## ProgressBar
+	// Takes elements with the class of `meter` and turns them into pretty progress bars. 
 	var ProgressBar = {
+		// ### init
 		init: function() {
 			$(".meter").each(function() {
 				$(this).append("<span />");
+				// Sets the width of the progress bar.
 				$("span", this).width($(this).data("progress") + "%");
 				if($(this).hasClass("show-progress")) {
 					$("span", this).html("<b>" + $(this).data("progress") + "%</b>");
 				}
 			});
 		},
+		// ### load
+		// Animates the load of the progress bar.
 		load: function() {
 			$(".meter").each(function() {
 				$("span", this).width(0).animate({

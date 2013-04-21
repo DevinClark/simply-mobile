@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 			}
 		},
 		shell: {
-			dirListing: {
+			docGeneration: {
 				command: 'docco js/app.js',
 				options: {
 					stdout: true
