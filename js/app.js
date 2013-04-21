@@ -684,4 +684,14 @@
 			return false;
 		});
 	});
+
+	// Expose a few public methods.
+	return {
+		Start: Start,
+		CordovaApp: CordovaApp,
+		OrientationCheck: OrientationCheck,
+		ViewAssembler: ViewAssembler,
+		Views: Views,
+		LocalStorage: LocalStorage
+	};
 })(jQuery, this, this.document);
