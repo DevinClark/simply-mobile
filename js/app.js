@@ -1,10 +1,11 @@
 // # Simply Mobile App.js
 // _An [OverDid.It](http://overdid.it) Project._
 
-/*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
+/*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:false, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
 /*global Handlebars, jQuery, FastClick */
 
 var SimplyMobile = (function($, window, document, undefined) {
+	/*jshint unused: true*/
 	"use strict";
 	var Modernizr = window.Modernizr;
 
