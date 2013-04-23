@@ -1,5 +1,5 @@
 var casper = require('casper').create({
-		clientScripts:  [
+		clientScripts: [
 				'js/assets.js',
 				'js/app.js'
 		],
@@ -13,27 +13,13 @@ var casper = require('casper').create({
 				self.exit();
 		},
 		pageSettings: {
-				loadImages:  false,
+				loadImages:  true,
 				loadPlugins: false
 		}
 });
 
 casper.start("http://localhost.dev/simply-mobile", function() {
-	this.wait(1000, function() {
-		this.mouseEvent('click', '.bottom-bar a[data-view="test"]');
-		this.captureSelector('page1.png', 'html');
-	});
-
-	this.wait(1000, function() {
-		this.mouseEvent('click', '.bottom-bar a[data-view="fruit"]');
-		this.captureSelector('page2.png', 'html');
-	});
-
-	this.wait(1000, function() {
-		this.mouseEvent('click', '.bottom-bar a[data-view="styleguide"]');
-		this.captureSelector('page3.png', 'html');
-	});
-
+	//casper.test.assert(SimplyMobile.LocalStorage.set("test", value), "Setting a LocalStorage property");
 });
 
 casper.run();
