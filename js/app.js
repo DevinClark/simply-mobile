@@ -12,6 +12,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 	// Override jQuery.error for display in Console.
 	$.error = console.error;
 
+	// Global Settings
 	var GlobalSettings = {
 		initialPage: "styleguide",
 		tabletMin: 768,
@@ -711,6 +712,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 
 	// Expose a few public methods.
 	return {
+		GlobalSettings: GlobalSettings,
 		Start: Start,
 		CordovaApp: CordovaApp,
 		OrientationCheck: OrientationCheck,
