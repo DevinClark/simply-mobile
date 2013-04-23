@@ -4,7 +4,7 @@
 /*jshint noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, unused:true, curly:true, browser:true, devel:true, jquery:true, indent:4, maxerr:50, newcap:true */
 /*global Handlebars, jQuery, FastClick */
 
-(function($, window, document, undefined) {
+var SimplyMobile = (function($, window, document, undefined) {
 	"use strict";
 	var Modernizr = window.Modernizr;
 
