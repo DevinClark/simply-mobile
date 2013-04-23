@@ -378,7 +378,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 				}
 			}, false);
 		},
-		/// ### isTablet
+		// ### isTablet
 		// Returns true if the device width is in the range of tabletMin and TabletMax in GlobalSettings.
 		isTablet: function() {
 			return (window.innerWidth >= GlobalSettings.tabletMin && window.innerWidth <= GlobalSettings.tabletMax);
