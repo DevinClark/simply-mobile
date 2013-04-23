@@ -14,6 +14,8 @@ var SimplyMobile = (function($, window, document, undefined) {
 
 	var GlobalSettings = {
 		initialPage: "styleguide",
+		tabletMin: 768,
+		tabletMax: 1025,
 		env: "web"
 	};
 
@@ -24,9 +26,8 @@ var SimplyMobile = (function($, window, document, undefined) {
 			this.styling();
 		},
 		firstLoad: function (){
-
-			Navigation.init();
 			BottomNavigation.init();
+			Navigation.init();
 			this.battle();
 			ProgressBar.load();
 			ViewAssembler.init();
@@ -375,6 +376,11 @@ var SimplyMobile = (function($, window, document, undefined) {
 					callback(window.innerWidth, window.innerHeight);
 				}
 			}, false);
+		},
+		/// ### isTablet
+		// Returns true if the device width is in the range of tabletMin and TabletMax in GlobalSettings.
+		isTablet: function() {
+			return (window.innerWidth >= GlobalSettings.tabletMin && window.innerWidth <= GlobalSettings.tabletMax);
 		}
 	};
 
@@ -489,9 +495,22 @@ var SimplyMobile = (function($, window, document, undefined) {
 			easingOut: 'easeInOutQuart'
 		},
 		init: function (){
-			this.addClasses();
-			this.openEvent();
+			// These functions are only needed on mobile. Tablet is getting a different menu.
+			if(OrientationCheck.isTablet()) {
+				this.sideNavInit();
+			}
+			else {
+				this.addClasses();
+				this.openEvent();
+				$(this.s.menuContainer).removeClass("side-menu");
+				$("#js-primary-content").css("paddingLeft", 10);
+			}
 			this.clickNavItem();
+		},
+		sideNavInit: function() {
+			var $nav = $(this.s.menuContainer);
+			$nav.addClass("side-menu");
+			$("#js-primary-content").css("paddingLeft", $nav.width() + 10);
 		},
 		// ### addClasses
 		// Adds the classes for the striped backgrounds.
@@ -526,7 +545,8 @@ var SimplyMobile = (function($, window, document, undefined) {
 		openEvent: function (){
 			var self = this;
 			
-			$(self.s.navTrigger).on('click',function (){	
+			$(self.s.navTrigger).on('click',function (e){
+				e.preventDefault();
 				if( ! $(this).hasClass('menuopen') ) {
 					self.showMenu();			
 					$(this).addClass('menuopen');
@@ -534,6 +554,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 					self.hideMenu();
 					$(this).removeClass('menuopen');
 				}
+				return false;
 			});
 		},
 		clickNavItem: function (){
@@ -550,10 +571,12 @@ var SimplyMobile = (function($, window, document, undefined) {
 					
 					$('.menuopen').removeClass('menuopen');
 					
-					setTimeout(function (){
-						self.hideMenu();
+					if(!OrientationCheck.isTablet()) {
+						setTimeout(function (){
+							self.hideMenu();
 
-					}, 200);
+						}, 200);
+					}
 				}
 			});
 		}

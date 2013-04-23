@@ -2549,10 +2549,9 @@ section {
     font-size: 18px;
     font-weight: 700;
     text-decoration: none;
-    text-shadow: 0 1px 0 black;
     position: relative;
     top: 0;
-    text-shadow: 0 1px 0 black;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
     padding: 10px 10px; }
     #main-nav a.odd {
       background: #404040;
@@ -2716,7 +2715,28 @@ section {
     display: inline-block; }
 
   body .mobile-only {
-    display: none; } }
+    display: none; }
+
+  #main-nav {
+    display: block;
+    width: 125px;
+    background: #bada55;
+    right: auto;
+    overflow-x: hidden; }
+    #main-nav a {
+      text-align: center;
+      font-size: 16px;
+      text-shadow: 0; }
+      #main-nav a span {
+        margin: 0;
+        font-size: 30px;
+        width: auto;
+        display: block;
+        text-align: center; }
+      #main-nav a.active {
+        background: #97ba28;
+        color: white;
+        text-shadow: inherit; } }
 .theme-light header,
 .theme-light .bottom-bar {
   background: #D8D8D8;

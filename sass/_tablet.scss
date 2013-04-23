@@ -5,4 +5,32 @@
 	body .mobile-only {
 		display: none;
 	}
+
+	#main-nav {
+		display: block;
+		width: 125px;
+		background: #bada55;
+		right: auto;
+		overflow-x: hidden;
+
+		a {
+			text-align: center;
+			font-size: 16px;
+			text-shadow: 0;
+
+			span {
+				margin: 0;
+				font-size: 30px;
+				width: auto;
+				display: block;
+				text-align: center;
+			}
+
+			&.active {
+				background: darken(#bada55, 15);
+				color: white;
+				text-shadow: inherit;
+			}
+		}
+	}
 }
