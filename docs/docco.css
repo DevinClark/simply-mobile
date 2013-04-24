@@ -79,6 +79,10 @@ pre, tt, code {
   font-size: 12px; line-height: 16px;
   font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
   margin: 0; padding: 0;
+  tab-size: 2;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  -webkit-tab-size: 2;
 }
   .annotation pre {
     display: block;
