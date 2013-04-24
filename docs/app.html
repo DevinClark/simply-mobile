@@ -122,6 +122,7 @@
 		inits: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
 			OrientationCheck.init();
 			ScrollingFixes.init();
+			Slider.init();
 		},
 		styling: <span class="function"><span class="keyword">function</span> <span class="params">()</span>{</span>
 			<span class="keyword">var</span> formElements = {
@@ -145,11 +146,37 @@
 			<span class="keyword">for</span>(<span class="keyword">var</span> element <span class="keyword">in</span> formElements) {
 				$(element).addClass(formElements[element]);
 			}
-			ProgressBar.init();
-			
-			$(<span class="string">'.bottom-bar li'</span>).css(<span class="string">"width"</span>, <span class="number">100</span> / $(<span class="string">'.bottom-bar li'</span>).length + <span class="string">"%"</span>);
+			ProgressBar.init();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Ensures the bottom bar elements are always the correct width, regardless of the number of items.</p>
 
-			$(<span class="string">'.range'</span>).each(<span class="keyword">function</span>() {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(<span class="string">'.bottom-bar li'</span>).css(<span class="string">"width"</span>, <span class="number">100</span> / $(<span class="string">'.bottom-bar li'</span>).length + <span class="string">"%"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Makes the range slider look more native.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			$(<span class="string">'.range'</span>).each(<span class="keyword">function</span>() {
 				$(<span class="keyword">this</span>).change(<span class="keyword">function</span>() {
 					<span class="keyword">var</span> percent = $(<span class="keyword">this</span>).val();
 					<span class="keyword">if</span>( $(<span class="keyword">this</span>).attr(<span class="string">"min"</span>) || $(<span class="keyword">this</span>).attr(<span class="string">"max"</span>) ) {
@@ -165,11 +192,11 @@
         </li>
         
         
-        <li id="section-5">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <h2>CordovaApp</h2>
 
@@ -194,11 +221,11 @@
         </li>
         
         
-        <li id="section-6">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <h2>Hook</h2>
 
@@ -209,11 +236,11 @@
         </li>
         
         
-        <li id="section-7">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <p>The container that holds all the hooks.</p>
 
@@ -224,11 +251,11 @@
         </li>
         
         
-        <li id="section-8">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <h3>register</h3>
 <p>Registers a function that will be executed in the place call is called for the name.</p>
@@ -245,11 +272,11 @@
         </li>
         
         
-        <li id="section-9">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <h3>call</h3>
 <p>Calls all the registered hooks for name.</p>
@@ -270,11 +297,11 @@
         </li>
         
         
-        <li id="section-10">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <h2>View Assembler</h2>
 
@@ -286,11 +313,11 @@
         </li>
         
         
-        <li id="section-11">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <h3>init</h3>
 <p>Initializes the templating engine.</p>
@@ -309,11 +336,11 @@
         </li>
         
         
-        <li id="section-12">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <h3>getJSON</h3>
 <p>Retrieves the JSON data that is put into the Handlebars template.</p>
@@ -353,11 +380,11 @@
         </li>
         
         
-        <li id="section-13">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h3>getTemplateFile</h3>
 <p>Loads the template files that are located in the views directory. Caches the template so they won&#39;t have to be loaded twice.</p>
@@ -405,11 +432,11 @@
         </li>
         
         
-        <li id="section-14">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <h3>renderTemplate</h3>
 <p>Renders the template with the data. </p>
@@ -442,11 +469,11 @@
         </li>
         
         
-        <li id="section-15">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <h3>updateTitle</h3>
 <p>Updates the title (<code>header h1</code>) with the passed title.</p>
@@ -461,11 +488,11 @@
         </li>
         
         
-        <li id="section-16">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <h2>Views</h2>
 
@@ -500,11 +527,11 @@
         </li>
         
         
-        <li id="section-17">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <h2>LoadController</h2>
 
@@ -563,11 +590,11 @@
         </li>
         
         
-        <li id="section-18">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <h2>OrientationCheck</h2>
 
@@ -578,11 +605,11 @@
         </li>
         
         
-        <li id="section-19">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <h3>init</h3>
 <p>Initialize OrientationCheck and add body classes. </p>
@@ -598,11 +625,11 @@
         </li>
         
         
-        <li id="section-20">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <h3>debounce</h3>
 <p>Postpone execution of fn until after delay milliseconds have passed since the fn&#39;s last execution.</p>
@@ -627,11 +654,11 @@
         </li>
         
         
-        <li id="section-21">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <h3>check</h3>
 <p>Checks to see if the window is in portrait or landscape orientation.</p>
@@ -649,11 +676,11 @@
         </li>
         
         
-        <li id="section-22">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <h3>resize</h3>
 <p>Recheckes the orientation and fixes window scrolling.</p>
@@ -676,11 +703,11 @@
         </li>
         
         
-        <li id="section-23">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <h3>isTablet</h3>
 <p>Returns true if the device width is in the range of tabletMin and TabletMax in GlobalSettings.</p>
@@ -695,11 +722,11 @@
         </li>
         
         
-        <li id="section-24">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <h2>LocalStorage</h2>
 <p>Examples:</p>
@@ -714,11 +741,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <h3>settings</h3>
 
@@ -732,11 +759,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <h3>get</h3>
 <p>Retrieves the value of key.</p>
@@ -757,11 +784,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <h3>getAll</h3>
 <p>Returns an array of all the keys in LocalStorage.</p>
@@ -787,11 +814,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <h3>keyExists</h3>
 <p>Returns a boolean value if the passed key exists</p>
@@ -812,11 +839,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <h3>set</h3>
 <p>Accepts <code>key</code> as the item in LocalStorage and <code>value</code> as the value of <code>key</code> in LocalStorage.<br>Returns true if the key is successfully set, false if no.</p>
@@ -838,11 +865,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <h3>remove</h3>
 <p>Accepts a key to remove.<br>Returns true if the key is removed, false if not.</p>
@@ -865,11 +892,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <h3>removeAll</h3>
 <p>Removes all items from LocalStorage for the current domain.<br>Returns true if the items are successfully removed, false if not.</p>
@@ -892,11 +919,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <h2>Navigation</h2>
 
@@ -918,11 +945,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>These functions are only needed on mobile. Tablet is getting a different menu.</p>
 
@@ -948,11 +975,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <h3>addClasses</h3>
 <p>Adds the classes for the striped backgrounds.</p>
@@ -1030,11 +1057,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <h2>BottomNavigation</h2>
 
@@ -1066,11 +1093,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-36">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <h2>ScrollingFixes</h2>
 
@@ -1081,11 +1108,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <h3>init</h3>
 
@@ -1099,11 +1126,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <h3>setScrolling</h3>
 <p>Makes the main content area main scrolling area. Accepts a parameter that is used in <code>OrientationCheck</code> to reflow height on orientation change.</p>
@@ -1130,11 +1157,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-39">
+        <li id="section-41">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <h3>disableElastic</h3>
 <p>Disables the annoying and evil rubber band scrolling.</p>
@@ -1170,11 +1197,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-40">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <h2>ProgressBar</h2>
 <p>Takes elements with the class of <code>meter</code> and turns them into pretty progress bars. </p>
@@ -1186,11 +1213,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-41">
+        <li id="section-43">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <h3>init</h3>
 
@@ -1203,11 +1230,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-42">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <p>Sets the width of the progress bar.</p>
 
@@ -1223,11 +1250,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-43">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-43">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <h3>load</h3>
 <p>Animates the load of the progress bar.</p>
@@ -1243,8 +1270,67 @@ LocalStorage.removeAll();</code></pre>
 		}
 	};
 
-	$(<span class="string">".reveal-modal"</span>).wrapInner(<span class="string">"&lt;div class='modal-inner' /&gt;"</span>);
+	$(<span class="string">".reveal-modal"</span>).wrapInner(<span class="string">"&lt;div class='modal-inner' /&gt;"</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <h2>Slider</h2>
+<p>Adds a simple dragleft/dragright slider. To use, add <code>data-slider</code> to an <code>&lt;ul&gt;</code>. Sample markup for more options can be seen in the styleguide.</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> Slider = {
+		init: <span class="keyword">function</span>() {
+			<span class="keyword">var</span> self = <span class="keyword">this</span>;
+			self.ul = $(<span class="string">"ul[data-slider]"</span>);
+			self.li = $(<span class="string">"ul[data-slider] li"</span>);
+			self.currentIndex = <span class="number">0</span>;
+
+			self.ul.wrap(<span class="string">"&lt;div /&gt;"</span>).parent(<span class="string">"div"</span>).addClass(<span class="string">"slider"</span>);
+			
+			self.ul
+				.width( (self.li.first().width() * self.li.length) + <span class="string">"px"</span>)
+				.parent(<span class="string">"div"</span>)
+					.height(self.ul.data(<span class="string">"height"</span>))
+					.width(self.ul.data(<span class="string">"width"</span>));
+
+			self.ul.hammer().on(<span class="string">"dragleft"</span>, self.handleGesture);
+			self.ul.hammer().on(<span class="string">"dragright"</span>, self.handleGesture);
+		},
+		goTo: <span class="keyword">function</span>(index) {
+			<span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt; Slider.li.length - <span class="number">1</span>) {
+				<span class="keyword">return</span>;
+			}
+			Slider.ul.css(<span class="string">"left"</span>, <span class="string">"-"</span> + (index * Slider.li.first().width()) + <span class="string">"px"</span> );
+			Slider.currentIndex = index;
+		},
+		next: <span class="keyword">function</span>() {
+			Slider.goTo(Slider.currentIndex + <span class="number">1</span>);
+		},
+		prev: <span class="keyword">function</span>() {
+			Slider.goTo(Slider.currentIndex - <span class="number">1</span>);
+		},
+		handleGesture: <span class="keyword">function</span>(ev) {
+			ev.gesture.preventDefault();
+			<span class="keyword">switch</span>(ev.type) {
+			<span class="keyword">case</span> <span class="string">"dragleft"</span>:
+				Slider.next();
+				ev.gesture.stopDetect();
+				<span class="keyword">break</span>;
+			<span class="keyword">case</span> <span class="string">"dragright"</span>:
+				Slider.prev();
+				ev.gesture.stopDetect();
+				<span class="keyword">break</span>;
+			}
+		}
+	};
 
 
 	$(<span class="keyword">function</span>(){
@@ -1271,11 +1357,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-44">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <p>Expose a few public methods.</p>
 
@@ -1288,7 +1374,8 @@ LocalStorage.removeAll();</code></pre>
 		OrientationCheck: OrientationCheck,
 		ViewAssembler: ViewAssembler,
 		Views: Views,
-		LocalStorage: LocalStorage
+		LocalStorage: LocalStorage,
+		Slider: Slider
 	};
 })(jQuery, <span class="keyword">this</span>, <span class="keyword">this</span>.document);</pre></div></div>
             

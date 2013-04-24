@@ -61,6 +61,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 		inits: function (){
 			OrientationCheck.init();
 			ScrollingFixes.init();
+			Slider.init();
 		},
 		styling: function (){
 			var formElements = {
@@ -86,8 +87,10 @@ var SimplyMobile = (function($, window, document, undefined) {
 			}
 			ProgressBar.init();
 			
+			// Ensures the bottom bar elements are always the correct width, regardless of the number of items.
 			$('.bottom-bar li').css("width", 100 / $('.bottom-bar li').length + "%");
 
+			// Makes the range slider look more native.
 			$('.range').each(function() {
 				$(this).change(function() {
 					var percent = $(this).val();
@@ -687,6 +690,53 @@ var SimplyMobile = (function($, window, document, undefined) {
 
 	$(".reveal-modal").wrapInner("<div class='modal-inner' />");
 
+	// ## Slider
+	// Adds a simple dragleft/dragright slider. To use, add `data-slider` to an `<ul>`. Sample markup for more options can be seen in the styleguide.
+	var Slider = {
+		init: function() {
+			var self = this;
+			self.ul = $("ul[data-slider]");
+			self.li = $("ul[data-slider] li");
+			self.currentIndex = 0;
+
+			self.ul.wrap("<div />").parent("div").addClass("slider");
+			
+			self.ul
+				.width( (self.li.first().width() * self.li.length) + "px")
+				.parent("div")
+					.height(self.ul.data("height"))
+					.width(self.ul.data("width"));
+
+			self.ul.hammer().on("dragleft", self.handleGesture);
+			self.ul.hammer().on("dragright", self.handleGesture);
+		},
+		goTo: function(index) {
+			if (index < 0 || index > Slider.li.length - 1) {
+				return;
+			}
+			Slider.ul.css("left", "-" + (index * Slider.li.first().width()) + "px" );
+			Slider.currentIndex = index;
+		},
+		next: function() {
+			Slider.goTo(Slider.currentIndex + 1);
+		},
+		prev: function() {
+			Slider.goTo(Slider.currentIndex - 1);
+		},
+		handleGesture: function(ev) {
+			ev.gesture.preventDefault();
+			switch(ev.type) {
+			case "dragleft":
+				Slider.next();
+				ev.gesture.stopDetect();
+				break;
+			case "dragright":
+				Slider.prev();
+				ev.gesture.stopDetect();
+				break;
+			}
+		}
+	};
 
 
 	$(function(){
@@ -718,6 +768,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 		OrientationCheck: OrientationCheck,
 		ViewAssembler: ViewAssembler,
 		Views: Views,
-		LocalStorage: LocalStorage
+		LocalStorage: LocalStorage,
+		Slider: Slider
 	};
 })(jQuery, this, this.document);

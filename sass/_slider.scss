@@ -1,0 +1,26 @@
+.slider {
+	overflow: hidden;
+	position: relative;
+
+	> ul {
+		position: absolute;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		transition: 0.5s left;
+
+		> li {
+			float: left;
+			position: relative;
+		}
+	}
+	.caption {
+		position: absolute;
+		display: block;
+		bottom: 8px;
+		left: 8px;
+		color: white;
+	}
+	.caption-top { top: 8px; bottom: auto; }
+	.caption-bottom { bottom: 8px; top: auto; }
+}
