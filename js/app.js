@@ -688,7 +688,12 @@ var SimplyMobile = (function($, window, document, undefined) {
 		}
 	};
 
+	// Allows the modal to scroll if content exceeds window height.
 	$(".reveal-modal").wrapInner("<div class='modal-inner' />");
+	$(".reveal-modal .close-reveal-modal").each(function() {
+		$(this).parents(".reveal-modal").append($(this)[0].outerHTML);
+		$(this).remove();
+	});
 
 	// ## Slider
 	// Adds a simple dragleft/dragright slider. To use, add `data-slider` to an `<ul>`. Sample markup for more options can be seen in the styleguide.
