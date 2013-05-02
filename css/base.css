@@ -2387,7 +2387,7 @@ textarea {
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-/* Reveal Modals ---------------------- */
+/** Reveal Modals */
 .reveal-modal-bg {
   position: fixed;
   height: 100%;

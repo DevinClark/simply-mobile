@@ -1,7 +1,7 @@
 /**
  * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
  *
- * @version 0.6.4
+ * @version 0.6.5
  * @codingstandard ftlabs-jsv2
  * @copyright The Financial Times Limited [All Rights Reserved]
  * @license MIT License (see LICENSE.txt)
@@ -195,16 +195,27 @@ FastClick.prototype.deviceIsIOSWithBadTarget = FastClick.prototype.deviceIsIOS &
  */
 FastClick.prototype.needsClick = function(target) {
 	'use strict';
-	var nodeName = target.nodeName.toLowerCase();
+	switch (target.nodeName.toLowerCase()) {
 
-	if (nodeName === 'button' || nodeName === 'input') {
+	// Don't send a synthetic click to disabled inputs (issue #62)
+	case 'button':
+	case 'select':
+	case 'textarea':
+		if (target.disabled) {
+			return true;
+		}
+
+		break;
+	case 'input':
 
 		// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)
-		// Don't send a synthetic click to disabled inputs (issue #62)
 		if ((this.deviceIsIOS && target.type === 'file') || target.disabled) {
 			return true;
-		}		
-	} else if (nodeName === 'label' || nodeName === 'video') {
+		}
+
+		break;
+	case 'label':
+	case 'video':
 		return true;
 	}
 
@@ -365,7 +376,7 @@ FastClick.prototype.onTouchStart = function(event) {
 				event.preventDefault();
 				return false;
 			}
-		
+
 			this.lastTouchIdentifier = touch.identifier;
 
 			// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
