@@ -7,6 +7,9 @@ Simply mobile is a mobile/tablet framework. The idea is to be able to easily mak
 ## Features
   * Uses [Bower](http://twitter.github.com/bower/) for dependency management.
   * Uses [Grunt](http://gruntjs.com/getting-started) for building.
+  * Uses jQuery 2.0
+  * Uses [HandlebarsJS](http://handlebarsjs.com/) for templating.
+  * Uses [FastClick](https://github.com/ftlabs/fastclick) to remove click delays.
   * Code written for several supported HTML(5) APIs.
 
 ## Getting Started
