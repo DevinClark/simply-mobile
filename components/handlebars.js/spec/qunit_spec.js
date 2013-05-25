@@ -92,6 +92,12 @@ test("most basic", function() {
   shouldCompileTo("{{foo}}", { foo: "foo" }, "foo");
 });
 
+test("escaping", function() {
+  shouldCompileTo("\\{{foo}}", { foo: "food" }, "{{foo}}");
+  shouldCompileTo("\\\\{{foo}}", { foo: "food" }, "\\food");
+  shouldCompileTo("\\\\ {{foo}}", { foo: "food" }, "\\\\ food");
+});
+
 test("compiling with a basic context", function() {
   shouldCompileTo("Goodbye\n{{cruel}}\n{{world}}!", {cruel: "cruel", world: "world"}, "Goodbye\ncruel\nworld!",
                   "It works if all the required keys are provided");
@@ -486,6 +492,27 @@ test("the helpers hash is available is nested contexts", function() {
                 "helpers hash is available in nested contexts.");
 });
 
+test("Multiple global helper registration", function() {
+  var helpers = Handlebars.helpers;
+  try {
+    Handlebars.helpers = {};
+    Handlebars.registerHelper({
+      'if': helpers['if'],
+      world: function() { return "world!"; },
+      test_helper: function() { return 'found it!'; }
+    });
+
+    shouldCompileTo(
+      "{{test_helper}} {{#if cruel}}Goodbye {{cruel}} {{world}}!{{/if}}",
+      [{cruel: "cruel"}],
+      "found it! Goodbye cruel world!!");
+  } finally {
+    if (helpers) {
+      Handlebars.helpers = helpers;
+    }
+  }
+});
+
 suite("partials");
 
 test("basic partials", function() {
@@ -548,6 +575,17 @@ test("Partials with slash paths", function() {
 	var dude = "{{name}}";
 	var hash = {name:"Jeepers", another_dude:"Creepers"};
   shouldCompileToWithPartials(string, [hash, {}, {'shared/dude':dude}], true, "Dudes: Jeepers", "Partials can use literal paths");
+});
+
+test("Multiple partial registration", function() {
+  Handlebars.registerPartial({
+    'shared/dude': '{{name}}',
+    global_test: '{{another_dude}}'
+  });
+
+  var string = "Dudes: {{> shared/dude}} {{> global_test}}";
+  var hash = {name:"Jeepers", another_dude:"Creepers"};
+  shouldCompileToWithPartials(string, [hash], true, "Dudes: Jeepers Creepers", "Partials can use globals or passed");
 });
 
 test("Partials with integer path", function() {
@@ -702,6 +740,11 @@ test("Functions are bound to the context in knownHelpers only mode", function() 
   var template = CompilerContext.compile("{{foo}}", {knownHelpersOnly: true});
   var result = template({foo: function() { return this.bar; }, bar: 'bar'});
   equal(result, "bar", "'bar' should === '" + result);
+});
+test("Unknown helper call in knownHelpers only mode should throw", function() {
+  shouldThrow(function() {
+    CompilerContext.compile("{{typeof hello}}", {knownHelpersOnly: true});
+  }, Error, 'specified knownHelpersOnly');
 });
 
 suite("blockHelperMissing");
@@ -1286,6 +1329,32 @@ test("in string mode, hash parameters get type information", function() {
   equal(result, "Helper called");
 });
 
+test("in string mode, hash parameters get context information", function() {
+  var template = CompilerContext.compile('{{#with dale}}{{tomdale he.says desire="need" noun=../dad/joke bool=true}}{{/with}}', { stringParams: true });
+
+  var context = {dale: {}};
+
+  var helpers = {
+    tomdale: function(exclamation, options) {
+      equal(exclamation, "he.says");
+      equal(options.types[0], "ID");
+
+      equal(options.contexts.length, 1);
+      equal(options.hashContexts.noun, context);
+      equal(options.hash.desire, "need");
+      equal(options.hash.noun, "dad.joke");
+      equal(options.hash.bool, true);
+      return "Helper called";
+    },
+    "with": function(context, options) {
+      return options.fn(options.contexts[0][context]);
+    }
+  };
+
+  var result = template(context, { helpers: helpers });
+  equal(result, "Helper called");
+});
+
 test("when inside a block in String mode, .. passes the appropriate context in the options hash to a block helper", function() {
   var template = CompilerContext.compile('{{#with dale}}{{#tomdale ../need dad.joke}}wot{{/tomdale}}{{/with}}', {stringParams: true});
 
@@ -1396,4 +1465,40 @@ test('GS-428: Nested if else rendering', function() {
 
   shouldCompileTo(succeedingTemplate, [{}, helpers], '   Expected  ');
   shouldCompileTo(failingTemplate, [{}, helpers], '  Expected  ');
+});
+
+test('GH-458: Scoped this identifier', function() {
+  shouldCompileTo('{{./foo}}', {foo: 'bar'}, 'bar');
+});
+
+test('GH-375: Unicode line terminators', function() {
+  shouldCompileTo('\u2028', {}, '\u2028');
+});
+
+suite('Utils');
+
+test('escapeExpression', function() {
+  equal(Handlebars.Utils.escapeExpression('foo<&"\'>'), 'foo&lt;&amp;&quot;&#x27;&gt;');
+  equal(Handlebars.Utils.escapeExpression(new Handlebars.SafeString('foo<&"\'>')), 'foo<&"\'>');
+  equal(Handlebars.Utils.escapeExpression(''), '');
+  equal(Handlebars.Utils.escapeExpression(undefined), '');
+  equal(Handlebars.Utils.escapeExpression(null), '');
+  equal(Handlebars.Utils.escapeExpression(false), '');
+
+  equal(Handlebars.Utils.escapeExpression(0), '0');
+  equal(Handlebars.Utils.escapeExpression({}), {}.toString());
+  equal(Handlebars.Utils.escapeExpression([]), [].toString());
+});
+
+test('isEmpty', function() {
+  equal(Handlebars.Utils.isEmpty(undefined), true);
+  equal(Handlebars.Utils.isEmpty(null), true);
+  equal(Handlebars.Utils.isEmpty(false), true);
+  equal(Handlebars.Utils.isEmpty(''), true);
+  equal(Handlebars.Utils.isEmpty([]), true);
+
+  equal(Handlebars.Utils.isEmpty(0), false);
+  equal(Handlebars.Utils.isEmpty([1]), false);
+  equal(Handlebars.Utils.isEmpty('foo'), false);
+  equal(Handlebars.Utils.isEmpty({bar: 1}), false);
 });

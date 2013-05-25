@@ -4,8 +4,8 @@
   "dependencies": {
     "jquery": "*",
     "hammer.js": "https://github.com/EightMedia/hammer.js.git",
-    "fastclick": "~0.6.0",
-    "prefix-free": "",
-    "handlebars.js": ""
+    "fastclick": "*",
+    "prefix-free": "*",
+    "handlebars.js": "*"
   }
 }

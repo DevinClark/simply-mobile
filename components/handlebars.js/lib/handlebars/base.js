@@ -6,24 +6,38 @@ var Handlebars = {};
 
 // BEGIN(BROWSER)
 
-Handlebars.VERSION = "1.0.0-rc.3";
-Handlebars.COMPILER_REVISION = 2;
+Handlebars.VERSION = "1.0.0-rc.4";
+Handlebars.COMPILER_REVISION = 3;
 
 Handlebars.REVISION_CHANGES = {
   1: '<= 1.0.rc.2', // 1.0.rc.2 is actually rev2 but doesn't report it
-  2: '>= 1.0.0-rc.3'
+  2: '== 1.0.0-rc.3',
+  3: '>= 1.0.0-rc.4'
 };
 
 Handlebars.helpers  = {};
 Handlebars.partials = {};
 
+var toString = Object.prototype.toString,
+    functionType = '[object Function]',
+    objectType = '[object Object]';
+
 Handlebars.registerHelper = function(name, fn, inverse) {
-  if(inverse) { fn.not = inverse; }
-  this.helpers[name] = fn;
+  if (toString.call(name) === objectType) {
+    if (inverse || fn) { throw new Handlebars.Exception('Arg not supported with multiple helpers'); }
+    Handlebars.Utils.extend(this.helpers, name);
+  } else {
+    if (inverse) { fn.not = inverse; }
+    this.helpers[name] = fn;
+  }
 };
 
 Handlebars.registerPartial = function(name, str) {
-  this.partials[name] = str;
+  if (toString.call(name) === objectType) {
+    Handlebars.Utils.extend(this.partials,  name);
+  } else {
+    this.partials[name] = str;
+  }
 };
 
 Handlebars.registerHelper('helperMissing', function(arg) {
@@ -33,8 +47,6 @@ Handlebars.registerHelper('helperMissing', function(arg) {
     throw new Error("Could not find property '" + arg + "'");
   }
 });
-
-var toString = Object.prototype.toString, functionType = "[object Function]";
 
 Handlebars.registerHelper('blockHelperMissing', function(context, options) {
   var inverse = options.inverse || function() {}, fn = options.fn;
@@ -133,7 +145,7 @@ Handlebars.registerHelper('unless', function(context, options) {
 });
 
 Handlebars.registerHelper('with', function(context, options) {
-  return options.fn(context);
+  if (!Handlebars.Utils.isEmpty(context)) return options.fn(context);
 });
 
 Handlebars.registerHelper('log', function(context, options) {

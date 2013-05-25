@@ -1,5 +1,6 @@
 {
   "name": "simply-mobile",
+  "repository": "https://github.com/DevinClark/simply-mobile",
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "~0.4.0",

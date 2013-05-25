@@ -114,7 +114,7 @@
 			<span class="keyword">case</span> <span class="string">"web"</span>:
 				<span class="keyword">break</span>;
 			<span class="keyword">case</span> <span class="string">"cordova"</span>:
-				$.getScript(<span class="string">"../components/cordova.ios/index.js"</span>);
+				$.getScript(<span class="string">"../components/cordova/index.js"</span>);
 				CordovaApp.initialize();
 				<span class="keyword">break</span>;
 			}
@@ -1268,9 +1268,7 @@ LocalStorage.removeAll();</code></pre>
 				}, <span class="number">1200</span>);
 			});
 		}
-	};
-
-	$(<span class="string">".reveal-modal"</span>).wrapInner(<span class="string">"&lt;div class='modal-inner' /&gt;"</span>);</pre></div></div>
+	};</pre></div></div>
             
         </li>
         
@@ -1278,8 +1276,27 @@ LocalStorage.removeAll();</code></pre>
         <li id="section-46">
             <div class="annotation">
               
-              <div class="pilwrap for-h2">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>Allows the modal to scroll if content exceeds window height.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	$(<span class="string">".reveal-modal"</span>).wrapInner(<span class="string">"&lt;div class='modal-inner' /&gt;"</span>);
+	$(<span class="string">".reveal-modal .close-reveal-modal"</span>).each(<span class="keyword">function</span>() {
+		$(<span class="keyword">this</span>).parents(<span class="string">".reveal-modal"</span>).append($(<span class="keyword">this</span>)[<span class="number">0</span>].outerHTML);
+		$(<span class="keyword">this</span>).remove();
+	});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <h2>Slider</h2>
 <p>Adds a simple dragleft/dragright slider. To use, add <code>data-slider</code> to an <code>&lt;ul&gt;</code>. Sample markup for more options can be seen in the styleguide.</p>
@@ -1357,11 +1374,11 @@ LocalStorage.removeAll();</code></pre>
         </li>
         
         
-        <li id="section-47">
+        <li id="section-48">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <p>Expose a few public methods.</p>
 

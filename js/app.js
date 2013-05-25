@@ -53,7 +53,7 @@ var SimplyMobile = (function($, window, document, undefined) {
 			case "web":
 				break;
 			case "cordova":
-				$.getScript("../components/cordova.ios/index.js");
+				$.getScript("../components/cordova/index.js");
 				CordovaApp.initialize();
 				break;
 			}
