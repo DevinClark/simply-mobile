@@ -18,7 +18,7 @@ TODO
 ## If You Want To Develop
 * `npm install bower grunt-cli -g`
 * `npm install` 
-* Before you finish (of if you just want to update everything), run `grunt`. Running `grunt` will:
+* Before you finish (or if you just want to update everything), run `grunt`. Running `grunt` will:
 	* Update all bower components.
 	* Run JSHint on app.js.
 	* Concatenate and compress all the JS files into app.min.js.
