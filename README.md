@@ -27,8 +27,7 @@ TODO
 
 ### Adding a New Dependency
 1. `bower install PACKAGE --save-dev` where PACKAGE is your bower package.
-2. Add the package's directory name to `packages: {}` in Gruntfile.js
-3. Run `grunt`.
+2. Run `grunt`.
 
 
 ## Contributors
