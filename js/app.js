@@ -275,12 +275,6 @@ var SimplyMobile = (function($, window, document, undefined) {
 				LoadController.loadPage(html);
 			});
 			ViewAssembler.updateTitle("Simply Mobile");
-		},
-		tweets: function() {
-			ViewAssembler.renderTemplate("tweets", "https://raw.github.com/cfjedimaster/ServiceDataFormatLibrary/master/twitter/search_for_starwars.json", "", function(html) {
-				LoadController.loadPage(html);
-			});
-			ViewAssembler.updateTitle("Star Wars");
 		}
 	};
 
