@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 		bower: {
 			all: {
 				dest: 'js/assets.js',
-				exclude: "cordova.ios",
+				exclude: "cordova",
 				dependencies: {
 					'jquery.hammer': 'jquery',
 					'jquery.easing.1.3': 'jquery'
