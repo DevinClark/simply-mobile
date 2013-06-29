@@ -26,7 +26,7 @@ TODO
 * I am considering adding my Codekit project file to the project for Sass compiling.
 
 ### Adding a New Dependency
-1. `bower install PACKAGE --save-dev` where PACKAGE is your bower package.
+1. `bower install PACKAGE --save` where PACKAGE is your bower package.
 2. Run `grunt`.
 
 
