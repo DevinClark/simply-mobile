@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 				exclude: "cordova",
 				dependencies: {
 					'jquery.hammer': 'jquery',
-					'jquery.easing.1.3': 'jquery'
+					'jquery.easing.min': 'jquery'
 				}
 			}
 		},
