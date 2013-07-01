@@ -4,3 +4,6 @@ js/.DS_Store
 node_modules/*
 
 *.sublime-workspace
+*.sublime-project
+
+.idea/*
