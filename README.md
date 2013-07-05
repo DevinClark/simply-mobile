@@ -1,6 +1,6 @@
 # Simply Mobile
 
-Simply mobile is a mobile/tablet framework. The idea is to be able to easily make a web app, or integrate with [Cordova](http://cordova.apache.org/) (formally known as PhoneGap) or any of those other environments similar to Cordova. I plan to add Cordova project in the future as that is my preferred platform.  
+Simply mobile is a mobile/tablet framework. The idea is to be able to easily make a web app, or integrate with [Cordova](http://cordova.apache.org/) (formally known as PhoneGap) or any of those other environments similar to Cordova. I plan to add a Cordova project in the future as that is my preferred platform.  
 
 [Live Demo](http://devinclark.github.io/simply-mobile/)  
 
