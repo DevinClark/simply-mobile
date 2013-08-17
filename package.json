@@ -10,5 +10,8 @@
     "grunt-bower-concat": "git://github.com/sapegin/grunt-bower-concat.git",
     "grunt-casperjs": "~1.0.6",
     "grunt-shell": "~0.2.2"
+  },
+  "dependencies": {
+    "load-grunt-tasks": "~0.1.0"
   }
 }
